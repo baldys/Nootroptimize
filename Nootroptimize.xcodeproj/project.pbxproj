@@ -15,6 +15,7 @@
 		9FD3C3981C58D6DA00A22006 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD3C3961C58D6DA00A22006 /* LaunchScreen.storyboard */; };
 		9FD3C3A31C58D6DA00A22006 /* NootroptimizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C3A21C58D6DA00A22006 /* NootroptimizeTests.swift */; };
 		9FD3C3AE1C58D6DA00A22006 /* NootroptimizeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C3AD1C58D6DA00A22006 /* NootroptimizeUITests.swift */; };
+		9FD3C3BE1C58E7EF00A22006 /* VBDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C3BD1C58E7EF00A22006 /* VBDataController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		9FD3C3A91C58D6DA00A22006 /* NootroptimizeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NootroptimizeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD3C3AD1C58D6DA00A22006 /* NootroptimizeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NootroptimizeUITests.swift; sourceTree = "<group>"; };
 		9FD3C3AF1C58D6DA00A22006 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9FD3C3BD1C58E7EF00A22006 /* VBDataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VBDataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 			children = (
 				9FD3C38A1C58D6DA00A22006 /* AppDelegate.swift */,
 				9FD3C38C1C58D6DA00A22006 /* ViewController.swift */,
+				9FD3C3BD1C58E7EF00A22006 /* VBDataController.swift */,
 				9FD3C38E1C58D6DA00A22006 /* Main.storyboard */,
 				9FD3C3941C58D6DA00A22006 /* Assets.xcassets */,
 				9FD3C3961C58D6DA00A22006 /* LaunchScreen.storyboard */,
@@ -262,6 +265,7 @@
 				9FD3C3931C58D6DA00A22006 /* Nootroptimize.xcdatamodeld in Sources */,
 				9FD3C38D1C58D6DA00A22006 /* ViewController.swift in Sources */,
 				9FD3C38B1C58D6DA00A22006 /* AppDelegate.swift in Sources */,
+				9FD3C3BE1C58E7EF00A22006 /* VBDataController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
