@@ -1,0 +1,522 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9FD3C38B1C58D6DA00A22006 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C38A1C58D6DA00A22006 /* AppDelegate.swift */; };
+		9FD3C38D1C58D6DA00A22006 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C38C1C58D6DA00A22006 /* ViewController.swift */; };
+		9FD3C3901C58D6DA00A22006 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD3C38E1C58D6DA00A22006 /* Main.storyboard */; };
+		9FD3C3931C58D6DA00A22006 /* Nootroptimize.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C3911C58D6DA00A22006 /* Nootroptimize.xcdatamodeld */; };
+		9FD3C3951C58D6DA00A22006 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FD3C3941C58D6DA00A22006 /* Assets.xcassets */; };
+		9FD3C3981C58D6DA00A22006 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD3C3961C58D6DA00A22006 /* LaunchScreen.storyboard */; };
+		9FD3C3A31C58D6DA00A22006 /* NootroptimizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C3A21C58D6DA00A22006 /* NootroptimizeTests.swift */; };
+		9FD3C3AE1C58D6DA00A22006 /* NootroptimizeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C3AD1C58D6DA00A22006 /* NootroptimizeUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9FD3C39F1C58D6DA00A22006 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FD3C37F1C58D6DA00A22006 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9FD3C3861C58D6DA00A22006;
+			remoteInfo = Nootroptimize;
+		};
+		9FD3C3AA1C58D6DA00A22006 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FD3C37F1C58D6DA00A22006 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9FD3C3861C58D6DA00A22006;
+			remoteInfo = Nootroptimize;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		9FD3C3871C58D6DA00A22006 /* Nootroptimize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nootroptimize.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FD3C38A1C58D6DA00A22006 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9FD3C38C1C58D6DA00A22006 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9FD3C38F1C58D6DA00A22006 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9FD3C3921C58D6DA00A22006 /* Nootroptimize.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Nootroptimize.xcdatamodel; sourceTree = "<group>"; };
+		9FD3C3941C58D6DA00A22006 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9FD3C3971C58D6DA00A22006 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9FD3C3991C58D6DA00A22006 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9FD3C39E1C58D6DA00A22006 /* NootroptimizeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NootroptimizeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FD3C3A21C58D6DA00A22006 /* NootroptimizeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NootroptimizeTests.swift; sourceTree = "<group>"; };
+		9FD3C3A41C58D6DA00A22006 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9FD3C3A91C58D6DA00A22006 /* NootroptimizeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NootroptimizeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FD3C3AD1C58D6DA00A22006 /* NootroptimizeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NootroptimizeUITests.swift; sourceTree = "<group>"; };
+		9FD3C3AF1C58D6DA00A22006 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9FD3C3841C58D6DA00A22006 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9FD3C39B1C58D6DA00A22006 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9FD3C3A61C58D6DA00A22006 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9FD3C37E1C58D6DA00A22006 = {
+			isa = PBXGroup;
+			children = (
+				9FD3C3891C58D6DA00A22006 /* Nootroptimize */,
+				9FD3C3A11C58D6DA00A22006 /* NootroptimizeTests */,
+				9FD3C3AC1C58D6DA00A22006 /* NootroptimizeUITests */,
+				9FD3C3881C58D6DA00A22006 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9FD3C3881C58D6DA00A22006 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9FD3C3871C58D6DA00A22006 /* Nootroptimize.app */,
+				9FD3C39E1C58D6DA00A22006 /* NootroptimizeTests.xctest */,
+				9FD3C3A91C58D6DA00A22006 /* NootroptimizeUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9FD3C3891C58D6DA00A22006 /* Nootroptimize */ = {
+			isa = PBXGroup;
+			children = (
+				9FD3C38A1C58D6DA00A22006 /* AppDelegate.swift */,
+				9FD3C38C1C58D6DA00A22006 /* ViewController.swift */,
+				9FD3C38E1C58D6DA00A22006 /* Main.storyboard */,
+				9FD3C3941C58D6DA00A22006 /* Assets.xcassets */,
+				9FD3C3961C58D6DA00A22006 /* LaunchScreen.storyboard */,
+				9FD3C3991C58D6DA00A22006 /* Info.plist */,
+				9FD3C3911C58D6DA00A22006 /* Nootroptimize.xcdatamodeld */,
+			);
+			path = Nootroptimize;
+			sourceTree = "<group>";
+		};
+		9FD3C3A11C58D6DA00A22006 /* NootroptimizeTests */ = {
+			isa = PBXGroup;
+			children = (
+				9FD3C3A21C58D6DA00A22006 /* NootroptimizeTests.swift */,
+				9FD3C3A41C58D6DA00A22006 /* Info.plist */,
+			);
+			path = NootroptimizeTests;
+			sourceTree = "<group>";
+		};
+		9FD3C3AC1C58D6DA00A22006 /* NootroptimizeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				9FD3C3AD1C58D6DA00A22006 /* NootroptimizeUITests.swift */,
+				9FD3C3AF1C58D6DA00A22006 /* Info.plist */,
+			);
+			path = NootroptimizeUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9FD3C3861C58D6DA00A22006 /* Nootroptimize */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9FD3C3B21C58D6DA00A22006 /* Build configuration list for PBXNativeTarget "Nootroptimize" */;
+			buildPhases = (
+				9FD3C3831C58D6DA00A22006 /* Sources */,
+				9FD3C3841C58D6DA00A22006 /* Frameworks */,
+				9FD3C3851C58D6DA00A22006 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Nootroptimize;
+			productName = Nootroptimize;
+			productReference = 9FD3C3871C58D6DA00A22006 /* Nootroptimize.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9FD3C39D1C58D6DA00A22006 /* NootroptimizeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9FD3C3B51C58D6DA00A22006 /* Build configuration list for PBXNativeTarget "NootroptimizeTests" */;
+			buildPhases = (
+				9FD3C39A1C58D6DA00A22006 /* Sources */,
+				9FD3C39B1C58D6DA00A22006 /* Frameworks */,
+				9FD3C39C1C58D6DA00A22006 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9FD3C3A01C58D6DA00A22006 /* PBXTargetDependency */,
+			);
+			name = NootroptimizeTests;
+			productName = NootroptimizeTests;
+			productReference = 9FD3C39E1C58D6DA00A22006 /* NootroptimizeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9FD3C3A81C58D6DA00A22006 /* NootroptimizeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9FD3C3B81C58D6DA00A22006 /* Build configuration list for PBXNativeTarget "NootroptimizeUITests" */;
+			buildPhases = (
+				9FD3C3A51C58D6DA00A22006 /* Sources */,
+				9FD3C3A61C58D6DA00A22006 /* Frameworks */,
+				9FD3C3A71C58D6DA00A22006 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9FD3C3AB1C58D6DA00A22006 /* PBXTargetDependency */,
+			);
+			name = NootroptimizeUITests;
+			productName = NootroptimizeUITests;
+			productReference = 9FD3C3A91C58D6DA00A22006 /* NootroptimizeUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9FD3C37F1C58D6DA00A22006 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Veronica Baldys";
+				TargetAttributes = {
+					9FD3C3861C58D6DA00A22006 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+					9FD3C39D1C58D6DA00A22006 = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = 9FD3C3861C58D6DA00A22006;
+					};
+					9FD3C3A81C58D6DA00A22006 = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = 9FD3C3861C58D6DA00A22006;
+					};
+				};
+			};
+			buildConfigurationList = 9FD3C3821C58D6DA00A22006 /* Build configuration list for PBXProject "Nootroptimize" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9FD3C37E1C58D6DA00A22006;
+			productRefGroup = 9FD3C3881C58D6DA00A22006 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9FD3C3861C58D6DA00A22006 /* Nootroptimize */,
+				9FD3C39D1C58D6DA00A22006 /* NootroptimizeTests */,
+				9FD3C3A81C58D6DA00A22006 /* NootroptimizeUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9FD3C3851C58D6DA00A22006 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9FD3C3981C58D6DA00A22006 /* LaunchScreen.storyboard in Resources */,
+				9FD3C3951C58D6DA00A22006 /* Assets.xcassets in Resources */,
+				9FD3C3901C58D6DA00A22006 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9FD3C39C1C58D6DA00A22006 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9FD3C3A71C58D6DA00A22006 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9FD3C3831C58D6DA00A22006 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9FD3C3931C58D6DA00A22006 /* Nootroptimize.xcdatamodeld in Sources */,
+				9FD3C38D1C58D6DA00A22006 /* ViewController.swift in Sources */,
+				9FD3C38B1C58D6DA00A22006 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9FD3C39A1C58D6DA00A22006 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9FD3C3A31C58D6DA00A22006 /* NootroptimizeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9FD3C3A51C58D6DA00A22006 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9FD3C3AE1C58D6DA00A22006 /* NootroptimizeUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9FD3C3A01C58D6DA00A22006 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9FD3C3861C58D6DA00A22006 /* Nootroptimize */;
+			targetProxy = 9FD3C39F1C58D6DA00A22006 /* PBXContainerItemProxy */;
+		};
+		9FD3C3AB1C58D6DA00A22006 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9FD3C3861C58D6DA00A22006 /* Nootroptimize */;
+			targetProxy = 9FD3C3AA1C58D6DA00A22006 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9FD3C38E1C58D6DA00A22006 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9FD3C38F1C58D6DA00A22006 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		9FD3C3961C58D6DA00A22006 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9FD3C3971C58D6DA00A22006 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9FD3C3B01C58D6DA00A22006 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9FD3C3B11C58D6DA00A22006 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9FD3C3B31C58D6DA00A22006 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Nootroptimize/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.BALDYS.Nootroptimize;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		9FD3C3B41C58D6DA00A22006 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Nootroptimize/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.BALDYS.Nootroptimize;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		9FD3C3B61C58D6DA00A22006 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = NootroptimizeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.BALDYS.NootroptimizeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nootroptimize.app/Nootroptimize";
+			};
+			name = Debug;
+		};
+		9FD3C3B71C58D6DA00A22006 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = NootroptimizeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.BALDYS.NootroptimizeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nootroptimize.app/Nootroptimize";
+			};
+			name = Release;
+		};
+		9FD3C3B91C58D6DA00A22006 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = NootroptimizeUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.BALDYS.NootroptimizeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Nootroptimize;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		9FD3C3BA1C58D6DA00A22006 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = NootroptimizeUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.BALDYS.NootroptimizeUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Nootroptimize;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9FD3C3821C58D6DA00A22006 /* Build configuration list for PBXProject "Nootroptimize" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9FD3C3B01C58D6DA00A22006 /* Debug */,
+				9FD3C3B11C58D6DA00A22006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9FD3C3B21C58D6DA00A22006 /* Build configuration list for PBXNativeTarget "Nootroptimize" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9FD3C3B31C58D6DA00A22006 /* Debug */,
+				9FD3C3B41C58D6DA00A22006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		9FD3C3B51C58D6DA00A22006 /* Build configuration list for PBXNativeTarget "NootroptimizeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9FD3C3B61C58D6DA00A22006 /* Debug */,
+				9FD3C3B71C58D6DA00A22006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		9FD3C3B81C58D6DA00A22006 /* Build configuration list for PBXNativeTarget "NootroptimizeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9FD3C3B91C58D6DA00A22006 /* Debug */,
+				9FD3C3BA1C58D6DA00A22006 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9FD3C3911C58D6DA00A22006 /* Nootroptimize.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9FD3C3921C58D6DA00A22006 /* Nootroptimize.xcdatamodel */,
+			);
+			currentVersion = 9FD3C3921C58D6DA00A22006 /* Nootroptimize.xcdatamodel */;
+			path = Nootroptimize.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 9FD3C37F1C58D6DA00A22006 /* Project object */;
+}
