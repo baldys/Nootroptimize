@@ -13,12 +13,13 @@ import CoreData
 class Stack: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
-    class func createInManagedObjectContext(moc: NSManagedObjectContext, name: String) -> Stack {
+    
+    class func createInManagedObjectContext(moc:NSManagedObjectContext, name:String) -> Stack {
+        
         let newItem = NSEntityDescription.insertNewObjectForEntityForName("Stack", inManagedObjectContext: moc) as! Stack
         newItem.name = name
-        //newItem.itemText = text
+        newItem.dateCreated = NSDate()
         
         return newItem
     }
-
 }

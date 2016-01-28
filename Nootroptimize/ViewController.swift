@@ -9,7 +9,9 @@
 import UIKit
 import CoreData
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddStackDelegate {
+    
     
     let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
@@ -19,7 +21,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func addStack(sender: AnyObject) {
         
-    
         let alert = UIAlertController(title: "New Name",
             message: "Add a new name",
             preferredStyle: .Alert)
@@ -52,21 +53,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     }
 
+    // MARK: AddStackDelegate
+    func addStackViewController(vc: UIViewController, didAddStack stack: Stack) {
+
+        self.saveName(stack.name!)
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+        self.fetchLog()
+    }
+    
     func saveName(name: String) {
         
-        // Create the new  log item
-        var newStack = Stack.createInManagedObjectContext(self.managedObjectContext, name: name)
+        let newStack = Stack.createInManagedObjectContext(self.managedObjectContext, name: name)
         
-        // Update the array containing the table view row data
         self.fetchLog()
         
-        // Animate in the new row
-        // Use Swift's find() function to figure out the index of the newLogItem
-        // after it's been added and sorted in our logItems array
         if let newItemIndex = stacks.indexOf(newStack) {
-            // Create an NSIndexPath from the newItemIndex
             let newLogItemIndexPath = NSIndexPath(forRow: newItemIndex, inSection: 0)
-            // Animate in the insertion of this row
         
             tableView.insertRowsAtIndexPaths([ newLogItemIndexPath ], withRowAnimation: .Automatic)
         }
@@ -77,19 +80,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         //newStack.setValue(name, forKey: "name")
         
-        
-        
         do {
             try self.managedObjectContext.save()
             //stacks.append(newStack)
         } catch let error as NSError {
              print("Could not save \(error), \(error.userInfo)")
         }
-        
-        
     }
     
-
     
     func fetchLog() {
         let fetchRequest = NSFetchRequest(entityName: "Stack")
@@ -118,13 +116,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        //self.fetchLog()
         
-        
-        //2
         let fetchRequest = NSFetchRequest(entityName: "Stack")
         
-        //3
         do {
             let results =
             try self.managedObjectContext.executeFetchRequest(fetchRequest)
@@ -132,47 +126,41 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         } catch let error as NSError {
             print("Could not fetch \(error), \(error.userInfo)")
         }
-    
-        
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        let testStack = NSEntityDescription.insertNewObjectForEntityForName("Stack", inManagedObjectContext: self.managedObjectContext) as! Stack
-//        
-//        testStack.name = "Test Stack"
-        
-        
+        let testStack = NSEntityDescription.insertNewObjectForEntityForName("Stack", inManagedObjectContext: self.managedObjectContext) as! Stack
+        testStack.name = "Test Stack"
         self.title = "My Stacks"
         tableView.registerClass(UITableViewCell.self,
             forCellReuseIdentifier: "Cell")
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 
     // MARK: UITableViewDataSource
     func tableView(tableView: UITableView,
     numberOfRowsInSection section: Int) -> Int {
-    return stacks.count
+    
+        return stacks.count
     }
     
     func tableView(tableView: UITableView,
     cellForRowAtIndexPath
     indexPath: NSIndexPath) -> UITableViewCell {
     
-    let cell =
-    tableView.dequeueReusableCellWithIdentifier("Cell")
-    let stack = stacks[indexPath.row]
-        
-    cell!.textLabel!.text = stack.valueForKey("name") as? String
-        
-    
-    return cell!
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell")
+        let stack = stacks[indexPath.row]
+        cell!.textLabel!.text = stack.valueForKey("name") as? String
+        let dateFormatter = NSDateFormatter()
+
+        cell!.detailTextLabel!.text = dateFormatter.stringFromDate(stack.dateCreated!)
+        return cell!
     }
 
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -181,16 +169,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if(editingStyle == .Delete ) {
-            // Find the LogItem object the user is trying to delete
+            
             let stackToDelete = stacks[indexPath.row]
             
-            // Delete it from the managedObjectContext
+            // Delete item from the managedObjectContext
             managedObjectContext.deleteObject(stackToDelete)
             
-            // Refresh the table view to indicate that it's deleted
             self.fetchLog()
             
-            // Tell the table view to animate out that row
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
     }
@@ -198,7 +184,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // MARK: UITableViewDelegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let stack = stacks[indexPath.row]
+        performSegueWithIdentifier("showStackData", sender: stack)
+
         print(stack.name)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "addStack") {
+            if let viewController: AddStackViewController = segue.destinationViewController as? AddStackViewController {
+                viewController.newStack = Stack.createInManagedObjectContext(self.managedObjectContext, name: "new stack")
+                viewController.delegate = self
+                
+            }
+        }
+        else if (segue.identifier == "showStackData") {
+//            let indexPath = self.tableView.indexPathForSelectedRow
+        
+        }
     }
 }
 

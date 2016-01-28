@@ -1,5 +1,5 @@
 //
-//  Stack+CoreDataProperties.swift
+//  Nootropic+CoreDataProperties.swift
 //  Nootroptimize
 //
 //  Created by Veronica Baldys on 2016-01-27.
@@ -12,8 +12,12 @@
 import Foundation
 import CoreData
 
-extension Stack {
+extension Nootropic {
 
     @NSManaged var name: String?
+    @NSManaged var dose: NSNumber?
+    @NSManaged var frequency: NSNumber?
+    @NSManaged var dateAdded: NSDate?
+    @NSManaged var stack: Stack?
 
 }

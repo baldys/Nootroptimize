@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15C50" minimumToolsVersion="Automatic">
-    <entity name="Nootropic" representedClassName="" syncable="YES"/>
-    <entity name="Stack" representedClassName=".Stack" syncable="YES">
+    <entity name="LogRecord" representedClassName=".LogRecord" syncable="YES">
+        <attribute name="clarity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="energy" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="focus" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="memory" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="mood" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="stack" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Stack" inverseName="logData" inverseEntity="Stack" syncable="YES"/>
+    </entity>
+    <entity name="Nootropic" representedClassName=".Nootropic" syncable="YES">
+        <attribute name="dateAdded" attributeType="Date" syncable="YES"/>
+        <attribute name="dose" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="frequency" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="2" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="stack" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Stack" inverseName="nootropics" inverseEntity="Stack" syncable="YES"/>
+    </entity>
+    <entity name="Stack" representedClassName=".Stack" syncable="YES">
+        <attribute name="dateCreated" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" defaultValueString="My Stack" syncable="YES"/>
+        <relationship name="logData" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="LogRecord" inverseName="stack" inverseEntity="LogRecord" syncable="YES"/>
+        <relationship name="nootropics" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Nootropic" inverseName="stack" inverseEntity="Nootropic" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Nootropic" positionX="-36" positionY="27" width="128" height="45"/>
-        <element name="Stack" positionX="-54" positionY="-9" width="128" height="60"/>
+        <element name="Nootropic" positionX="-650" positionY="-90" width="128" height="118"/>
+        <element name="Stack" positionX="-486" positionY="-135" width="128" height="103"/>
+        <element name="LogRecord" positionX="-317" positionY="-21" width="128" height="163"/>
     </elements>
 </model>
