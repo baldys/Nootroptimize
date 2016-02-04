@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9FD3C38B1C58D6DA00A22006 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C38A1C58D6DA00A22006 /* AppDelegate.swift */; };
-		9FD3C38D1C58D6DA00A22006 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C38C1C58D6DA00A22006 /* ViewController.swift */; };
+		9FD3C38D1C58D6DA00A22006 /* StackTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C38C1C58D6DA00A22006 /* StackTableViewController.swift */; };
 		9FD3C3901C58D6DA00A22006 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD3C38E1C58D6DA00A22006 /* Main.storyboard */; };
 		9FD3C3951C58D6DA00A22006 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FD3C3941C58D6DA00A22006 /* Assets.xcassets */; };
 		9FD3C3981C58D6DA00A22006 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD3C3961C58D6DA00A22006 /* LaunchScreen.storyboard */; };
@@ -46,7 +46,7 @@
 /* Begin PBXFileReference section */
 		9FD3C3871C58D6DA00A22006 /* Nootroptimize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nootroptimize.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD3C38A1C58D6DA00A22006 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9FD3C38C1C58D6DA00A22006 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9FD3C38C1C58D6DA00A22006 /* StackTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTableViewController.swift; sourceTree = "<group>"; };
 		9FD3C38F1C58D6DA00A22006 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9FD3C3941C58D6DA00A22006 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9FD3C3971C58D6DA00A22006 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -102,8 +102,8 @@
 				9FD3C3E91C59E8E000A22006 /* LogRecord.swift */,
 				9FD3C3EC1C59E8E000A22006 /* Nootropic+CoreDataProperties.swift */,
 				9FD3C3ED1C59E8E000A22006 /* Nootropic.swift */,
-				9FD3C3EA1C59E8E000A22006 /* Stack+CoreDataProperties.swift */,
 				9FD3C3EB1C59E8E000A22006 /* Stack.swift */,
+				9FD3C3EA1C59E8E000A22006 /* Stack+CoreDataProperties.swift */,
 				9FD3C3891C58D6DA00A22006 /* Nootroptimize */,
 				9FD3C3A11C58D6DA00A22006 /* NootroptimizeTests */,
 				9FD3C3AC1C58D6DA00A22006 /* NootroptimizeUITests */,
@@ -127,7 +127,7 @@
 				9FD3C3F81C5A082D00A22006 /* StackResponseViewController.swift */,
 				9FD3C3F61C5A07C500A22006 /* GraphView.swift */,
 				9FD3C38A1C58D6DA00A22006 /* AppDelegate.swift */,
-				9FD3C38C1C58D6DA00A22006 /* ViewController.swift */,
+				9FD3C38C1C58D6DA00A22006 /* StackTableViewController.swift */,
 				9FD3C38E1C58D6DA00A22006 /* Main.storyboard */,
 				9FD3C3F41C59F71800A22006 /* AddStackViewController.swift */,
 				9FD3C3941C58D6DA00A22006 /* Assets.xcassets */,
@@ -292,7 +292,7 @@
 				9FD3C3F01C59E8E000A22006 /* Stack+CoreDataProperties.swift in Sources */,
 				9FD3C3F21C59E8E000A22006 /* Nootropic+CoreDataProperties.swift in Sources */,
 				9FD3C3F71C5A07C500A22006 /* GraphView.swift in Sources */,
-				9FD3C38D1C58D6DA00A22006 /* ViewController.swift in Sources */,
+				9FD3C38D1C58D6DA00A22006 /* StackTableViewController.swift in Sources */,
 				9FD3C3F11C59E8E000A22006 /* Stack.swift in Sources */,
 				9FD3C3EE1C59E8E000A22006 /* LogRecord+CoreDataProperties.swift in Sources */,
 				9FD3C3CF1C59396800A22006 /* Nootroptimize.xcdatamodeld in Sources */,

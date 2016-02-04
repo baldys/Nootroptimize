@@ -13,7 +13,14 @@ class StackResponseViewController: UIViewController {
     @IBOutlet weak var graphView: GraphView!
     @IBOutlet weak var maxLabel: UILabel!
     
+    var stack:Stack?
+    
+    
+    
     var isGraphViewShowing = false
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

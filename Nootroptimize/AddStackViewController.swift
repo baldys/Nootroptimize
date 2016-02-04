@@ -56,7 +56,10 @@ class AddStackViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func save(sender: AnyObject) {
     
-        newStack = Stack.createInManagedObjectContext(self.managedObjectContext, name: stackNameField.text!)
+       // newStack!.name = self.stackNameField.text as String
+        
+        
+        newStack = Stack.createInManagedObjectContext(self.managedObjectContext, name: self.stackNameField.text!)
         
         do {
             try self.managedObjectContext.save()
@@ -65,11 +68,15 @@ class AddStackViewController: UIViewController, UITextFieldDelegate {
             print("Could not save \(error), \(error.userInfo)")
         }
         
-        delegate?.addStackViewController(self, didAddStack:newStack!)
+        
+        self.delegate?.addStackViewController(self, didAddStack: newStack!)
+    
     }
     
     @IBAction func cancel(sender: AnyObject) {
         
+        
+//        self.delegate?.addStackViewController(self, didAddStack: nil)
     }
 
 }

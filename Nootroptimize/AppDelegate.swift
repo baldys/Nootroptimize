@@ -14,9 +14,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // assuming inital view is tabbar
+        let tabBarController = self.window?.rootViewController as! UITabBarController
+        let rootViewControllers: Array = tabBarController.viewControllers!
+        
+        // assuming first tab bar view is the NavigationController with the StackViewController
+        let navigationController = rootViewControllers[0] as! UINavigationController
+        //let stackViewController = navigationController.viewControllers[0] as! StackViewController
+        let stackTableViewController = navigationController.topViewController as! StackTableViewController
+        
+        stackTableViewController.managedObjectContext = self.managedObjectContext;
+        
         return true
     }
 
@@ -38,6 +49,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
+    // saves changes in the application's managed object context before the application terminates.
+    //
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
@@ -46,23 +59,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Core Data stack
 
+    
+    /**
+    Returns the managed object model for the application.
+    If the model doesn't already exist, it is created by merging all of the models found in the application bundle.
+    */
+    lazy var managedObjectModel: NSManagedObjectModel = {
+        // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
+        let modelURL = NSBundle.mainBundle().URLForResource("Nootroptimize", withExtension: "momd")!
+        return NSManagedObjectModel(contentsOfURL: modelURL)!
+    }()
+    
+    /**
+    Returns the URL to the application's documents directory.
+    */
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "com.BALDYS.Nootroptimize" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
         return urls[urls.count-1]
     }()
 
-    lazy var managedObjectModel: NSManagedObjectModel = {
-        // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        let modelURL = NSBundle.mainBundle().URLForResource("Nootroptimize", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOfURL: modelURL)!
-    }()
 
+    
+    /**
+     Returns the persistent store coordinator for the application.
+     If the coordinator doesn't already exist, it is created and the application's store added to it.
+     */
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         // The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("SingleViewCoreData.sqlite")
+        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("Nootroptimize.sqlite")
         var failureReason = "There was an error creating or loading the application's saved data."
         let mOptions = [NSMigratePersistentStoresAutomaticallyOption: true,
             NSInferMappingModelAutomaticallyOption: true]
@@ -85,6 +112,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return coordinator
     }()
 
+    /**
+     Returns the managed object context for the application.
+     If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
+     */
     lazy var managedObjectContext: NSManagedObjectContext = {
         // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
         let coordinator = self.persistentStoreCoordinator
