@@ -11,21 +11,27 @@ import CoreData
 
 protocol AddStackDelegate {
     func addStackViewController(vc: UIViewController, didAddStack stack:Stack)
+    func addStackViewController(vc: UIViewController, didEnterDataForStackWithName name:String, nootropicsInStack nootropics:NSSet)
+
+    
 }
 
 class AddStackViewController: UIViewController, UITextFieldDelegate {
 
-    var newStack: Stack?
+    //var newStack: Stack?
     var delegate: AddStackDelegate?
     var nootropics: NSMutableArray?
     
-    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+//    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     @IBOutlet weak var stackNameField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Add Stack"
+        self.stackNameField.delegate = self
+        
         stackNameField.becomeFirstResponder()
     }
 
@@ -44,39 +50,70 @@ class AddStackViewController: UIViewController, UITextFieldDelegate {
         // Pass the selected object to the new view controller.
     }
     */
-    
+    func textFieldDidEndEditing(textField: UITextField) {
+//        newStack!.name = self.stackNameField.text
+
+        
+    }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         
-        if (textField == self.stackNameField) {
-            self.stackNameField.resignFirstResponder()
-            self.save(self)
+        if textField == stackNameField {
+            stackNameField.resignFirstResponder()
+            
+            
+//
+//            print("new stack \(self.newStack!.name)")
+//
+//            do {
+//                try newStack!.managedObjectContext!.save()
+//
+//                
+//            } catch let error as NSError {
+//            print("Could not save \(error), \(error.userInfo)")
+//            }
+    
+        
+            
         }
         return true
     }
     
     @IBAction func save(sender: AnyObject) {
     
-       // newStack!.name = self.stackNameField.text as String
+//       self.newStack!.name = self.stackNameField.text! as String
+        
+      
+        print ("text field : \(stackNameField.text)")
+//        newStack!.name = stackNameField.text
         
         
-        newStack = Stack.createInManagedObjectContext(self.managedObjectContext, name: self.stackNameField.text!)
         
-        do {
-            try self.managedObjectContext.save()
-            //stacks.append(newStack)
-        } catch let error as NSError {
-            print("Could not save \(error), \(error.userInfo)")
-        }
+  
+//        print("new stack \(self.newStack!.name)")
+//        
+//        do {
+//            try newStack!.managedObjectContext!.save()
+//            
+//            
+//        } catch let error as NSError {
+//            print("Could not save \(error), \(error.userInfo)")
+//        }
+//        
+//        
+   
+        let nootropics:NSSet = NSSet()
         
         
-        self.delegate?.addStackViewController(self, didAddStack: newStack!)
+        //self.delegate?.addStackViewController(self, didAddStack: newStack!)
     
+        self.delegate?.addStackViewController(self, didEnterDataForStackWithName: stackNameField.text!, nootropicsInStack:nootropics)
+        
+        
+        
     }
     
-    @IBAction func cancel(sender: AnyObject) {
-        
-        
-//        self.delegate?.addStackViewController(self, didAddStack: nil)
-    }
 
+    @IBAction func cancel(sender: AnyObject) {
+    }
+   
 }

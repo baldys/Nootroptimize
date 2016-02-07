@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F8207B51C664467001E1A60 /* StackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8207B41C664467001E1A60 /* StackTableViewCell.swift */; };
 		9FD3C38B1C58D6DA00A22006 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C38A1C58D6DA00A22006 /* AppDelegate.swift */; };
 		9FD3C38D1C58D6DA00A22006 /* StackTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C38C1C58D6DA00A22006 /* StackTableViewController.swift */; };
 		9FD3C3901C58D6DA00A22006 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD3C38E1C58D6DA00A22006 /* Main.storyboard */; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9F8207B41C664467001E1A60 /* StackTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackTableViewCell.swift; sourceTree = "<group>"; };
 		9FD3C3871C58D6DA00A22006 /* Nootroptimize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nootroptimize.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD3C38A1C58D6DA00A22006 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FD3C38C1C58D6DA00A22006 /* StackTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTableViewController.swift; sourceTree = "<group>"; };
@@ -128,8 +130,9 @@
 				9FD3C3F61C5A07C500A22006 /* GraphView.swift */,
 				9FD3C38A1C58D6DA00A22006 /* AppDelegate.swift */,
 				9FD3C38C1C58D6DA00A22006 /* StackTableViewController.swift */,
-				9FD3C38E1C58D6DA00A22006 /* Main.storyboard */,
+				9F8207B41C664467001E1A60 /* StackTableViewCell.swift */,
 				9FD3C3F41C59F71800A22006 /* AddStackViewController.swift */,
+				9FD3C38E1C58D6DA00A22006 /* Main.storyboard */,
 				9FD3C3941C58D6DA00A22006 /* Assets.xcassets */,
 				9FD3C3961C58D6DA00A22006 /* LaunchScreen.storyboard */,
 				9FD3C3CC1C59396800A22006 /* Nootroptimize.xcdatamodeld */,
@@ -298,6 +301,7 @@
 				9FD3C3CF1C59396800A22006 /* Nootroptimize.xcdatamodeld in Sources */,
 				9FD3C3EF1C59E8E000A22006 /* LogRecord.swift in Sources */,
 				9FD3C38B1C58D6DA00A22006 /* AppDelegate.swift in Sources */,
+				9F8207B51C664467001E1A60 /* StackTableViewCell.swift in Sources */,
 				9FD3C3F51C59F71800A22006 /* AddStackViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
