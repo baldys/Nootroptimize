@@ -19,7 +19,25 @@ class Stack: NSManagedObject {
         let newItem = NSEntityDescription.insertNewObjectForEntityForName("Stack", inManagedObjectContext: moc) as! Stack
         newItem.name = name
         newItem.dateCreated = NSDate()
+        newItem.nootropics = NSSet()
+        newItem.logData = NSSet()
         
         return newItem
     }
+    
+    func addNewLogRecord(logRecord:LogRecord)
+    {
+        if let mutableLogData:NSMutableSet = NSMutableSet(set: logData!) {
+            mutableLogData.addObject(logRecord)
+
+        }
+    
+        //NSSet.mutableSetValueForKey(<#T##key: String##String#>)
+    }
+    
+    
+    
+
+        
+    
 }

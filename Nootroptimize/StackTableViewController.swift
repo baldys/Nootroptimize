@@ -44,57 +44,6 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
 
     
     // MARK: AddStackDelegate
-    func addStackViewController(vc: UIViewController, didAddStack stack: Stack) {
-        
-        self.addNewStack(stack)
-
-        
-        
-        
-        
-        
-        
-        
-        //if (stack) {
-//        self.performSegueWithIdentifier("showStack", sender: stack)
-        //}
-        
-
-        let newStack:Stack = Stack.createInManagedObjectContext(self.managedObjectContext, name: stack.name!)
-//        
-//            
-//            let newItemIndex = self.fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: self.tableView.numberOfRowsInSection(0), inSection: 0))
-//            
-//   
-            
-            
-            
-//       
-//            if let newItemIndexPath:NSIndexPath = NSIndexPath(forRow: self.tableView.numberOfRowsInSection(0), inSection: 0) {
-//                
-//                self.tableView.insertRowsAtIndexPaths([ newItemIndexPath], withRowAnimation: .Automatic)
-//                
-//            }
-//            
-//           
-//            
-//            do {
-//                try self.managedObjectContext.save()
-//                //stacks.append(newStack)
-//            } catch let error as NSError {
-//                print("Could not save \(error), \(error.userInfo)")
-//            }
-//        
-//            
-//            
-//            
-//        }
-       
-        
-        
-        
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
     
     func addStackViewController(vc: UIViewController, didEnterDataForStackWithName name:String, nootropicsInStack nootropics:NSSet) {
         
@@ -127,16 +76,12 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
             print("\(fetchError), \(fetchError.userInfo)")
         }
         self.tableView.reloadData()
-
-
-       
     }
-
-
-
     
-    
+    func addStackViewControllerDidCancel() {
+        self.dismissViewControllerAnimated(true, completion: nil)
 
+    }
 
 
   /*
@@ -258,87 +203,62 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
         
             if let nc: UINavigationController = segue.destinationViewController as? UINavigationController {
                 if let vc: AddStackViewController = nc.viewControllers[0] as? AddStackViewController {
-               
-                    
-//                    let newStack = NSEntityDescription.insertNewObjectForEntityForName("Stack", inManagedObjectContext: self.managedObjectContext) as! Stack
-//                    Stack.createInManagedObjectContext(<#T##moc: NSManagedObjectContext##NSManagedObjectContext#>, name: String)
-//                    
-//                    
-//                    vc.newStack = newStack
-                    
-//                    vc.newStack = Stack.createInManagedObjectContext(self.managedObjectContext, name: "new stack")
+
                     vc.delegate = self
                     
                 }
                 
             }
-//            if let viewController: AddStackViewController = segue.destinationViewController as? AddStackViewController {
-//                
-//                
-//                viewController.newStack = Stack.createInManagedObjectContext(self.managedObjectContext, name: "new stack")
-//                viewController.delegate = self
-//                
-//            }
         }
         else if (segue.identifier == "showStack") {
             
-            if let stackResponseVC:StackResponseViewController = segue.destinationViewController as? StackResponseViewController {
+            if let nc: UINavigationController = segue.destinationViewController as? UINavigationController {
                 
-                stackResponseVC.stack = sender as? Stack
+            
+                if let stackResponseVC:StackResponseViewController = nc.viewControllers[0] as? StackResponseViewController {
+                
+                
+               
+                    let selectedIndexPath = self.tableView.indexPathForSelectedRow!
+                
+               
+                    let selectedStack:Stack = self.fetchedResultsController.objectAtIndexPath(selectedIndexPath) as! Stack
+                
+               
+                    stackResponseVC.currentStack = selectedStack
+
+                }
+                
             }
             
-            if ((sender?.isKindOfClass(Stack)) != nil)
-            {
-                
-                
-            }
         }
     }
     
     override
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
         if(editingStyle == .Delete ) {
             
-//            let stackToDelete = stacks[indexPath.row]
+            let stackToDelete = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Stack
             
-            // Delete item from the managedObjectContext
+            managedObjectContext.deleteObject(stackToDelete)
             
-            
-            
-            //managedObjectContext.deleteObject(stackToDelete)
-            
-            self.fetchLog()
             
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
     }
     
-    
     // MARK: Fetched results controller
-    
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
         
         let fetchRequest = NSFetchRequest(entityName: "Stack")
-      
-//        var entity = NSEntityDescription.entityForName("Stack", inManagedObjectContext: self.managedObjectContext)
-//        
-//    
-//        fetchRequest.entity = entity
 
         let sortDescriptor = NSSortDescriptor(key: "dateCreated", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         // Initialize Fetched Results Controller
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: "Root")
-        
-
- 
-        
-        
-        // Edit the section name key path and cache name if appropriate.
-        // nil for section name key path means "no sections".
-       
         
         fetchedResultsController.delegate = self
         
@@ -420,82 +340,17 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
         return true
     }
     
-
-
-//    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        if let sections = fetchedResultsController.sections {
-//            let currentSection = sections[section]
-//            return currentSection.name
-//        }
-//        
-//        return nil
-//    }
-    
     
     // MARK: UITableViewDeleoverride
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        let selectedStack = self.fetchedResultsController.objectAtIndexPath(indexPath) as? Stack
-        
-        
-        
-        performSegueWithIdentifier("showStack", sender: selectedStack)
 
-        print(selectedStack!.name)
-        print(selectedStack?.dateCreated)
-        
+    }
+    
+    @IBAction func unwindToStacks(segue:UIStoryboardSegue) {
         
     }
     
-    
-    func addNewStack(newStack: Stack) {
-        
-        Stack.createInManagedObjectContext(self.managedObjectContext, name:newStack.name!)
-        
-        do {
-            try self.managedObjectContext.save()
-            //stacks.append(newStack)
-        } catch let error as NSError {
-            print("Could not save \(error), \(error.userInfo)")
-        }
+ 
 
-//
-//        self.fetchLog()
-        
-//        
-//        let newItemIndex = self.fetchedResultsController.fetchedObjects?.count
-//        
-//        
-//        let indexPath = NSIndexPath(forRow: newItemIndex!, inSection: 0)
-//            
-//        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-//
-        
-        
-        //        let entity = NSEntityDescription.entityForName("Stack", inManagedObjectContext: self.managedObjectContext)
-        
-        //        let stack = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: self.managedObjectContext)
-        
-        //newStack.setValue(name, forKey: "name")
-        
-   
-    
-        
-    }
-
-//    @IBAction func unwindToStackTableViewController(segue: UIStoryboardSegue) {
-////        let addStackVC = segue.sourceViewController as! AddStackViewController
-////        
-////    
-////        self.addNewStack(addStackVC.newStack!)
-////        
-////        
-////        
-////        
-////
-////    }
-//    
-//    
-//    
-//}
 }

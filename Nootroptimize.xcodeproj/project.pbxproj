@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F5BC2B81C681D5E0040EB26 /* AddLogRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5BC2B71C681D5E0040EB26 /* AddLogRecordViewController.swift */; };
 		9F8207B51C664467001E1A60 /* StackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8207B41C664467001E1A60 /* StackTableViewCell.swift */; };
 		9FD3C38B1C58D6DA00A22006 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C38A1C58D6DA00A22006 /* AppDelegate.swift */; };
 		9FD3C38D1C58D6DA00A22006 /* StackTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C38C1C58D6DA00A22006 /* StackTableViewController.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9F5BC2B71C681D5E0040EB26 /* AddLogRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLogRecordViewController.swift; sourceTree = "<group>"; };
 		9F8207B41C664467001E1A60 /* StackTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackTableViewCell.swift; sourceTree = "<group>"; };
 		9FD3C3871C58D6DA00A22006 /* Nootroptimize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nootroptimize.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD3C38A1C58D6DA00A22006 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				9FD3C3F81C5A082D00A22006 /* StackResponseViewController.swift */,
+				9F5BC2B71C681D5E0040EB26 /* AddLogRecordViewController.swift */,
 				9FD3C3F61C5A07C500A22006 /* GraphView.swift */,
 				9FD3C38A1C58D6DA00A22006 /* AppDelegate.swift */,
 				9FD3C38C1C58D6DA00A22006 /* StackTableViewController.swift */,
@@ -296,6 +299,7 @@
 				9FD3C3F21C59E8E000A22006 /* Nootropic+CoreDataProperties.swift in Sources */,
 				9FD3C3F71C5A07C500A22006 /* GraphView.swift in Sources */,
 				9FD3C38D1C58D6DA00A22006 /* StackTableViewController.swift in Sources */,
+				9F5BC2B81C681D5E0040EB26 /* AddLogRecordViewController.swift in Sources */,
 				9FD3C3F11C59E8E000A22006 /* Stack.swift in Sources */,
 				9FD3C3EE1C59E8E000A22006 /* LogRecord+CoreDataProperties.swift in Sources */,
 				9FD3C3CF1C59396800A22006 /* Nootroptimize.xcdatamodeld in Sources */,

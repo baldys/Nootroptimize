@@ -10,9 +10,10 @@ import UIKit
 import CoreData
 
 protocol AddStackDelegate {
-    func addStackViewController(vc: UIViewController, didAddStack stack:Stack)
     func addStackViewController(vc: UIViewController, didEnterDataForStackWithName name:String, nootropicsInStack nootropics:NSSet)
 
+    func addStackViewControllerDidCancel()
+    
     
 }
 
@@ -23,7 +24,6 @@ class AddStackViewController: UIViewController, UITextFieldDelegate {
     var nootropics: NSMutableArray?
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
-//    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     @IBOutlet weak var stackNameField: UITextField!
     
@@ -50,11 +50,14 @@ class AddStackViewController: UIViewController, UITextFieldDelegate {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
     func textFieldDidEndEditing(textField: UITextField) {
 //        newStack!.name = self.stackNameField.text
 
         
     }
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         
         if textField == stackNameField {
@@ -79,41 +82,19 @@ class AddStackViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func save(sender: AnyObject) {
-    
-//       self.newStack!.name = self.stackNameField.text! as String
-        
-      
-        print ("text field : \(stackNameField.text)")
-//        newStack!.name = stackNameField.text
-        
-        
-        
   
-//        print("new stack \(self.newStack!.name)")
-//        
-//        do {
-//            try newStack!.managedObjectContext!.save()
-//            
-//            
-//        } catch let error as NSError {
-//            print("Could not save \(error), \(error.userInfo)")
-//        }
-//        
-//        
-   
+        print ("text field : \(stackNameField.text)")
+
         let nootropics:NSSet = NSSet()
         
-        
-        //self.delegate?.addStackViewController(self, didAddStack: newStack!)
-    
         self.delegate?.addStackViewController(self, didEnterDataForStackWithName: stackNameField.text!, nootropicsInStack:nootropics)
-        
-        
-        
+     
     }
     
 
     @IBAction func cancel(sender: AnyObject) {
+        self.delegate?.addStackViewControllerDidCancel()
+        
     }
    
 }
