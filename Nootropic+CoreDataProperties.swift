@@ -16,7 +16,7 @@ extension Nootropic {
 
     @NSManaged var name: String?
     @NSManaged var dose: NSNumber?
-    @NSManaged var frequency: NSNumber?
+    @NSManaged var frequency: String?
     @NSManaged var dateAdded: NSDate?
     @NSManaged var stack: Stack?
 

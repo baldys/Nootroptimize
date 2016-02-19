@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9F5BC2B81C681D5E0040EB26 /* AddLogRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F5BC2B71C681D5E0040EB26 /* AddLogRecordViewController.swift */; };
+		9F6455C11C73E2AC008CCD38 /* AddNootropicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6455C01C73E2AC008CCD38 /* AddNootropicViewController.swift */; };
+		9F6455FF1C74220D008CCD38 /* VBPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6455FE1C74220D008CCD38 /* VBPickerView.swift */; };
 		9F8207B51C664467001E1A60 /* StackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8207B41C664467001E1A60 /* StackTableViewCell.swift */; };
 		9FD3C38B1C58D6DA00A22006 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C38A1C58D6DA00A22006 /* AppDelegate.swift */; };
 		9FD3C38D1C58D6DA00A22006 /* StackTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C38C1C58D6DA00A22006 /* StackTableViewController.swift */; };
@@ -47,6 +49,8 @@
 
 /* Begin PBXFileReference section */
 		9F5BC2B71C681D5E0040EB26 /* AddLogRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLogRecordViewController.swift; sourceTree = "<group>"; };
+		9F6455C01C73E2AC008CCD38 /* AddNootropicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddNootropicViewController.swift; path = ../AddNootropicViewController.swift; sourceTree = "<group>"; };
+		9F6455FE1C74220D008CCD38 /* VBPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VBPickerView.swift; sourceTree = "<group>"; };
 		9F8207B41C664467001E1A60 /* StackTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackTableViewCell.swift; sourceTree = "<group>"; };
 		9FD3C3871C58D6DA00A22006 /* Nootroptimize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nootroptimize.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD3C38A1C58D6DA00A22006 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +138,8 @@
 				9FD3C38A1C58D6DA00A22006 /* AppDelegate.swift */,
 				9FD3C38C1C58D6DA00A22006 /* StackTableViewController.swift */,
 				9F8207B41C664467001E1A60 /* StackTableViewCell.swift */,
+				9F6455FE1C74220D008CCD38 /* VBPickerView.swift */,
+				9F6455C01C73E2AC008CCD38 /* AddNootropicViewController.swift */,
 				9FD3C3F41C59F71800A22006 /* AddStackViewController.swift */,
 				9FD3C38E1C58D6DA00A22006 /* Main.storyboard */,
 				9FD3C3941C58D6DA00A22006 /* Assets.xcassets */,
@@ -306,6 +312,8 @@
 				9FD3C3EF1C59E8E000A22006 /* LogRecord.swift in Sources */,
 				9FD3C38B1C58D6DA00A22006 /* AppDelegate.swift in Sources */,
 				9F8207B51C664467001E1A60 /* StackTableViewCell.swift in Sources */,
+				9F6455C11C73E2AC008CCD38 /* AddNootropicViewController.swift in Sources */,
+				9F6455FF1C74220D008CCD38 /* VBPickerView.swift in Sources */,
 				9FD3C3F51C59F71800A22006 /* AddStackViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

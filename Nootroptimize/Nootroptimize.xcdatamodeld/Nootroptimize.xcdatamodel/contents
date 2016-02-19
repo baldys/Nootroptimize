@@ -13,7 +13,7 @@
     <entity name="Nootropic" representedClassName=".Nootropic" syncable="YES">
         <attribute name="dateAdded" attributeType="Date" syncable="YES"/>
         <attribute name="dose" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="frequency" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="2" defaultValueString="0" indexed="YES" syncable="YES"/>
+        <attribute name="frequency" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="stack" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Stack" inverseName="nootropics" inverseEntity="Stack" syncable="YES"/>
     </entity>
@@ -24,8 +24,8 @@
         <relationship name="nootropics" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Nootropic" inverseName="stack" inverseEntity="Nootropic" syncable="YES"/>
     </entity>
     <elements>
+        <element name="LogRecord" positionX="-317" positionY="-21" width="128" height="163"/>
         <element name="Nootropic" positionX="-650" positionY="-90" width="128" height="118"/>
         <element name="Stack" positionX="-486" positionY="-135" width="128" height="103"/>
-        <element name="LogRecord" positionX="-317" positionY="-21" width="128" height="163"/>
     </elements>
 </model>

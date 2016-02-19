@@ -12,10 +12,49 @@ import UIKit
     
     //Weekly sample data
     var graphPoints:[Int] = [0]
+
+    var xValues:[String] = []
+    var xLabels:[UILabel] = []
+
+//    var graphData:[Dictionary<String,Int>] = [["start":0]]
     
-    //1 - the properties for the gradient
-    @IBInspectable var startColor: UIColor = UIColor.redColor()
-    @IBInspectable var endColor: UIColor = UIColor.greenColor()
+    
+
+    // yellow
+    var startColor: UIColor = UIColor(colorLiteralRed:250/255, green:63/255, blue:32/255, alpha:1)
+    
+    var endColor: UIColor = UIColor(colorLiteralRed:1, green:232/255, blue:0, alpha:1)
+    
+    override func layoutSubviews() {
+        let width = frame.width
+        let height = frame.height
+        let margin:CGFloat = 20.0 //20.0
+//        let bottomBorder:CGFloat = 20
+
+        let columnXPoint = { (column:Int) -> CGFloat in
+            //Calculate gap between points
+            let spacer = (width - margin*2-4) /
+                CGFloat((self.graphPoints.count - 1))
+            var x:CGFloat = CGFloat(column) * spacer
+            x += margin + 2
+            return x
+        }
+        
+        var labelFrame = CGRect(x: 0, y: 0, width: 66, height: 44)
+        
+        // Offset each button's origin by the length of the button plus spacing.
+        for (index, label) in xLabels.enumerate() {
+            //labelFrame.origin.x = CGFloat(index * (44 + 5)) // index x (width+padding)
+            
+            labelFrame.origin.x = columnXPoint(index)
+            labelFrame.origin.y = height - 40
+            
+            label.frame = labelFrame
+            
+        }
+    }
+    
+    
     
     override func drawRect(rect: CGRect) {
         if graphPoints.count == 1 {
@@ -28,7 +67,7 @@ import UIKit
         //set up background clipping area
         let path = UIBezierPath(roundedRect: rect,
             byRoundingCorners: UIRectCorner.AllCorners,
-            cornerRadii: CGSize(width: 8.0, height: 8.0))
+            cornerRadii: CGSize(width: 5.0, height: 5.0)) //8,8
         path.addClip()
         
         //2 - get the current context
@@ -67,12 +106,15 @@ import UIKit
             return x
         }
         
+        
+        
         // calculate the y point
         
-        let topBorder:CGFloat = 60
-        let bottomBorder:CGFloat = 50
+        let topBorder:CGFloat = 20
+        let bottomBorder:CGFloat = 20
         let graphHeight = height - topBorder - bottomBorder
-        let maxValue = graphPoints.maxElement()!
+        let maxValue = 10
+        //let maxValue = graphPoints.maxElement()!
         let columnYPoint = { (graphPoint:Int) -> CGFloat in
             var y:CGFloat = CGFloat(graphPoint) /
                 CGFloat(maxValue) * graphHeight
@@ -169,6 +211,20 @@ import UIKit
         linePath.lineWidth = 1.0
         linePath.stroke()
         
+        
+        for xValue in xValues {
+            let xLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 44))
+            xLabel.text = xValue
+            
+            let labelWidth = frame.width/CGFloat(xValues.count)
+            
+            xLabel.sizeThatFits(CGSize(width: labelWidth, height: 44))
+            xLabel.font = UIFont(name: "AvenirNextCondensed-Medium", size: 13)
+            xLabel.textColor = UIColor.whiteColor()
+            xLabels += [xLabel]
+            addSubview(xLabel)
+    
+        }
         
     }
 }

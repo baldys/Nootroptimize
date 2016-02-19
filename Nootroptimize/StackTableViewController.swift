@@ -43,13 +43,25 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
     }
 
     
-    // MARK: AddStackDelegate
+    // MARK: - Add Stack Delegate
+    
+    // TO DO:
+    // use unwind segue instead and just get the stack that was just created from the source vc
+    // we are passing a new stack created in prepare for segue to that vc.
+    // get mo context from stack and use it to save data
     
     func addStackViewController(vc: UIViewController, didEnterDataForStackWithName name:String, nootropicsInStack nootropics:NSSet) {
+        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+        
+        let newStack:Stack = fetchedResultsController.objectAtIndexPath(indexPath) as! Stack
         
         
-    
-        Stack.createInManagedObjectContext(self.managedObjectContext, name: name)
+        newStack.name = name
+        newStack.nootropics = nootropics
+        newStack.dateCreated = NSDate()
+        
+        
+//        Stack.createInManagedObjectContext(self.managedObjectContext, name: name)
         
         
         do {
@@ -59,10 +71,7 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
         } catch let error as NSError {
                 print("Could not save \(error), \(error.userInfo)")
         }
-            
-            
-        
-        
+
         self.dismissViewControllerAnimated(true, completion: nil)
         // put into completion handler above
 //        let newItemIndex = self.fetchedResultsController.fetchedObjects?.count -1
@@ -116,12 +125,9 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
     */
     func fetchLog() {
         let fetchRequest = NSFetchRequest(entityName: "Stack")
-        
-        // Create a sort descriptor object that sorts on the "name"
-        // property of the Core Data object
+ 
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-        // Set the list of sort descriptors in the fetch request,
-        // so it includes the sort descriptor
+      
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         do {
@@ -129,10 +135,7 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
             
             ///stacks = results as! [Stack]
             
-            /*
-            NSFetchRequest is the class responsible for fetching from Core Data. Fetch requests are both powerful and flexible. You can use requests to fetch a set of objects that meet particular criteria (e.g., “give me all employees that live in Wisconsin and have been with the company at least three years”), individual values (e.g., “give me the longest name in the database”) and more.Fetch requests have several qualifiers that refine the set of results they return. For now, you should know that NSEntityDescription is one of these qualifiers (one that is required!).Setting a fetch request’s entity property, or alternatively initializing it with init(entityName:), fetches all objects of a particular entity. This is what you do here to fetch all Person entities.
-            */
-        } catch let error as NSError {
+                  } catch let error as NSError {
             print("could not fetch \(error), \(error.userInfo)")
             
         }
@@ -174,28 +177,64 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
         
         
         let cell = tableView.dequeueReusableCellWithIdentifier("StackCell", forIndexPath: indexPath)
-        let stack = fetchedResultsController.objectAtIndexPath(indexPath) as! Stack
         
-        cell.textLabel?.text = stack.name
-        let dateFormatter = NSDateFormatter()
+//        let stack = fetchedResultsController.objectAtIndexPath(indexPath) as! Stack
         
-        
-        dateFormatter.timeStyle = .NoStyle
-        dateFormatter.dateStyle = .ShortStyle
-        
-        if stack.dateCreated != nil {
-            cell.detailTextLabel?.text = dateFormatter.stringFromDate(stack.dateCreated!)
-        }
+//        cell.textLabel?.text = stack.name
+//        let dateFormatter = NSDateFormatter()
+//        
+//        dateFormatter.timeStyle = .NoStyle
+//        dateFormatter.dateStyle = .ShortStyle
+//        
+//        if stack.dateCreated != nil {
+//            cell.detailTextLabel?.text = dateFormatter.stringFromDate(stack.dateCreated!)
+//        }
+        configureCell(cell, atIndexPath: indexPath)
         
         
         return cell
     }
-
-    
     
     func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
         
+        if let stack:Stack = fetchedResultsController.objectAtIndexPath(indexPath) as? Stack {
+            
+            cell.textLabel?.text = stack.name
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.timeStyle = .NoStyle
+            dateFormatter.dateStyle = .ShortStyle
+            
+            if stack.dateCreated != nil {
+                cell.detailTextLabel?.text = dateFormatter.stringFromDate(stack.dateCreated!)
+            }
+        }
+
+        
+
     }
+    
+    // MARK: UITableViewDelegate override
+    
+    override
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if(editingStyle == .Delete ) {
+            
+            let stackToDelete = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Stack
+            
+            managedObjectContext.deleteObject(stackToDelete)
+            
+//            tableView.reloadData()
+            //tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        }
+    }
+    
+    override
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    // MARK: - Segues
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
@@ -205,6 +244,16 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
                 if let vc: AddStackViewController = nc.viewControllers[0] as? AddStackViewController {
 
                     vc.delegate = self
+                    
+                    
+                    
+                    
+                    
+                    vc.stack =  NSEntityDescription.insertNewObjectForEntityForName("Stack", inManagedObjectContext: self.managedObjectContext) as? Stack
+                    
+                    
+                    
+                    
                     
                 }
                 
@@ -234,21 +283,9 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
         }
     }
     
-    override
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-        if(editingStyle == .Delete ) {
-            
-            let stackToDelete = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Stack
-            
-            managedObjectContext.deleteObject(stackToDelete)
-            
-            
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        }
-    }
+
     
-    // MARK: Fetched results controller
+    // MARK: - Fetched results controller
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
         
@@ -267,36 +304,43 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
     }()
     
     
+    // MARK: - Fetched Results Controller Delegate
+    
     /**
      Delegate methods of NSFetchedResultsController to respond to additions, removals and so on.
      */
     
-//    func controllerWillChangeContent(controller: NSFetchedResultsController) {
-//        // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
-//        tableView.beginUpdates()
-//    }
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
+        // tableView.beginUpdates()
+    }
 //
-//    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-//        
-//        
-//        
-//        switch(type) {
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        
+        
+        
+        switch type {
 //        case .Insert:
 //            self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-//            break;
-//        case .Delete:
-//            self.tableView.deleteRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-//            break;
+//            break
+        case .Delete:
+            self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+            break
 //        case .Update:
 //            // cast the first argument to your custom UITableViewCell type
 //            self.configureCell(tableView.cellForRowAtIndexPath(indexPath!)!, atIndexPath:indexPath!)
-//            break;
+//            break
+        
+        default:
+            self.tableView.reloadData()
+            break
+            
 //        case .Move:
 //            self.tableView.deleteRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
 //            self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-//            break;
-//        }
-//    }
+//            break
+        }
+    }
     
    
     
@@ -328,20 +372,18 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
     //    }
     
 //    
-//    func controllerDidChangeContent(controller: NSFetchedResultsController) {
-//        // The fetch controller has sent all current change notifications,
-//        // so tell the table view to process all updates.
-//        self.tableView.endUpdates()
-//    }
     
-
-    override
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        // The fetch controller has sent all current change notifications,
+        // so tell the table view to process all updates.
+        
+//        self.tableView.endUpdates()
     }
     
+
+
     
-    // MARK: UITableViewDeleoverride
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
 

@@ -17,41 +17,108 @@ protocol AddStackDelegate {
     
 }
 
-class AddStackViewController: UIViewController, UITextFieldDelegate {
+class AddStackViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, AddNootropicDelegate {
+
+
 
     //var newStack: Stack?
     var delegate: AddStackDelegate?
-    var nootropics: NSMutableArray?
+    var nootropics = [Nootropic]()
+    var stack:Stack?
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
     @IBOutlet weak var stackNameField: UITextField!
     
+    @IBOutlet weak var tableView: UITableView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Add Stack"
-        self.stackNameField.delegate = self
+        stackNameField.delegate = self
         
-        stackNameField.becomeFirstResponder()
+//        Array(arrayLiteral:stack?.nootropics)
+        
+       
+        
+        
+        //stackNameField.becomeFirstResponder()
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    // MARK: - Table View Delegate
 
-    /*
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return nootropics.count
+    
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+        
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("NootropicCell", forIndexPath: indexPath)
+      
+        let nootropic:Nootropic = nootropics[indexPath.row]
+        
+        cell.textLabel?.text = nootropic.name
+        cell.detailTextLabel?.text = String(nootropic.dose!)
+        
+    
+        
+        
+        return cell
+        
+    }
+
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            
+        }
+        if editingStyle == .Insert {
+            
+            
+        }
+    }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if (segue.identifier == "addNootropic") {
+            
+            if let nc: UINavigationController = segue.destinationViewController as? UINavigationController {
+                if let vc: AddNootropicViewController = nc.viewControllers[0] as? AddNootropicViewController {
+                    
+                    
+                    vc.delegate = self
+                    vc.stackName = stack?.name
+                    
+                
+                }
+
+
+            }
+        }
     }
-    */
+
     
-    
+    // MARK: - TextField Delegate
+
     func textFieldDidEndEditing(textField: UITextField) {
 //        newStack!.name = self.stackNameField.text
 
@@ -62,32 +129,27 @@ class AddStackViewController: UIViewController, UITextFieldDelegate {
         
         if textField == stackNameField {
             stackNameField.resignFirstResponder()
-            
-            
-//
-//            print("new stack \(self.newStack!.name)")
-//
-//            do {
-//                try newStack!.managedObjectContext!.save()
-//
-//                
-//            } catch let error as NSError {
-//            print("Could not save \(error), \(error.userInfo)")
-//            }
-    
-        
-            
         }
         return true
+    }
+    
+    // MARK: -
+    @IBAction func addNootropic(sender: AnyObject) {
+    
+        
+        
+        
     }
     
     @IBAction func save(sender: AnyObject) {
   
         print ("text field : \(stackNameField.text)")
 
-        let nootropics:NSSet = NSSet()
+//        let nootropics:NSSet = NSSet()
+        let nootropicStack = NSSet(array: nootropics)
         
-        self.delegate?.addStackViewController(self, didEnterDataForStackWithName: stackNameField.text!, nootropicsInStack:nootropics)
+        
+        self.delegate?.addStackViewController(self, didEnterDataForStackWithName: stackNameField.text!, nootropicsInStack:nootropicStack)
      
     }
     
@@ -96,5 +158,56 @@ class AddStackViewController: UIViewController, UITextFieldDelegate {
         self.delegate?.addStackViewControllerDidCancel()
         
     }
+    
+//    @IBAction func unwindToAddStack(segue: UIStoryboardSegue) {
+//    
+//        let vc = segue.sourceViewController as? AddNootropicViewController
+//        
+//        
+//        
+//        if let nootropic:Nootropic = vc?.nootropic {
+//            // add nootropic to array
+//            insertNewObject(nootropic)
+//        }
+//        
+//        
+// 
+//    }
+    
+    // MARK: - AddNootropicDelegate
+    
+    func addNootropicViewController(vc: UIViewController, didEnterDataForNootropicWithName name: String, dose: NSNumber, doseFrequency: String?) {
+        
+        let moc = stack?.managedObjectContext
+        
+        if let nootropic:Nootropic = Nootropic.createInManagedObjectContext(stack!.managedObjectContext!, stack: stack!, name: name, dose: dose, frequency: doseFrequency!) {
+            
+            stack?.addNootropic(nootropic)
+
+            do {
+                //try newStack.managedObjectContext!.save()
+                try moc!.save()
+            } catch let error as NSError {
+                print("Could not save \(error), \(error.userInfo)")
+            }
+            
+            insertNewObject(nootropic)
+            
+        }
+        
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func addNootropicViewControllerDidCancel() {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
    
+    func insertNewObject(item: AnyObject) {
+        let nootropic = item as! Nootropic
+        nootropics.insert(nootropic, atIndex: 0)
+        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+    }
+    
 }

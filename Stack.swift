@@ -25,16 +25,37 @@ class Stack: NSManagedObject {
         return newItem
     }
     
-    func addNewLogRecord(logRecord:LogRecord)
-    {
+    class func createInManagedObjectContext(moc:NSManagedObjectContext, name:String, nootropics:NSSet) -> Stack {
+        
+        let newItem = NSEntityDescription.insertNewObjectForEntityForName("Stack", inManagedObjectContext: moc) as! Stack
+        newItem.name = name
+        newItem.dateCreated = NSDate()
+        newItem.nootropics = nootropics
+        newItem.logData = NSSet()
+        
+        return newItem
+    }
+    
+
+    
+    func addNewLogRecord(logRecord:LogRecord) {
         if let mutableLogData:NSMutableSet = NSMutableSet(set: logData!) {
             mutableLogData.addObject(logRecord)
+            self.logData = mutableLogData
 
         }
     
-        //NSSet.mutableSetValueForKey(<#T##key: String##String#>)
+        //NSSet.mutableSetValueForKey()
     }
     
+    func addNootropic(nootropic: Nootropic) {
+        
+        if let mutableNootropicSet:NSMutableSet = NSMutableSet(set: nootropics!) {
+            mutableNootropicSet.addObject(nootropic)
+            self.nootropics = mutableNootropicSet
+            
+        }
+    }
     
     
 
