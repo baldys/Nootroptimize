@@ -10,20 +10,16 @@ import UIKit
 
 @IBDesignable class GraphView: UIView {
     
-    //Weekly sample data
-    var graphPoints:[Int] = [0]
+    var yValues:[Int] = []
 
     var xValues:[String] = []
     var xLabels:[UILabel] = []
-
-//    var graphData:[Dictionary<String,Int>] = [["start":0]]
     
     
 
     // yellow
-    var startColor: UIColor = UIColor(colorLiteralRed:250/255, green:63/255, blue:32/255, alpha:1)
-    
-    var endColor: UIColor = UIColor(colorLiteralRed:1, green:232/255, blue:0, alpha:1)
+    var topColour: UIColor = UIColor.redGraphColor()
+    var bottomColour: UIColor = UIColor.yellowGraphColor()
     
     override func layoutSubviews() {
         let width = frame.width
@@ -34,7 +30,7 @@ import UIKit
         let columnXPoint = { (column:Int) -> CGFloat in
             //Calculate gap between points
             let spacer = (width - margin*2-4) /
-                CGFloat((self.graphPoints.count - 1))
+                CGFloat((self.yValues.count - 1))
             var x:CGFloat = CGFloat(column) * spacer
             x += margin + 2
             return x
@@ -57,7 +53,7 @@ import UIKit
     
     
     override func drawRect(rect: CGRect) {
-        if graphPoints.count == 1 {
+        if yValues.count == 0 {
             return
         }
         
@@ -72,7 +68,7 @@ import UIKit
         
         //2 - get the current context
         let context = UIGraphicsGetCurrentContext()
-        let colors = [startColor.CGColor, endColor.CGColor]
+        let colors = [topColour.CGColor, bottomColour.CGColor]
         
         //3 - set up the color space
         let colorSpace = CGColorSpaceCreateDeviceRGB()
@@ -100,7 +96,7 @@ import UIKit
         let columnXPoint = { (column:Int) -> CGFloat in
             //Calculate gap between points
             let spacer = (width - margin*2 - 4) /
-                CGFloat((self.graphPoints.count - 1))
+                CGFloat((self.yValues.count - 1))
             var x:CGFloat = CGFloat(column) * spacer
             x += margin + 2
             return x
@@ -131,13 +127,13 @@ import UIKit
         let graphPath = UIBezierPath()
         //go to start of line
         graphPath.moveToPoint(CGPoint(x:columnXPoint(0),
-            y:columnYPoint(graphPoints[0])))
+            y:columnYPoint(yValues[0])))
         
         //add points for each item in the graphPoints array
         //at the correct (x, y) for the point
-        for i in 1..<graphPoints.count {
+        for i in 1..<yValues.count {
             let nextPoint = CGPoint(x:columnXPoint(i),
-                y:columnYPoint(graphPoints[i]))
+                y:columnYPoint(yValues[i]))
             graphPath.addLineToPoint(nextPoint)
         }
         
@@ -151,7 +147,7 @@ import UIKit
         
         //3 - add lines to the copied path to complete the clip area
         clippingPath.addLineToPoint(CGPoint(
-            x: columnXPoint(graphPoints.count - 1),
+            x: columnXPoint(yValues.count - 1),
             y:height))
         clippingPath.addLineToPoint(CGPoint(
             x:columnXPoint(0),
@@ -173,8 +169,8 @@ import UIKit
         graphPath.stroke()
         
         //Draw the circles on top of graph stroke
-        for i in 0..<graphPoints.count {
-            var point = CGPoint(x:columnXPoint(i), y:columnYPoint(graphPoints[i]))
+        for i in 0..<yValues.count {
+            var point = CGPoint(x:columnXPoint(i), y:columnYPoint(yValues[i]))
             point.x -= 5.0/2
             point.y -= 5.0/2
             

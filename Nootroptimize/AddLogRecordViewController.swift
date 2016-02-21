@@ -109,11 +109,6 @@ class AddLogRecordViewController: UIViewController {
         }
         
         delegate?.addLogRecordViewController(self, didEnterValuesForMood: NSNumber(double: moodStepper.value), energy:NSNumber(double: energyStepper.value), focus:NSNumber(double: focusStepper.value), memory:NSNumber(double: memoryStepper.value), clarity:NSNumber(double: clarityStepper.value))
-        
-        
-        
-        
-        
     }
     
     @IBAction func cancel(sender: AnyObject) {
