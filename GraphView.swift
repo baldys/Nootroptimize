@@ -8,7 +8,7 @@
 
 import UIKit
 
-@IBDesignable class GraphView: UIView {
+class GraphView: UIView {
     
     var yValues:[Int] = []
 
@@ -21,37 +21,72 @@ import UIKit
     var topColour: UIColor = UIColor.redGraphColor()
     var bottomColour: UIColor = UIColor.yellowGraphColor()
     
-    override func layoutSubviews() {
-        let width = frame.width
-        let height = frame.height
-        let margin:CGFloat = 20.0 //20.0
-//        let bottomBorder:CGFloat = 20
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
 
-        let columnXPoint = { (column:Int) -> CGFloat in
-            //Calculate gap between points
-            let spacer = (width - margin*2-4) /
-                CGFloat((self.yValues.count - 1))
-            var x:CGFloat = CGFloat(column) * spacer
-            x += margin + 2
-            return x
-        }
-        
-        var labelFrame = CGRect(x: 0, y: 0, width: 66, height: 44)
-        
-        // Offset each button's origin by the length of the button plus spacing.
-        for (index, label) in xLabels.enumerate() {
-            //labelFrame.origin.x = CGFloat(index * (44 + 5)) // index x (width+padding)
-            
-            labelFrame.origin.x = columnXPoint(index)
-            labelFrame.origin.y = height - 40
-            
-            label.frame = labelFrame
-            
-        }
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+//        fatalError("init(coder:) has not been implemented")
     }
     
+//    required init(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//    }
+//    
+//    override func layoutSubviews() {
+//        
+//        
+//
+//        
+//        var labelFrame = CGRect(x: 0, y: 0, width: 66, height: 44)
+//        
+//        for (index, label) in xLabels.enumerate() {
+//            //labelFrame.origin.x = CGFloat(index * (44 + 5)) // index x (width+padding)
+//            
+//            
+//            
+//            label.frame = labelFrame
+//            
+//        }
+//        
+//
+//    }
     
-    
+ 
+    func setUpXLabels(xValues:[String]) {
+        self.xValues = xValues
+        
+        var labelFrame = CGRect(x:0, y:0, width:30, height:44)
+        var x:CGFloat = 0
+        
+        self.xLabels.removeAll()
+        
+        for i in 0..<xValues.count {
+        
+            x += 44
+            labelFrame.origin.x = x
+            let xLabel = UILabel(frame:labelFrame)
+            
+            xLabel.text = xValues[i]
+            
+            print("xValue: \(xValues[i])")
+            
+            xLabel.font = UIFont(name: "AvenirNextCondensed-Medium", size: 13)
+            
+            xLabel.textColor = UIColor.whiteColor()
+            
+            //            xLabels += [xLabel]
+            xLabels.append(xLabel)
+            
+            addSubview(xLabel)
+            
+        }
+        setNeedsDisplay()
+    }
+
+
+
     override func drawRect(rect: CGRect) {
         if yValues.count == 0 {
             return
@@ -126,6 +161,7 @@ import UIKit
         //set up the points line
         let graphPath = UIBezierPath()
         //go to start of line
+    
         graphPath.moveToPoint(CGPoint(x:columnXPoint(0),
             y:columnYPoint(yValues[0])))
         
@@ -139,7 +175,7 @@ import UIKit
         
         //Create the clipping path for the graph gradient
         
-        //1 - save the state of the context (commented out for now)
+        //1 - save the state of the context
         CGContextSaveGState(context)
         
         //2 - make a copy of the path
@@ -208,19 +244,44 @@ import UIKit
         linePath.stroke()
         
         
-        for xValue in xValues {
-            let xLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 44))
-            xLabel.text = xValue
+        var labelFrame = CGRect(x: 0, y: 0, width: 66, height: 44)
+        
+        // Offset each button's origin by the length of the button plus spacing.
+        for (index, label) in xLabels.enumerate() {
+            //labelFrame.origin.x = CGFloat(index * (44 + 5)) // index x (width+padding)
             
-            let labelWidth = frame.width/CGFloat(xValues.count)
+            labelFrame.origin.x = columnXPoint(index)
+            labelFrame.origin.y = height - 40
             
-            xLabel.sizeThatFits(CGSize(width: labelWidth, height: 44))
-            xLabel.font = UIFont(name: "AvenirNextCondensed-Medium", size: 13)
-            xLabel.textColor = UIColor.whiteColor()
-            xLabels += [xLabel]
-            addSubview(xLabel)
-    
+            label.frame = labelFrame
+            print("[\(index)] LABEL TEXT:\(label.text), xValue: \(xValues[index])")
+            
+            
         }
+//        for xValue in xValues {
+//            let xLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 44))
+//            
+//            
+//            
+//            xLabel.text = xValue
+//            print("xValue: \(xValue)")
+//            
+//            
+//            
+//            let labelWidth = frame.width/CGFloat(xValues.count)
+//            
+//            xLabel.sizeThatFits(CGSize(width: labelWidth, height: 44))
+//            
+//            xLabel.font = UIFont(name: "AvenirNextCondensed-Medium", size: 13)
+//            
+//            xLabel.textColor = UIColor.whiteColor()
+//            
+////            xLabels += [xLabel]
+//            xLabels.append(xLabel)
+//            
+//            addSubview(xLabel)
+//    
+//        }
         
     }
 }

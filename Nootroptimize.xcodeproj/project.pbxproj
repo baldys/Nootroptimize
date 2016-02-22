@@ -29,6 +29,7 @@
 		9FD3C3F51C59F71800A22006 /* AddStackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C3F41C59F71800A22006 /* AddStackViewController.swift */; };
 		9FD3C3F71C5A07C500A22006 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C3F61C5A07C500A22006 /* GraphView.swift */; };
 		9FD3C3F91C5A082D00A22006 /* StackResponseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C3F81C5A082D00A22006 /* StackResponseViewController.swift */; };
+		9FF595BA1C7A63D600266C6C /* ToDo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9FF595B91C7A63D600266C6C /* ToDo.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,7 @@
 		9FD3C3F41C59F71800A22006 /* AddStackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddStackViewController.swift; sourceTree = "<group>"; };
 		9FD3C3F61C5A07C500A22006 /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GraphView.swift; path = ../GraphView.swift; sourceTree = "<group>"; };
 		9FD3C3F81C5A082D00A22006 /* StackResponseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StackResponseViewController.swift; path = ../StackResponseViewController.swift; sourceTree = "<group>"; };
+		9FF595B91C7A63D600266C6C /* ToDo.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ToDo.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 			children = (
 				9FD3C3F81C5A082D00A22006 /* StackResponseViewController.swift */,
 				9F05A6D61C781D5700C90C1B /* GraphData.swift */,
+				9FF595B91C7A63D600266C6C /* ToDo.txt */,
 				9FD3C3F61C5A07C500A22006 /* GraphView.swift */,
 				9F5BC2B71C681D5E0040EB26 /* AddLogRecordViewController.swift */,
 				9FD3C38A1C58D6DA00A22006 /* AppDelegate.swift */,
@@ -275,6 +278,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FF595BA1C7A63D600266C6C /* ToDo.txt in Resources */,
 				9FD3C3981C58D6DA00A22006 /* LaunchScreen.storyboard in Resources */,
 				9FD3C3951C58D6DA00A22006 /* Assets.xcassets in Resources */,
 				9FD3C3901C58D6DA00A22006 /* Main.storyboard in Resources */,
