@@ -46,6 +46,7 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate {
             logRecords = logData.sortedArrayUsingDescriptors([sortDescriptor]) as! [LogRecord]
             
             graphData = GraphData(logRecords: logRecords)
+            graphView.setUpXLabels(graphData!.days)
             
             updateGraphWithData(graphData!, forRatingCategory: .mood)
             
@@ -84,15 +85,9 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate {
         }
         
         graphData?.addLogRecord(logRecord)
-
         
+        graphView.addXLabelWithText(graphData!.days.last!)
         
-        
-        for i in 0..<graphData!.days.count {
-            print("[\(i)]: day: \(graphData!.days[i])")
-        }
-        
-
         updateGraphWithData(graphData!, forRatingCategory: ratingTypeFromInt(graphDataControl.selectedSegmentIndex))
         
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -147,7 +142,7 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate {
 
 
         graphView.yValues = data.getDataForRatingCategory(ratingType)
-        graphView.setUpXLabels(data.days)
+        //graphView.setUpXLabels(data.days)
 
         let gradientDictionary = data.getColourForRatingCategory(ratingType)
         graphView.topColour = gradientDictionary["top"]!
