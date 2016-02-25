@@ -116,28 +116,7 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate {
         //            fromDate: NSDate())
         //        var weekday = components.weekday
 
-        if logRecords.count == 0 {
-            noStackDataLabel.hidden = false
-            return
-        }
-
-        // use methods in graph data to get the x values and y values to be supplied to graph view. the graph view will then show these points according to the category  selected
-        noStackDataLabel.hidden = true
-        
-//        graphView.xValues = data.days
-        
-//        graphView.xValues.append(data.days.last!)
-        
-        
-//        var i = 0
-//        for day in data.days {
-//            i++
-//            print(i)
-//            print(day)
-//        }
-//        
-        // try to manually append the current day to the xvalues of the graph view.
-        
+  
 
 
 
@@ -149,15 +128,13 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate {
         graphView.bottomColour = gradientDictionary["bottom"]!
         
         
-        //maxLabel.text = "\(graphView.yValues.maxElement()!)"
-        maxLabel.text = "10"
+        maxLabel.text = "\(graphView.yValues.maxElement()!)"
+//        maxLabel.text = "10"
         print("last xvalue: \(graphView.xLabels.last!.text)")
-        if (graphView.xLabels.count != data.days.count)
-        {
-            
-        }
-//        graphView.layoutIfNeeded()
+      
         graphView.setNeedsDisplay()
+
+        graphView.layoutIfNeeded()
 
 
 //        graphView.xValues = daysLogged

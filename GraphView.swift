@@ -27,6 +27,9 @@ class GraphView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+//        yValues.append(0)
+//        addXLabelWithText(" ")
+        
 //        fatalError("init(coder:) has not been implemented")
     }
     
@@ -52,14 +55,21 @@ class GraphView: UIView {
 
         let width = frame.width
         let height = frame.height
+        print(String(width) + String(height))
+
         let margin:CGFloat = 20.0
         
         let columnXPoint = { (column:Int) -> CGFloat in
             //Calculate gap between points
-            let spacer = (width - margin*2 - 4) /
+            
+            let spacer = (width - margin*2) /
                 CGFloat((self.yValues.count - 1))
+//            var spacer:CGFloat = width - margin*2
+//            if self.yValues.count-1 > 0 {
+//                spacer = spacer/CGFloat((self.yValues.count - 1))
+//            }
             var x:CGFloat = CGFloat(column) * spacer
-            x += margin + 2
+            x += margin
             return x
         }
 
@@ -70,7 +80,7 @@ class GraphView: UIView {
             //labelFrame.origin.x = CGFloat(index * (44 + 5)) // index x (width+padding)
             
             labelFrame.origin.x = columnXPoint(index)
-            labelFrame.origin.y = height - 40
+            labelFrame.origin.y = height - 30
             
             label.frame = labelFrame
             print("[\(index)] LABEL TEXT:\(label.text), xValue: \(xValues[index])")
@@ -95,7 +105,7 @@ class GraphView: UIView {
 //            labelFrame.origin.x = x
             let xLabel = UILabel(frame:labelFrame)
             
-            xLabel.text = xValues[i]
+            xLabel.text = "\(i)|\(xValues[i])"
             
             print("xValue: \(xValues[i])")
             
@@ -112,6 +122,23 @@ class GraphView: UIView {
         layoutIfNeeded()
         setNeedsDisplay()
     }
+    
+    lazy var noDataLabel:UILabel = {
+        
+        let width = self.frame.width
+        let height = self.frame.height
+        let center:CGPoint = CGPoint(x:self.center.x, y:self.center.y)
+        
+        let noDataLabel:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        noDataLabel.center = center
+        noDataLabel.text = "No data to show"
+        noDataLabel.font = UIFont(name: "AvenirNextCondensed-Medium", size: 24)
+        
+        noDataLabel.textColor = UIColor.whiteColor()
+        
+        return noDataLabel
+        
+    }()
 
 
 
@@ -158,10 +185,15 @@ class GraphView: UIView {
         let margin:CGFloat = 20.0
         let columnXPoint = { (column:Int) -> CGFloat in
             //Calculate gap between points
-            let spacer = (width - margin*2 - 4) /
+            
+            let spacer = (width - margin*2) /
                 CGFloat((self.yValues.count - 1))
+            //            var spacer:CGFloat = width - margin*2
+            //            if self.yValues.count-1 > 0 {
+            //                spacer = spacer/CGFloat((self.yValues.count - 1))
+            //            }
             var x:CGFloat = CGFloat(column) * spacer
-            x += margin + 2
+            x += margin
             return x
         }
         
@@ -172,8 +204,8 @@ class GraphView: UIView {
         let topBorder:CGFloat = 20
         let bottomBorder:CGFloat = 20
         let graphHeight = height - topBorder - bottomBorder
-        let maxValue = 10
-        //let maxValue = graphPoints.maxElement()!
+        //let maxValue = 10
+        let maxValue = yValues.maxElement()!
         let columnYPoint = { (graphPoint:Int) -> CGFloat in
             var y:CGFloat = CGFloat(graphPoint) /
                 CGFloat(maxValue) * graphHeight

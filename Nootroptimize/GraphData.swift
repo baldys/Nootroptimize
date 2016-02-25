@@ -165,7 +165,9 @@ class GraphData {
     
     
     func formattedDateString(date:NSDate) -> String {
-            
+//        dateFormatter.timeStyle = .ShortStyle
+//        dateFormatter.dateStyle = .ShortStyle
+
         dateFormatter.dateFormat = "dd"
         return dateFormatter.stringFromDate(date)
             

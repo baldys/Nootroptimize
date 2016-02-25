@@ -22,10 +22,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nLL-7G-c8Y">
-                                <rect key="frame" x="0.0" y="64" width="600" height="300"/>
+                                <rect key="frame" x="4" y="64" width="592" height="300"/>
                                 <subviews>
                                     <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z13-HY-hmd" customClass="GraphView" customModule="Nootroptimize" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="592" height="300"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="isc-4V-glD">
                                                 <rect key="frame" x="8" y="8" width="16.5" height="24"/>
@@ -43,7 +43,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No data to show                                                Select + to add data for this stack" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bi0-lB-RAh">
-                                                <rect key="frame" x="135" y="100.5" width="330" height="99"/>
+                                                <rect key="frame" x="131" y="100" width="330" height="99"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="330" id="K1c-kw-403"/>
                                                     <constraint firstAttribute="height" constant="99" id="crN-Gv-4mB"/>
@@ -57,11 +57,11 @@
                                         <constraints>
                                             <constraint firstItem="ekT-hL-ndI" firstAttribute="width" secondItem="isc-4V-glD" secondAttribute="width" id="3op-jF-rtP"/>
                                             <constraint firstItem="isc-4V-glD" firstAttribute="top" secondItem="z13-HY-hmd" secondAttribute="top" constant="8" id="5JR-uh-kYw"/>
-                                            <constraint firstItem="ekT-hL-ndI" firstAttribute="leading" secondItem="z13-HY-hmd" secondAttribute="leading" constant="8" id="CBW-DK-iRg"/>
                                             <constraint firstItem="Bi0-lB-RAh" firstAttribute="centerX" secondItem="z13-HY-hmd" secondAttribute="centerX" id="LoO-IL-He2"/>
                                             <constraint firstItem="isc-4V-glD" firstAttribute="leading" secondItem="z13-HY-hmd" secondAttribute="leading" constant="8" id="O47-gH-F3n"/>
                                             <constraint firstItem="Bi0-lB-RAh" firstAttribute="centerY" secondItem="z13-HY-hmd" secondAttribute="centerY" id="RyF-PG-FOf"/>
                                             <constraint firstItem="isc-4V-glD" firstAttribute="trailing" secondItem="ekT-hL-ndI" secondAttribute="trailing" id="UmD-cX-V4C"/>
+                                            <constraint firstItem="ekT-hL-ndI" firstAttribute="leading" secondItem="z13-HY-hmd" secondAttribute="leading" constant="8" id="XTf-D4-aZt"/>
                                             <constraint firstItem="isc-4V-glD" firstAttribute="leading" secondItem="ekT-hL-ndI" secondAttribute="leading" id="cUU-AC-CTY"/>
                                             <constraint firstAttribute="bottom" secondItem="ekT-hL-ndI" secondAttribute="bottom" constant="8" id="q8f-jU-wj8"/>
                                         </constraints>
@@ -73,11 +73,10 @@
                                     <constraint firstItem="z13-HY-hmd" firstAttribute="centerY" secondItem="nLL-7G-c8Y" secondAttribute="centerY" id="dNf-WC-vIa"/>
                                     <constraint firstItem="z13-HY-hmd" firstAttribute="leading" secondItem="nLL-7G-c8Y" secondAttribute="leading" id="jE5-XV-lkX"/>
                                     <constraint firstItem="z13-HY-hmd" firstAttribute="top" secondItem="nLL-7G-c8Y" secondAttribute="top" id="oUI-zF-aRh"/>
-                                    <constraint firstAttribute="trailing" secondItem="z13-HY-hmd" secondAttribute="trailing" id="pCW-tI-z8z"/>
                                 </constraints>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3vB-bF-xYf">
-                                <rect key="frame" x="7" y="367" width="587" height="29"/>
+                                <rect key="frame" x="7" y="370" width="587" height="29"/>
                                 <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="0.77344959365325072" colorSpace="calibratedRGB"/>
                                 <segments>
                                     <segment title="Mood"/>
@@ -105,30 +104,35 @@
                             <constraint firstAttribute="trailingMargin" secondItem="nLL-7G-c8Y" secondAttribute="trailing" constant="-20" id="33n-DC-7Vc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="3vB-bF-xYf" secondAttribute="trailing" constant="-14" id="Bi3-3O-A4Y"/>
                             <constraint firstItem="nLL-7G-c8Y" firstAttribute="height" secondItem="vlz-Na-IDP" secondAttribute="height" multiplier="1:2" constant="-32" id="DbU-9j-ZxC"/>
-                            <constraint firstItem="3vB-bF-xYf" firstAttribute="top" secondItem="z13-HY-hmd" secondAttribute="bottom" constant="3" id="G4u-Ly-kdr"/>
+                            <constraint firstItem="3vB-bF-xYf" firstAttribute="top" secondItem="z13-HY-hmd" secondAttribute="bottom" constant="6" id="G4u-Ly-kdr"/>
                             <constraint firstItem="w23-EZ-4r5" firstAttribute="height" secondItem="nLL-7G-c8Y" secondAttribute="height" constant="-12" id="G8w-4T-Il0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="w23-EZ-4r5" secondAttribute="trailing" constant="-20" id="Jta-Ta-rcG"/>
                             <constraint firstItem="nLL-7G-c8Y" firstAttribute="height" secondItem="vlz-Na-IDP" secondAttribute="height" multiplier="1:2" id="KDu-YB-5XM"/>
+                            <constraint firstItem="z13-HY-hmd" firstAttribute="centerX" secondItem="vlz-Na-IDP" secondAttribute="centerX" id="NaC-4R-NLN"/>
                             <constraint firstItem="nLL-7G-c8Y" firstAttribute="top" secondItem="iwQ-b9-KPz" secondAttribute="bottom" id="Y5J-bP-r2T"/>
                             <constraint firstItem="w23-EZ-4r5" firstAttribute="leading" secondItem="vlz-Na-IDP" secondAttribute="leadingMargin" constant="-20" id="a7h-aU-T7k"/>
                             <constraint firstItem="nLL-7G-c8Y" firstAttribute="centerX" secondItem="vlz-Na-IDP" secondAttribute="centerX" id="cIL-id-L0z"/>
                             <constraint firstItem="3vB-bF-xYf" firstAttribute="leading" secondItem="vlz-Na-IDP" secondAttribute="leadingMargin" constant="-13" id="cbC-GC-7x0"/>
                             <constraint firstItem="fZe-S2-b4w" firstAttribute="top" secondItem="w23-EZ-4r5" secondAttribute="bottom" id="m3w-nb-chf"/>
                             <constraint firstItem="w23-EZ-4r5" firstAttribute="centerX" secondItem="vlz-Na-IDP" secondAttribute="centerX" id="udS-Sd-cYz"/>
+                            <constraint firstItem="z13-HY-hmd" firstAttribute="top" secondItem="iwQ-b9-KPz" secondAttribute="bottom" id="ugB-Rg-qXA"/>
                             <constraint firstItem="nLL-7G-c8Y" firstAttribute="leading" secondItem="vlz-Na-IDP" secondAttribute="leadingMargin" constant="-20" id="vqN-RJ-l4f"/>
+                            <constraint firstItem="z13-HY-hmd" firstAttribute="leading" secondItem="vlz-Na-IDP" secondAttribute="leadingMargin" constant="-16" id="zt7-26-gUY"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="w23-EZ-4r5"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="33n-DC-7Vc"/>
                                 <exclude reference="DbU-9j-ZxC"/>
+                                <exclude reference="vqN-RJ-l4f"/>
                             </mask>
                         </variation>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="7r3-cc-FZO">
-                        <barButtonItem key="leftBarButtonItem" image="back-image" id="Btq-Zc-hh0">
+                        <barButtonItem key="leftBarButtonItem" image="Back" id="Btq-Zc-hh0">
                             <color key="tintColor" red="0.090196078431372548" green="0.72941176470588232" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="CEC-R9-rue" kind="unwind" unwindAction="unwindToStacks:" id="zZ1-5d-Nfz"/>
@@ -704,8 +708,8 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="hZh-B6-N62"/>
                                                     <exclude reference="I8a-qG-cEL"/>
+                                                    <exclude reference="hZh-B6-N62"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -1364,7 +1368,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="back-image" width="13" height="22"/>
+        <image name="Back" width="13" height="22"/>
         <image name="background" width="400" height="728"/>
         <image name="waklert-cephalon-happy-end" width="26" height="44"/>
     </resources>
