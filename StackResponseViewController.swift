@@ -12,7 +12,7 @@
 import UIKit
 import CoreData
 
-class StackResponseViewController: UIViewController, AddLogRecordDelegate {
+class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var graphView: GraphView!
     @IBOutlet weak var maxLabel: UILabel!
@@ -129,8 +129,6 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate {
         
         
         maxLabel.text = "\(graphView.yValues.maxElement()!)"
-//        maxLabel.text = "10"
-        print("last xvalue: \(graphView.xLabels.last!.text)")
       
         graphView.setNeedsDisplay()
 
@@ -165,6 +163,56 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate {
             }
         }
     }
+    
 
+    
+    var nootropics:[Nootropic] = []
+    // MARK: - table view data source
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return nootropics.count
+        
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+        
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("NootropicCell", forIndexPath: indexPath)
+        
+        let nootropic:Nootropic = nootropics[indexPath.row]
+        
+        cell.textLabel?.text = nootropic.name
+        cell.detailTextLabel?.text = String(nootropic.dose!)
+        
+        
+        
+        
+        return cell
+        
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            
+        }
+        if editingStyle == .Insert {
+            
+            
+        }
+    }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+
+    // MARK: - table view delegate
+    
+    
+    
 
 }

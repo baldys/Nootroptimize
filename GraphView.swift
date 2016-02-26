@@ -10,12 +10,19 @@ import UIKit
 
 class GraphView: UIView {
     
+    
+    let margin:CGFloat = 20.0
+    let topBorder:CGFloat = 20
+    let bottomBorder:CGFloat = 20
+
+
+    
     var yValues:[Int] = []
 
     var xValues:[String] = []
     var xLabels:[UILabel] = []
     
-    
+
 
     // yellow
     var topColour: UIColor = UIColor.redGraphColor()
@@ -23,6 +30,7 @@ class GraphView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        sizeToFit()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -39,54 +47,41 @@ class GraphView: UIView {
 //    
     func addXLabelWithText(xValue:String) {
         xValues.append(xValue)
-        let labelFrame = CGRect(x:0, y:0, width:30, height:44)
-        let xLabel = UILabel(frame: labelFrame)
+//        let labelFrame = CGRect(x:0, y:0, width:30, height:44)
+        let xLabel = UILabel(frame: CGRectZero)
         xLabel.text = xValue
         xLabel.font = UIFont(name: "AvenirNextCondensed-Medium", size: 13)
         xLabel.textColor = UIColor.whiteColor()
         
         xLabels.append(xLabel)
         addSubview(xLabel)
-        layoutIfNeeded()
+        setNeedsLayout()
     }
     
 
     override func layoutSubviews() {
+        
+        //sizeToFit()
 
         let width = frame.width
         let height = frame.height
-        print(String(width) + String(height))
 
-        let margin:CGFloat = 20.0
+        let labelWidth:CGFloat = 22
         
-        let columnXPoint = { (column:Int) -> CGFloat in
-            //Calculate gap between points
-            
-            let spacer = (width - margin*2) /
-                CGFloat((self.yValues.count - 1))
-//            var spacer:CGFloat = width - margin*2
-//            if self.yValues.count-1 > 0 {
-//                spacer = spacer/CGFloat((self.yValues.count - 1))
-//            }
-            var x:CGFloat = CGFloat(column) * spacer
-            x += margin
-            return x
-        }
+        var labelFrame = CGRect(x: 0, y: 0, width: labelWidth, height: 14)
 
-        var labelFrame = CGRect(x: 0, y: 0, width: 44, height: 44)
-        
-        // Offset each button's origin by the length of the button plus spacing.
-        for (index, label) in xLabels.enumerate() {
-            //labelFrame.origin.x = CGFloat(index * (44 + 5)) // index x (width+padding)
-            
-            labelFrame.origin.x = columnXPoint(index)
-            labelFrame.origin.y = height - 30
+        // Offset each label's origin by the length of the button plus spacing.
+        for (index, label) in xLabels.enumerate() {            
+            labelFrame.origin.x = xPoint(index) - labelWidth/2
+            labelFrame.origin.y = height - 10
             
             label.frame = labelFrame
             print("[\(index)] LABEL TEXT:\(label.text), xValue: \(xValues[index])")
             
             
         }
+        
+        /// TO DO: check if labelWidth*xLabels.count > width then shift the graph over so it shows the most recent dates
 
     }
     
@@ -110,7 +105,7 @@ class GraphView: UIView {
             print("xValue: \(xValues[i])")
             
             xLabel.font = UIFont(name: "AvenirNextCondensed-Medium", size: 13)
-            
+            xLabel.textAlignment = .Center
             xLabel.textColor = UIColor.whiteColor()
             
             //            xLabels += [xLabel]
@@ -140,15 +135,81 @@ class GraphView: UIView {
         
     }()
 
+    
+    
+    
+    
 
+//    override func sizeThatFits(size: CGSize) -> CGSize {
+//        let screenWidth = UIScreen.mainScreen().bounds.size.width
+//        let screenHeight = UIScreen.mainScreen().bounds.size.height
+//        
+//        let orientation:UIDeviceOrientation = UIDevice.currentDevice().orientation
+//
+//        var width:CGFloat = size.width
+//        var height:CGFloat = size.height
+//        if orientation == .LandscapeLeft {
+//            if size.width < screenWidth {
+//                width = screenWidth
+//            }
+//        }
+//        else if orientation == .Portrait {
+//            if size.height < screenHeight {
+//                height = screenHeight
+//            }
+//        }
+//        return CGSize(width: width, height: height)
+//        
+//    }
+    
+    func xPoint(index:Int) -> CGFloat {
 
+        let columnXPoint = { (column:Int) -> CGFloat in
+            //Calculate gap between points
+            
+            let spacer = (self.frame.width - self.margin*2 - 4) /
+                CGFloat((self.yValues.count - 1))
+            //            var spacer:CGFloat = width - margin*2
+            //            if self.yValues.count-1 > 0 {
+            //                spacer = spacer/CGFloat((self.yValues.count - 1))
+            //            }
+            var x:CGFloat = CGFloat(column) * spacer
+            x += self.margin - 2
+            return x
+        }
+        return columnXPoint(index)
+    }
+
+    func yPoint(yValue:Int) -> CGFloat {
+        
+
+        let maxValue = yValues.maxElement()!
+
+        let graphHeight = self.frame.height - topBorder - bottomBorder
+        
+        
+        let columnYPoint = { (graphPoint:Int) -> CGFloat in
+            var y:CGFloat = CGFloat(graphPoint) /
+                CGFloat(maxValue) * graphHeight
+            y = graphHeight + self.topBorder - y // Flip the graph
+            return y
+        }
+        
+        return columnYPoint(yValue)
+        
+    }
+    
     override func drawRect(rect: CGRect) {
         if yValues.count == 0 {
             return
         }
-        
+    
         let width = rect.width
         let height = rect.height
+        
+        let maxValue = yValues.maxElement()!
+        
+        let graphHeight = self.frame.height - topBorder - bottomBorder
         
         //set up background clipping area
         let path = UIBezierPath(roundedRect: rect,
@@ -179,40 +240,7 @@ class GraphView: UIView {
             startPoint,
             endPoint,
             [])
-        
-        //calculate the x point
-        
-        let margin:CGFloat = 20.0
-        let columnXPoint = { (column:Int) -> CGFloat in
-            //Calculate gap between points
-            
-            let spacer = (width - margin*2) /
-                CGFloat((self.yValues.count - 1))
-            //            var spacer:CGFloat = width - margin*2
-            //            if self.yValues.count-1 > 0 {
-            //                spacer = spacer/CGFloat((self.yValues.count - 1))
-            //            }
-            var x:CGFloat = CGFloat(column) * spacer
-            x += margin
-            return x
-        }
-        
-        
-        
-        // calculate the y point
-        
-        let topBorder:CGFloat = 20
-        let bottomBorder:CGFloat = 20
-        let graphHeight = height - topBorder - bottomBorder
-        //let maxValue = 10
-        let maxValue = yValues.maxElement()!
-        let columnYPoint = { (graphPoint:Int) -> CGFloat in
-            var y:CGFloat = CGFloat(graphPoint) /
-                CGFloat(maxValue) * graphHeight
-            y = graphHeight + topBorder - y // Flip the graph
-            return y
-        }
-        
+
         // draw the line graph
         
         UIColor.whiteColor().setFill()
@@ -222,14 +250,14 @@ class GraphView: UIView {
         let graphPath = UIBezierPath()
         //go to start of line
     
-        graphPath.moveToPoint(CGPoint(x:columnXPoint(0),
-            y:columnYPoint(yValues[0])))
+        graphPath.moveToPoint(CGPoint(x:xPoint(0),
+            y:yPoint(yValues[0])))
         
         //add points for each item in the graphPoints array
         //at the correct (x, y) for the point
         for i in 1..<yValues.count {
-            let nextPoint = CGPoint(x:columnXPoint(i),
-                y:columnYPoint(yValues[i]))
+            let nextPoint = CGPoint(x:xPoint(i),
+                y:yPoint(yValues[i]))
             graphPath.addLineToPoint(nextPoint)
         }
         
@@ -243,17 +271,18 @@ class GraphView: UIView {
         
         //3 - add lines to the copied path to complete the clip area
         clippingPath.addLineToPoint(CGPoint(
-            x: columnXPoint(yValues.count - 1),
+            x: xPoint(yValues.count - 1),
             y:height))
         clippingPath.addLineToPoint(CGPoint(
-            x:columnXPoint(0),
+            x:xPoint(0),
             y:height))
         clippingPath.closePath()
         
         //4 - add the clipping path to the context
         clippingPath.addClip()
         
-        let highestYPoint = columnYPoint(maxValue)
+
+        let highestYPoint = yPoint(maxValue)
         startPoint = CGPoint(x:margin, y: highestYPoint)
         endPoint = CGPoint(x:margin, y:self.bounds.height)
         
@@ -266,7 +295,7 @@ class GraphView: UIView {
         
         //Draw the circles on top of graph stroke
         for i in 0..<yValues.count {
-            var point = CGPoint(x:columnXPoint(i), y:columnYPoint(yValues[i]))
+            var point = CGPoint(x:xPoint(i), y:yPoint(yValues[i]))
             point.x -= 5.0/2
             point.y -= 5.0/2
             

@@ -19,8 +19,6 @@ protocol AddStackDelegate {
 
 class AddStackViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, AddNootropicDelegate {
 
-
-
     //var newStack: Stack?
     var delegate: AddStackDelegate?
     var nootropics = [Nootropic]()
@@ -37,15 +35,6 @@ class AddStackViewController: UIViewController, UITextFieldDelegate, UITableView
         super.viewDidLoad()
         navigationItem.title = "Add Stack"
         stackNameField.delegate = self
-        
-//        Array(arrayLiteral:stack?.nootropics)
-        
-       
-        
-        
-        //stackNameField.becomeFirstResponder()
-        
-        
     }
 
     override func didReceiveMemoryWarning() {

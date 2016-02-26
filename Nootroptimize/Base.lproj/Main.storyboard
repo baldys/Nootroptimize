@@ -4,7 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -21,15 +20,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nLL-7G-c8Y">
-                                <rect key="frame" x="4" y="64" width="592" height="300"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hx5-vT-i6X">
+                                <rect key="frame" x="4" y="68" width="592" height="488"/>
                                 <subviews>
-                                    <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z13-HY-hmd" customClass="GraphView" customModule="Nootroptimize" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="592" height="300"/>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3vB-bF-xYf">
+                                        <rect key="frame" x="0.0" y="0.0" width="592" height="29"/>
+                                        <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="0.77344959365325072" colorSpace="calibratedRGB"/>
+                                        <segments>
+                                            <segment title="Mood"/>
+                                            <segment title="Focus"/>
+                                            <segment title="Energy"/>
+                                            <segment title="Clarity"/>
+                                            <segment title="Memory"/>
+                                        </segments>
+                                        <color key="tintColor" red="0.089007548987865448" green="0.72914278507232666" blue="0.97870075702667236" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="changeGraphData:" destination="aDq-AA-93V" eventType="valueChanged" id="dDL-uq-ffc"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z13-HY-hmd" customClass="GraphView" customModule="Nootroptimize" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="592" height="256"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="isc-4V-glD">
-                                                <rect key="frame" x="8" y="8" width="16.5" height="24"/>
+                                                <rect key="frame" x="8" y="8" width="17" height="24"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="width" constant="17" id="8ha-gm-5pn"/>
                                                     <constraint firstAttribute="height" constant="24" id="BgC-e0-GLN"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="17"/>
@@ -37,96 +52,67 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ekT-hL-ndI">
-                                                <rect key="frame" x="8" y="268" width="16.5" height="23.5"/>
+                                                <rect key="frame" x="8" y="221" width="17" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="24" id="VPW-Uw-nzw"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="17"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No data to show                                                Select + to add data for this stack" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bi0-lB-RAh">
-                                                <rect key="frame" x="131" y="100" width="330" height="99"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="330" id="K1c-kw-403"/>
-                                                    <constraint firstAttribute="height" constant="99" id="crN-Gv-4mB"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="0.62675357972136225" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstItem="isc-4V-glD" firstAttribute="top" secondItem="z13-HY-hmd" secondAttribute="topMargin" id="2ay-H2-ca3"/>
+                                            <constraint firstItem="ekT-hL-ndI" firstAttribute="leading" secondItem="z13-HY-hmd" secondAttribute="leadingMargin" id="2gO-Yn-0T1"/>
                                             <constraint firstItem="ekT-hL-ndI" firstAttribute="width" secondItem="isc-4V-glD" secondAttribute="width" id="3op-jF-rtP"/>
-                                            <constraint firstItem="isc-4V-glD" firstAttribute="top" secondItem="z13-HY-hmd" secondAttribute="top" constant="8" id="5JR-uh-kYw"/>
-                                            <constraint firstItem="Bi0-lB-RAh" firstAttribute="centerX" secondItem="z13-HY-hmd" secondAttribute="centerX" id="LoO-IL-He2"/>
-                                            <constraint firstItem="isc-4V-glD" firstAttribute="leading" secondItem="z13-HY-hmd" secondAttribute="leading" constant="8" id="O47-gH-F3n"/>
-                                            <constraint firstItem="Bi0-lB-RAh" firstAttribute="centerY" secondItem="z13-HY-hmd" secondAttribute="centerY" id="RyF-PG-FOf"/>
                                             <constraint firstItem="isc-4V-glD" firstAttribute="trailing" secondItem="ekT-hL-ndI" secondAttribute="trailing" id="UmD-cX-V4C"/>
-                                            <constraint firstItem="ekT-hL-ndI" firstAttribute="leading" secondItem="z13-HY-hmd" secondAttribute="leading" constant="8" id="XTf-D4-aZt"/>
+                                            <constraint firstAttribute="bottom" secondItem="ekT-hL-ndI" secondAttribute="bottom" constant="11" id="XDb-PF-rdP"/>
                                             <constraint firstItem="isc-4V-glD" firstAttribute="leading" secondItem="ekT-hL-ndI" secondAttribute="leading" id="cUU-AC-CTY"/>
-                                            <constraint firstAttribute="bottom" secondItem="ekT-hL-ndI" secondAttribute="bottom" constant="8" id="q8f-jU-wj8"/>
                                         </constraints>
                                     </view>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="w23-EZ-4r5">
+                                        <rect key="frame" x="0.0" y="284" width="592" height="204"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="204" id="uIV-5K-tYx"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="dataSource" destination="aDq-AA-93V" id="47W-Xh-zM9"/>
+                                            <outlet property="delegate" destination="aDq-AA-93V" id="K0I-XO-QpV"/>
+                                        </connections>
+                                    </tableView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="z13-HY-hmd" secondAttribute="bottom" id="aTb-mc-Xkj"/>
-                                    <constraint firstItem="z13-HY-hmd" firstAttribute="centerY" secondItem="nLL-7G-c8Y" secondAttribute="centerY" id="dNf-WC-vIa"/>
-                                    <constraint firstItem="z13-HY-hmd" firstAttribute="leading" secondItem="nLL-7G-c8Y" secondAttribute="leading" id="jE5-XV-lkX"/>
-                                    <constraint firstItem="z13-HY-hmd" firstAttribute="top" secondItem="nLL-7G-c8Y" secondAttribute="top" id="oUI-zF-aRh"/>
+                                    <constraint firstItem="z13-HY-hmd" firstAttribute="leading" secondItem="hx5-vT-i6X" secondAttribute="leadingMargin" constant="12" id="CDX-Rk-8tm"/>
+                                    <constraint firstItem="z13-HY-hmd" firstAttribute="top" secondItem="3vB-bF-xYf" secondAttribute="bottom" constant="6" id="M2F-HB-qzJ"/>
+                                    <constraint firstItem="z13-HY-hmd" firstAttribute="leading" secondItem="hx5-vT-i6X" secondAttribute="leading" id="ZRO-FA-ovR"/>
+                                    <constraint firstItem="z13-HY-hmd" firstAttribute="trailing" secondItem="3vB-bF-xYf" secondAttribute="trailing" id="eob-F1-MtJ"/>
+                                    <constraint firstItem="z13-HY-hmd" firstAttribute="leading" secondItem="3vB-bF-xYf" secondAttribute="leading" id="glw-sL-6Zl"/>
+                                    <constraint firstItem="w23-EZ-4r5" firstAttribute="top" secondItem="z13-HY-hmd" secondAttribute="bottom" constant="6" id="jZR-P0-wAr"/>
+                                    <constraint firstItem="z13-HY-hmd" firstAttribute="top" secondItem="3vB-bF-xYf" secondAttribute="bottom" constant="6" id="sDP-bp-3lO"/>
                                 </constraints>
-                            </view>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3vB-bF-xYf">
-                                <rect key="frame" x="7" y="370" width="587" height="29"/>
-                                <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="0.77344959365325072" colorSpace="calibratedRGB"/>
-                                <segments>
-                                    <segment title="Mood"/>
-                                    <segment title="Focus"/>
-                                    <segment title="Energy"/>
-                                    <segment title="Clarity"/>
-                                    <segment title="Memory"/>
-                                </segments>
-                                <color key="tintColor" red="0.089007548987865448" green="0.72914278507232666" blue="0.97870075702667236" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="changeGraphData:" destination="aDq-AA-93V" eventType="valueChanged" id="dDL-uq-ffc"/>
-                                </connections>
-                            </segmentedControl>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="w23-EZ-4r5">
-                                <rect key="frame" x="0.0" y="338" width="600" height="262"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="aDq-AA-93V" id="47W-Xh-zM9"/>
-                                    <outlet property="delegate" destination="aDq-AA-93V" id="K0I-XO-QpV"/>
-                                </connections>
-                            </tableView>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="CDX-Rk-8tm"/>
+                                        <exclude reference="M2F-HB-qzJ"/>
+                                        <exclude reference="sDP-bp-3lO"/>
+                                        <exclude reference="jZR-P0-wAr"/>
+                                    </mask>
+                                </variation>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="nLL-7G-c8Y" secondAttribute="trailing" constant="-20" id="33n-DC-7Vc"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="3vB-bF-xYf" secondAttribute="trailing" constant="-14" id="Bi3-3O-A4Y"/>
-                            <constraint firstItem="nLL-7G-c8Y" firstAttribute="height" secondItem="vlz-Na-IDP" secondAttribute="height" multiplier="1:2" constant="-32" id="DbU-9j-ZxC"/>
-                            <constraint firstItem="3vB-bF-xYf" firstAttribute="top" secondItem="z13-HY-hmd" secondAttribute="bottom" constant="6" id="G4u-Ly-kdr"/>
-                            <constraint firstItem="w23-EZ-4r5" firstAttribute="height" secondItem="nLL-7G-c8Y" secondAttribute="height" constant="-12" id="G8w-4T-Il0"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="w23-EZ-4r5" secondAttribute="trailing" constant="-20" id="Jta-Ta-rcG"/>
-                            <constraint firstItem="nLL-7G-c8Y" firstAttribute="height" secondItem="vlz-Na-IDP" secondAttribute="height" multiplier="1:2" id="KDu-YB-5XM"/>
-                            <constraint firstItem="z13-HY-hmd" firstAttribute="centerX" secondItem="vlz-Na-IDP" secondAttribute="centerX" id="NaC-4R-NLN"/>
-                            <constraint firstItem="nLL-7G-c8Y" firstAttribute="top" secondItem="iwQ-b9-KPz" secondAttribute="bottom" id="Y5J-bP-r2T"/>
-                            <constraint firstItem="w23-EZ-4r5" firstAttribute="leading" secondItem="vlz-Na-IDP" secondAttribute="leadingMargin" constant="-20" id="a7h-aU-T7k"/>
-                            <constraint firstItem="nLL-7G-c8Y" firstAttribute="centerX" secondItem="vlz-Na-IDP" secondAttribute="centerX" id="cIL-id-L0z"/>
-                            <constraint firstItem="3vB-bF-xYf" firstAttribute="leading" secondItem="vlz-Na-IDP" secondAttribute="leadingMargin" constant="-13" id="cbC-GC-7x0"/>
-                            <constraint firstItem="fZe-S2-b4w" firstAttribute="top" secondItem="w23-EZ-4r5" secondAttribute="bottom" id="m3w-nb-chf"/>
-                            <constraint firstItem="w23-EZ-4r5" firstAttribute="centerX" secondItem="vlz-Na-IDP" secondAttribute="centerX" id="udS-Sd-cYz"/>
-                            <constraint firstItem="z13-HY-hmd" firstAttribute="top" secondItem="iwQ-b9-KPz" secondAttribute="bottom" id="ugB-Rg-qXA"/>
-                            <constraint firstItem="nLL-7G-c8Y" firstAttribute="leading" secondItem="vlz-Na-IDP" secondAttribute="leadingMargin" constant="-20" id="vqN-RJ-l4f"/>
-                            <constraint firstItem="z13-HY-hmd" firstAttribute="leading" secondItem="vlz-Na-IDP" secondAttribute="leadingMargin" constant="-16" id="zt7-26-gUY"/>
+                            <constraint firstItem="3vB-bF-xYf" firstAttribute="top" secondItem="iwQ-b9-KPz" secondAttribute="bottom" id="Zd4-yV-HOs"/>
+                            <constraint firstItem="hx5-vT-i6X" firstAttribute="top" secondItem="iwQ-b9-KPz" secondAttribute="bottom" constant="4" id="h7F-SK-TYN"/>
+                            <constraint firstItem="fZe-S2-b4w" firstAttribute="top" secondItem="hx5-vT-i6X" secondAttribute="bottom" id="oTu-la-cbl"/>
+                            <constraint firstItem="z13-HY-hmd" firstAttribute="leading" secondItem="vlz-Na-IDP" secondAttribute="leadingMargin" constant="-16" id="wL5-38-i3v"/>
+                            <constraint firstItem="3vB-bF-xYf" firstAttribute="centerX" secondItem="vlz-Na-IDP" secondAttribute="centerX" id="x5z-WZ-lue"/>
                         </constraints>
                         <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="w23-EZ-4r5"/>
-                            </mask>
                             <mask key="constraints">
-                                <exclude reference="33n-DC-7Vc"/>
-                                <exclude reference="DbU-9j-ZxC"/>
-                                <exclude reference="vqN-RJ-l4f"/>
+                                <exclude reference="Zd4-yV-HOs"/>
                             </mask>
                         </variation>
                     </view>
@@ -150,7 +136,6 @@
                         <outlet property="graphDataControl" destination="3vB-bF-xYf" id="Fm9-Sg-H7W"/>
                         <outlet property="graphView" destination="z13-HY-hmd" id="rx4-ci-lsA"/>
                         <outlet property="maxLabel" destination="isc-4V-glD" id="ZjH-Cb-yeZ"/>
-                        <outlet property="noStackDataLabel" destination="Bi0-lB-RAh" id="eF8-tC-I5j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZU3-YO-vX6" userLabel="First Responder" sceneMemberID="firstResponder"/>
