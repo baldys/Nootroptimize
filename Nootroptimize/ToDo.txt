@@ -1,9 +1,0 @@
-if that works try simply appending the new log record to the log record in the view controller....
-
-append the values to the graph view properties instead of setting the entire array
-
-
-
-
-
-
