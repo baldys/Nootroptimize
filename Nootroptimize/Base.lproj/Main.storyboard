@@ -483,9 +483,6 @@
                                                     <date key="date" timeIntervalSinceReferenceDate="478289034.02339602">
                                                         <!--2016-02-27 18:03:54 +0000-->
                                                     </date>
-                                                    <connections>
-                                                        <action selector="changeLogDate:" destination="dUI-vJ-tJS" eventType="valueChanged" id="XFS-7m-WkE"/>
-                                                    </connections>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
@@ -522,6 +519,9 @@
                                                     </attributedString>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                     <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="dUI-vJ-tJS" id="SHK-pT-32o"/>
+                                                    </connections>
                                                 </textView>
                                             </subviews>
                                             <constraints>
@@ -568,6 +568,7 @@
                         <outlet property="memoryValueLabel" destination="gCX-uG-9Th" id="4pd-lq-UIe"/>
                         <outlet property="moodStepper" destination="YNd-Pa-guJ" id="oLv-xa-mfg"/>
                         <outlet property="moodValueLabel" destination="9HT-0J-GEt" id="hyv-eF-aFO"/>
+                        <outlet property="notesView" destination="Wtv-to-Ncw" id="aQt-te-TtG"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JGZ-df-ISo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -876,6 +877,8 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="doseField" destination="772-YA-8Ao" id="eVn-Dh-QRA"/>
+                        <outlet property="frequencyControl" destination="1c2-d1-yFH" id="H6f-Jn-GH1"/>
+                        <outlet property="frequencyLabel" destination="5k0-PL-Jhe" id="DIn-5A-svw"/>
                         <outlet property="nameField" destination="H3J-bF-Lhd" id="06X-df-uPc"/>
                     </connections>
                 </tableViewController>
