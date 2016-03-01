@@ -832,11 +832,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Nootroptimize/Models/Views/GraphView.swift"
-            timestampString = "478257688.266689"
+            timestampString = "478479463.271405"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
             landmarkName = "setUpXLabels(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -848,11 +848,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Nootroptimize/Models/Views/GraphView.swift"
-            timestampString = "478214474.605776"
+            timestampString = "478479463.271405"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
             landmarkName = "addXLabelWithText(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -864,11 +864,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Nootroptimize/Models/Views/GraphView.swift"
-            timestampString = "478257688.266689"
+            timestampString = "478479463.271405"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "setUpXLabels(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -896,7 +896,7 @@
                   moduleName = "Nootroptimize"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/VeronicaBaldys/Desktop/Nootroptimize/Nootroptimize/Models/Stack.swift"
-                  timestampString = "478423132.672849"
+                  timestampString = "478509345.848259"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -911,7 +911,7 @@
                   moduleName = "Nootroptimize"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/VeronicaBaldys/Desktop/Nootroptimize/Nootroptimize/Models/Stack.swift"
-                  timestampString = "478423132.672955"
+                  timestampString = "478509345.848456"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "63"
@@ -926,7 +926,7 @@
                   moduleName = "Nootroptimize"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/VeronicaBaldys/Desktop/Nootroptimize/Nootroptimize/Models/Stack.swift"
-                  timestampString = "478423132.673052"
+                  timestampString = "478509345.848743"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -941,7 +941,7 @@
                   moduleName = "Nootroptimize"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/VeronicaBaldys/Desktop/Nootroptimize/Nootroptimize/Models/Stack.swift"
-                  timestampString = "478423132.673149"
+                  timestampString = "478509345.848982"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "63"
@@ -956,7 +956,7 @@
                   moduleName = "Nootroptimize"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/VeronicaBaldys/Desktop/Nootroptimize/Nootroptimize/Models/Stack.swift"
-                  timestampString = "478423132.67324"
+                  timestampString = "478509345.849227"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "64"
@@ -995,6 +995,36 @@
             startingLineNumber = "175"
             endingLineNumber = "175"
             landmarkName = "viewWillTransitionToSize(_:withTransitionCoordinator:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Nootroptimize/Models/View Controllers/AddLogRecordViewController.swift"
+            timestampString = "478432065.866139"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Nootroptimize/Models/View Controllers/AddLogRecordViewController.swift"
+            timestampString = "478509344.693238"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "didEditValue(_:forCell:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

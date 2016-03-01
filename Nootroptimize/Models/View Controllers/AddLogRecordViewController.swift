@@ -15,8 +15,25 @@ protocol AddLogRecordDelegate {
     
 }
 
-class AddLogRecordViewController: UITableViewController {
+struct RatingCategory {
+    var name:String
+    var value:Int
+    
+    init(name:String, value:Int) {
+        self.name = name
+        self.value = value
+    }
+    
+    init(name:String) {
+        self.name = name
+        self.value = 0
+    }
+}
 
+class AddLogRecordViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UpdateCellDelegate {
+
+    var categories:[RatingCategory] = []
+    
     enum ratingCategory {
         case mood
         case energy
@@ -31,7 +48,7 @@ class AddLogRecordViewController: UITableViewController {
 
     // TO DO: use table view; make each row correspond to a rating category, tag each UI element with that row index
     
-    @IBOutlet weak var moodValueLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var energyValueLabel: UILabel!
     @IBOutlet weak var focusValueLabel: UILabel!
     @IBOutlet weak var clarityValueLabel: UILabel!
@@ -53,7 +70,16 @@ class AddLogRecordViewController: UITableViewController {
 
         logDatePicker.date = NSDate()
         logDatePicker.datePickerMode = .Date
-        //logDatePicker.maximumDate = NSDate()
+        
+        let moodCategory = RatingCategory(name:"Mood")
+        let energyCategory = RatingCategory(name:"Energy")
+        let focusCategory = RatingCategory(name:"Focus")
+        let clarityCategory = RatingCategory(name:"Clarity")
+        let memoryCategory = RatingCategory(name:"Memory")
+        
+        categories = [moodCategory, energyCategory, focusCategory, clarityCategory, memoryCategory]
+        
+    
         
 
     }
@@ -62,30 +88,27 @@ class AddLogRecordViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func changeStepperValue(sender: UIStepper) {
+
+    // MARK: - Update Cell Delegate
+    
+    func didEditValue(value:Int, forCell cell:UITableViewCell) {
         
-        if sender == moodStepper {
-            moodValueLabel.text = "\(Int(moodStepper.value))"
-        }
-        if sender == energyStepper {
-            energyValueLabel.text = "\(Int(energyStepper.value))"
-        }
-        if sender == focusStepper {
-            focusValueLabel.text = "\(Int(focusStepper.value))"
-        }
-        if sender == clarityStepper {
-            clarityValueLabel.text = "\(Int(clarityStepper.value))"
-        }
-        if sender == memoryStepper {
-            memoryValueLabel.text = "\(Int(memoryStepper.value))"
-        }
+        let indexPath:NSIndexPath = tableView.indexPathForCell(cell)!
         
+        categories[indexPath.row].value = value
+        
+        
+       
     }
     
+    // MARK: - Actions
     
     @IBAction func save(sender: AnyObject) {
     
         let selectedDate:NSDate = logDatePicker.date
+        var cell:CategoryCell
+        
+        cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! CategoryCell
         
         delegate?.addLogRecordViewController(self, didEnterValuesForMood: NSNumber(double: moodStepper.value), focus:NSNumber(double: focusStepper.value), energy:NSNumber(double: energyStepper.value),  clarity:NSNumber(double: clarityStepper.value), memory:NSNumber(double: memoryStepper.value), forDate: selectedDate)
     }
@@ -93,6 +116,45 @@ class AddLogRecordViewController: UITableViewController {
     @IBAction func cancel(sender: AnyObject) {
         delegate?.addLogViewControllerDidCancel()
     }
+    
+    // MARK: - table view data source
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return categories.count
+        
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+        
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let CellIdentifier = "CategoryCell"
+        let cell:CategoryCell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier, forIndexPath: indexPath) as! CategoryCell
+        cell.delegate = self
+        let category:RatingCategory = categories[indexPath.row]
+        
+        cell.setFromRatingCategory(category)
+        
+        
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            
+        }
+        if editingStyle == .Insert {
+            
+            
+        }
+    }
+
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
 
     /*
     // MARK: - Navigation

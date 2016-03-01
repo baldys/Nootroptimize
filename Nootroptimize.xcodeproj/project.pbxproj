@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F65FBE91C85431B00AEE769 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F65FBE81C85431B00AEE769 /* CategoryCell.swift */; };
 		9FD3C38B1C58D6DA00A22006 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C38A1C58D6DA00A22006 /* AppDelegate.swift */; };
 		9FD3C3901C58D6DA00A22006 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9FD3C38E1C58D6DA00A22006 /* Main.storyboard */; };
 		9FD3C3951C58D6DA00A22006 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9FD3C3941C58D6DA00A22006 /* Assets.xcassets */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9F65FBE81C85431B00AEE769 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCell.swift; path = ../../../CategoryCell.swift; sourceTree = "<group>"; };
 		9FD3C3871C58D6DA00A22006 /* Nootroptimize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nootroptimize.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FD3C38A1C58D6DA00A22006 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9FD3C38F1C58D6DA00A22006 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 		9FF595D71C8051E300266C6C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9F65FBE81C85431B00AEE769 /* CategoryCell.swift */,
 				9FF595D81C8051E300266C6C /* GraphView.swift */,
 				9FF595D91C8051E300266C6C /* StackTableViewCell.swift */,
 			);
@@ -342,6 +345,7 @@
 				9FD3C3CF1C59396800A22006 /* Nootroptimize.xcdatamodeld in Sources */,
 				9FF595E11C8051E300266C6C /* StackTableViewCell.swift in Sources */,
 				9FF595DD1C8051E300266C6C /* AddStackViewController.swift in Sources */,
+				9F65FBE91C85431B00AEE769 /* CategoryCell.swift in Sources */,
 				9FF595DA1C8051E300266C6C /* UIColor+Additions.swift in Sources */,
 				9FF595DB1C8051E300266C6C /* AddLogRecordViewController.swift in Sources */,
 				9FF595CE1C8051D400266C6C /* Stack.swift in Sources */,

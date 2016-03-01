@@ -72,6 +72,7 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
         
         let logRecord:LogRecord = LogRecord.createInManagedObjectContext((currentStack?.managedObjectContext)!, stack: currentStack!, mood: mood, energy: energy, focus: focus, clarity: clarity, memory: memory, notes: " ")
         
+    
             
         currentStack?.addNewLogRecord(logRecord)
         print("NEW LOG RECORD DATE: \(logRecord.date?.descriptionWithLocale(NSLocale)))")
@@ -100,6 +101,7 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
         let selectedGraphRatingType:GraphData.RatingType = GraphData.RatingType(rawValue: index)!
         return selectedGraphRatingType
     }
+  
     
     // graph points are updated to the most recently added data for a particular rating category
     func updateGraphWithData(data:GraphData, forRatingCategory ratingType:GraphData.RatingType) {

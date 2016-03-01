@@ -82,4 +82,52 @@ class Stack: NSManagedObject {
         return nootropicsData
     }()
     
+    
+    
+    
+    // find a log record with matching date (same date components)
+    
+    func findLogRecordForDate(date:NSDate) {
+        
+        let unitFlags: NSCalendarUnit = [.Day, .Month, .Year]
+        
+        let calendar:NSCalendar = NSCalendar.currentCalendar()
+        
+        let dateComponents:NSDateComponents = calendar.components(unitFlags, fromDate:date)
+        
+        let day:Int = dateComponents.day
+        let month:Int = dateComponents.month
+        let year:Int = dateComponents.year
+        
+        
+        if let logDataSet:NSSet = self.logData {
+            
+            // start with most recent log records
+            let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+            logRecords = logDataSet.sortedArrayUsingDescriptors([sortDescriptor]) as! [LogRecord]
+            
+            for logRecord in logRecords {
+               
+                let comparisonResult:NSComparisonResult = calendar.compareDate(date, toDate: logRecord.date!, toUnitGranularity: unitFlags)
+                
+                if comparisonResult == .OrderedSame {
+//                    let moc:NSManagedObjectContext = logRecord.managedObjectContext!
+//                    moc.deleteObject(logRecord)
+//                    moc.insertObject(NSManagedObject)
+                    print("same date components")
+                    
+                    ///TO DO::: instead of deleting and adding a new object just update that log record with new ratings
+                    break
+                }
+                if comparisonResult == .OrderedDescending {
+                    break
+                }
+                
+                
+            }
+        }
+        
+        
+    }
+
 }

@@ -53,4 +53,8 @@ class LogRecord: NSManagedObject {
         
         return newLogRecord
     }
+    
+    func updateLogRecordWithRatings() {
+        
+    }
 }
