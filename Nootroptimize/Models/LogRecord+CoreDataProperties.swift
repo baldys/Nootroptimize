@@ -21,6 +21,9 @@ extension LogRecord {
     @NSManaged var focus: NSNumber?
     @NSManaged var clarity: NSNumber?
     @NSManaged var memory: NSNumber?
+    
+    @NSManaged var ratings:NSSet?
+    
     @NSManaged var stack: Stack?
 
 }

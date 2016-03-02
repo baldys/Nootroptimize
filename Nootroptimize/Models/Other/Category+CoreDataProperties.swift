@@ -1,8 +1,8 @@
 //
-//  Stack+CoreDataProperties.swift
+//  Category+CoreDataProperties.swift
 //  Nootroptimize
 //
-//  Created by Veronica Baldys on 2016-01-27.
+//  Created by Veronica Baldys on 2016-03-02.
 //  Copyright © 2016 Veronica Baldys. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -12,13 +12,10 @@
 import Foundation
 import CoreData
 
-extension Stack {
+extension Category {
 
     @NSManaged var name: String?
-    @NSManaged var dateCreated: NSDate?
-    @NSManaged var logData: NSSet?
-    @NSManaged var nootropics: NSSet?
-    
-    @NSManaged var categories:NSSet
+    @NSManaged var rating: NSManagedObject?
+    @NSManaged var stack: Stack?
 
 }

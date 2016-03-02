@@ -165,6 +165,7 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
                     
                     vc.delegate = self
                     vc.stackName = currentStack!.name
+                    vc.stack = currentStack
                 }
             }
         }
@@ -217,6 +218,10 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
     }
     
 
+    @IBAction func unwindSegueToStackLog(sender:UIStoryboardSegue) {
+        
+        
+    }
     // MARK: - table view delegate
     
     

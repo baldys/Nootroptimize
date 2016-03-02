@@ -43,23 +43,14 @@ class AddLogRecordViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     var stackName:String?
-    
+    var stack:Stack!
     @IBOutlet weak var logDatePicker: UIDatePicker!
 
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     // TO DO: use table view; make each row correspond to a rating category, tag each UI element with that row index
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var energyValueLabel: UILabel!
-    @IBOutlet weak var focusValueLabel: UILabel!
-    @IBOutlet weak var clarityValueLabel: UILabel!
-    @IBOutlet weak var memoryValueLabel: UILabel!
 
-    @IBOutlet weak var moodStepper: UIStepper!
-    @IBOutlet weak var energyStepper: UIStepper!
-    @IBOutlet weak var focusStepper: UIStepper!
-    @IBOutlet weak var clarityStepper: UIStepper!
-    @IBOutlet weak var memoryStepper: UIStepper!
-    
     @IBOutlet weak var notesView: UITextView!
     
     var delegate: AddLogRecordDelegate?
@@ -78,6 +69,13 @@ class AddLogRecordViewController: UIViewController, UITableViewDataSource, UITab
         let memoryCategory = RatingCategory(name:"Memory")
         
         categories = [moodCategory, energyCategory, focusCategory, clarityCategory, memoryCategory]
+        
+        for category in stack.categories {
+            categories.append(RatingCategory(name:category.name))
+            print("\(category.name)")
+            
+        }
+        
         
     
         
@@ -110,7 +108,7 @@ class AddLogRecordViewController: UIViewController, UITableViewDataSource, UITab
         
         cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! CategoryCell
         
-        delegate?.addLogRecordViewController(self, didEnterValuesForMood: NSNumber(double: moodStepper.value), focus:NSNumber(double: focusStepper.value), energy:NSNumber(double: energyStepper.value),  clarity:NSNumber(double: clarityStepper.value), memory:NSNumber(double: memoryStepper.value), forDate: selectedDate)
+        delegate?.addLogRecordViewController(self, didEnterValuesForMood: NSNumber(integer: categories[0].value), focus:NSNumber(integer: categories[1].value), energy:NSNumber(integer: categories[2].value),  clarity:NSNumber(integer: categories[3].value), memory:NSNumber(integer: categories[4].value), forDate: selectedDate)
     }
     
     @IBAction func cancel(sender: AnyObject) {

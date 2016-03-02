@@ -56,11 +56,11 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
         
         let newStack:Stack = fetchedResultsController.objectAtIndexPath(indexPath) as! Stack
-        
+
         newStack.name = name
         newStack.nootropics = nootropics
         newStack.dateCreated = NSDate()
-        
+        newStack.addDefaultCategories()
         
 //        Stack.createInManagedObjectContext(self.managedObjectContext, name: name)
         

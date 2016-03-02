@@ -19,14 +19,41 @@ class Stack: NSManagedObject {
     class func createInManagedObjectContext(moc:NSManagedObjectContext, name:String) -> Stack {
         
         let newItem = NSEntityDescription.insertNewObjectForEntityForName("Stack", inManagedObjectContext: moc) as! Stack
+        
+
         newItem.name = name
         newItem.dateCreated = NSDate()
         newItem.nootropics = NSSet()
         newItem.logData = NSSet()
+        newItem.categories = NSSet()
+        
+        newItem.addDefaultCategories()
+       
         
         return newItem
     }
     
+    
+    func addDefaultCategories() {
+        addCategoryWithName("category1")
+        addCategoryWithName("category2")
+        addCategoryWithName("category3")
+    }
+    
+    func addCategoryWithName(name:String) {
+        
+        if let mutableCategories:NSMutableSet = NSMutableSet(set: categories) {
+            
+            let newCategory:Category = Category.createInManagedObjectContext(self.managedObjectContext!, stack: self, name: name)
+            
+//            newCategory.stack = self
+//            newCategory.name = name
+            mutableCategories.addObject(newCategory)
+            self.categories = mutableCategories
+        }
+        
+        
+    }
     class func createInManagedObjectContext(moc:NSManagedObjectContext, name:String, nootropics:NSSet) -> Stack {
         
         let newItem = NSEntityDescription.insertNewObjectForEntityForName("Stack", inManagedObjectContext: moc) as! Stack

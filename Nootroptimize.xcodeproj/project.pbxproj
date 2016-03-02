@@ -15,6 +15,10 @@
 		9FD3C3A31C58D6DA00A22006 /* NootroptimizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C3A21C58D6DA00A22006 /* NootroptimizeTests.swift */; };
 		9FD3C3AE1C58D6DA00A22006 /* NootroptimizeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C3AD1C58D6DA00A22006 /* NootroptimizeUITests.swift */; };
 		9FD3C3CF1C59396800A22006 /* Nootroptimize.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9FD3C3CC1C59396800A22006 /* Nootroptimize.xcdatamodeld */; };
+		9FEF658C1C86ED73006F51C2 /* Category+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEF65881C86ED73006F51C2 /* Category+CoreDataProperties.swift */; };
+		9FEF658D1C86ED73006F51C2 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEF65891C86ED73006F51C2 /* Category.swift */; };
+		9FEF658E1C86ED73006F51C2 /* Rating+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEF658A1C86ED73006F51C2 /* Rating+CoreDataProperties.swift */; };
+		9FEF658F1C86ED73006F51C2 /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEF658B1C86ED73006F51C2 /* Rating.swift */; };
 		9FF595C81C8051D400266C6C /* GraphData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF595C11C8051D400266C6C /* GraphData.swift */; };
 		9FF595C91C8051D400266C6C /* LogRecord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF595C21C8051D400266C6C /* LogRecord+CoreDataProperties.swift */; };
 		9FF595CA1C8051D400266C6C /* LogRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FF595C31C8051D400266C6C /* LogRecord.swift */; };
@@ -65,6 +69,10 @@
 		9FD3C3AF1C58D6DA00A22006 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9FD3C3CD1C59396800A22006 /* Nootroptimize 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Nootroptimize 2.xcdatamodel"; sourceTree = "<group>"; };
 		9FD3C3CE1C59396800A22006 /* Nootroptimize.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Nootroptimize.xcdatamodel; sourceTree = "<group>"; };
+		9FEF65881C86ED73006F51C2 /* Category+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Category+CoreDataProperties.swift"; path = "Other/Category+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9FEF65891C86ED73006F51C2 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Other/Category.swift; sourceTree = "<group>"; };
+		9FEF658A1C86ED73006F51C2 /* Rating+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Rating+CoreDataProperties.swift"; path = "Other/Rating+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9FEF658B1C86ED73006F51C2 /* Rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Rating.swift; path = Other/Rating.swift; sourceTree = "<group>"; };
 		9FF595C11C8051D400266C6C /* GraphData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphData.swift; sourceTree = "<group>"; };
 		9FF595C21C8051D400266C6C /* LogRecord+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LogRecord+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9FF595C31C8051D400266C6C /* LogRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogRecord.swift; sourceTree = "<group>"; };
@@ -164,6 +172,10 @@
 		9FF595C01C8051D400266C6C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9FEF65881C86ED73006F51C2 /* Category+CoreDataProperties.swift */,
+				9FEF65891C86ED73006F51C2 /* Category.swift */,
+				9FEF658A1C86ED73006F51C2 /* Rating+CoreDataProperties.swift */,
+				9FEF658B1C86ED73006F51C2 /* Rating.swift */,
 				9FF595C11C8051D400266C6C /* GraphData.swift */,
 				9FF595C21C8051D400266C6C /* LogRecord+CoreDataProperties.swift */,
 				9FF595C31C8051D400266C6C /* LogRecord.swift */,
@@ -344,6 +356,7 @@
 				9FF595DF1C8051E300266C6C /* StackTableViewController.swift in Sources */,
 				9FD3C3CF1C59396800A22006 /* Nootroptimize.xcdatamodeld in Sources */,
 				9FF595E11C8051E300266C6C /* StackTableViewCell.swift in Sources */,
+				9FEF658E1C86ED73006F51C2 /* Rating+CoreDataProperties.swift in Sources */,
 				9FF595DD1C8051E300266C6C /* AddStackViewController.swift in Sources */,
 				9F65FBE91C85431B00AEE769 /* CategoryCell.swift in Sources */,
 				9FF595DA1C8051E300266C6C /* UIColor+Additions.swift in Sources */,
@@ -351,9 +364,12 @@
 				9FF595CE1C8051D400266C6C /* Stack.swift in Sources */,
 				9FF595E01C8051E300266C6C /* GraphView.swift in Sources */,
 				9FF595DC1C8051E300266C6C /* AddNootropicViewController.swift in Sources */,
+				9FEF658D1C86ED73006F51C2 /* Category.swift in Sources */,
 				9FF595C91C8051D400266C6C /* LogRecord+CoreDataProperties.swift in Sources */,
 				9FF595CD1C8051D400266C6C /* Stack+CoreDataProperties.swift in Sources */,
 				9FF595C81C8051D400266C6C /* GraphData.swift in Sources */,
+				9FEF658F1C86ED73006F51C2 /* Rating.swift in Sources */,
+				9FEF658C1C86ED73006F51C2 /* Category+CoreDataProperties.swift in Sources */,
 				9FF595CC1C8051D400266C6C /* Nootropic.swift in Sources */,
 				9FF595CB1C8051D400266C6C /* Nootropic+CoreDataProperties.swift in Sources */,
 				9FF595CA1C8051D400266C6C /* LogRecord.swift in Sources */,

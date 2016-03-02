@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -568,6 +569,7 @@
                             <color key="tintColor" red="0.073012232420000003" green="0.0302226682" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="cancel:" destination="2mo-pk-4gQ" id="rDV-XL-1gI"/>
+                                <segue destination="IaQ-zR-Lw9" kind="unwind" unwindAction="unwindSegueToStackLog:" id="qzY-k6-hdL"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" systemItem="save" id="Iwg-wn-gg3">
@@ -580,10 +582,12 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="logDatePicker" destination="3EM-bm-4X5" id="p6e-3V-7Dt"/>
+                        <outlet property="saveButton" destination="Iwg-wn-gg3" id="SmH-jI-ubo"/>
                         <outlet property="tableView" destination="RMf-6v-JQp" id="o8f-EZ-Z4p"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cx7-gj-wVS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="IaQ-zR-Lw9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2047" y="-150"/>
         </scene>
@@ -623,11 +627,11 @@
                                                 <rect key="frame" x="0.0" y="28" width="560" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.34999999999999998" contentMode="center" tableViewCell="Etv-dw-r6M" id="aoh-39-2R2">
-                                                    <rect key="frame" x="0.0" y="0.0" width="560" height="44"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="560" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gD3-d1-W6l">
-                                                            <rect key="frame" x="15" y="11" width="32" height="22"/>
+                                                            <rect key="frame" x="15" y="11" width="31.5" height="22"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
                                                             <color key="textColor" red="0.073012232420000003" green="0.0302226682" blue="1" alpha="1" colorSpace="calibratedRGB"/>
