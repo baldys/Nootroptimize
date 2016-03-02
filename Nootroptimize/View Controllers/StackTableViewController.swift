@@ -22,6 +22,8 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
         super.viewDidLoad()
         
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.colorWithRedValue(0, greenValue: 188, blueValue: 255, alpha: 1)
+        
         
         self.tableView.rowHeight = 44.0
         
@@ -37,7 +39,7 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
         
         //        let testStack = NSEntityDescription.insertNewObjectForEntityForName("Stack", inManagedObjectContext: self.managedObjectContext) as! Stack
         //        testStack.name = "Test Stack"
-        self.title = "My Stacks"
+        self.title = "Stacks"
         //        tableView.registerClass(UITableViewCell.self,
         //            forCellReuseIdentifier: "Cell")
     }
@@ -54,12 +56,11 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
         
         let newStack:Stack = fetchedResultsController.objectAtIndexPath(indexPath) as! Stack
-        
-        
+
         newStack.name = name
         newStack.nootropics = nootropics
         newStack.dateCreated = NSDate()
-        
+        newStack.addDefaultCategories()
         
 //        Stack.createInManagedObjectContext(self.managedObjectContext, name: name)
         
@@ -88,6 +89,10 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
     }
     
     func addStackViewControllerDidCancel() {
+        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+        let stackToDelete = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Stack
+        
+        managedObjectContext.deleteObject(stackToDelete)
         self.dismissViewControllerAnimated(true, completion: nil)
 
     }
@@ -202,7 +207,7 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
             cell.textLabel?.text = stack.name
             let dateFormatter = NSDateFormatter()
             dateFormatter.timeStyle = .NoStyle
-            dateFormatter.dateStyle = .ShortStyle
+            dateFormatter.dateStyle = .MediumStyle
             
             if stack.dateCreated != nil {
                 cell.detailTextLabel?.text = dateFormatter.stringFromDate(stack.dateCreated!)
@@ -245,15 +250,7 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
 
                     vc.delegate = self
                     
-                    
-                    
-                    
-                    
                     vc.stack =  NSEntityDescription.insertNewObjectForEntityForName("Stack", inManagedObjectContext: self.managedObjectContext) as? Stack
-                    
-                    
-                    
-                    
                     
                 }
                 

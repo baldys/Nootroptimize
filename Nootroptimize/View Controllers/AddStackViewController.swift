@@ -61,13 +61,9 @@ class AddStackViewController: UIViewController, UITextFieldDelegate, UITableView
         let nootropic:Nootropic = nootropics[indexPath.row]
         
         cell.textLabel?.text = nootropic.name
-        cell.detailTextLabel?.text = String(nootropic.dose!)
-        
-    
-        
+        cell.detailTextLabel?.text = "\(nootropic.dose!) mg"
         
         return cell
-        
     }
 
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -96,15 +92,10 @@ class AddStackViewController: UIViewController, UITextFieldDelegate, UITableView
                     
                     vc.delegate = self
                     vc.stackName = stack?.name
-                    
-                
                 }
-
-
             }
         }
     }
-
     
     // MARK: - TextField Delegate
 
@@ -122,19 +113,12 @@ class AddStackViewController: UIViewController, UITextFieldDelegate, UITableView
         return true
     }
     
-    // MARK: -
-    @IBAction func addNootropic(sender: AnyObject) {
     
-        
-        
-        
-    }
     
     @IBAction func save(sender: AnyObject) {
   
         print ("text field : \(stackNameField.text)")
 
-//        let nootropics:NSSet = NSSet()
         let nootropicStack = NSSet(array: nootropics)
         
         

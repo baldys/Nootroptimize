@@ -51,14 +51,14 @@ class AddNootropicViewController: UITableViewController, UITextFieldDelegate {
     
     
     /// Don't care about this for now, just add some default frequency value
-    @IBOutlet weak var numberOfTimesLabel: UILabel!
+    @IBOutlet weak var frequencyLabel: UILabel!
 
-    @IBOutlet weak var dailyOrWeekly: UISegmentedControl!
+    @IBOutlet weak var frequencyControl: UISegmentedControl!
     
     // stepper that increments number of times to take a dose
     @IBAction func changeStepperValue(sender: UIStepper) {
         
-        numberOfTimesLabel.text = String(sender.value)
+        frequencyLabel.text = String(sender.value)
     
     }
     ///
@@ -66,7 +66,7 @@ class AddNootropicViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "Nootropic for \(stackName)"
+        self.navigationItem.title = "\(stackName)"
         
     
         
@@ -135,6 +135,7 @@ class AddNootropicViewController: UITableViewController, UITextFieldDelegate {
     @IBAction func cancel(sender: AnyObject) {
         delegate?.addNootropicViewControllerDidCancel()
     }
+    
     //[stepper setTransform:CGAffineTransformConcat(CGAffineTransformMakeRotation(M_PI_2), CGAffineTransformMakeScale(0.6, 0.6))];
 
   

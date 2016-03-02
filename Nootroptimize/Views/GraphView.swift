@@ -14,17 +14,12 @@ class GraphView: UIView {
     let margin:CGFloat = 20.0
     let topBorder:CGFloat = 20
     let bottomBorder:CGFloat = 20
-
-
     
     var yValues:[Int] = []
 
     var xValues:[String] = []
     var xLabels:[UILabel] = []
     
-
-
-    // yellow
     var topColour: UIColor = UIColor.redGraphColor()
     var bottomColour: UIColor = UIColor.yellowGraphColor()
     
@@ -35,19 +30,16 @@ class GraphView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-//        yValues.append(0)
-//        addXLabelWithText(" ")
         
 //        fatalError("init(coder:) has not been implemented")
     }
     
-//    required init(coder aDecoder: NSCoder) {
-//        super.init(coder: aDecoder)
-//    }
-//    
+
+    
+    
     func addXLabelWithText(xValue:String) {
+        
         xValues.append(xValue)
-//        let labelFrame = CGRect(x:0, y:0, width:30, height:44)
         let xLabel = UILabel(frame: CGRectZero)
         xLabel.text = xValue
         xLabel.font = UIFont(name: "AvenirNextCondensed-Medium", size: 13)
@@ -56,6 +48,7 @@ class GraphView: UIView {
         xLabels.append(xLabel)
         addSubview(xLabel)
         setNeedsLayout()
+        
     }
     
 
@@ -73,63 +66,66 @@ class GraphView: UIView {
         // Offset each label's origin by the length of the button plus spacing.
         for (index, label) in xLabels.enumerate() {            
             labelFrame.origin.x = xPoint(index) - labelWidth/2
-            labelFrame.origin.y = height - 10
+    
+            labelFrame.origin.y = height - 15
             
             label.frame = labelFrame
-            print("[\(index)] LABEL TEXT:\(label.text), xValue: \(xValues[index])")
-            
-            
         }
         
         /// TO DO: check if labelWidth*xLabels.count > width then shift the graph over so it shows the most recent dates
 
+       
     }
     
  
+    // for setting up labels on the x axis
+    // xValues are the label text
+    // this should only be called once
     func setUpXLabels(xValues:[String]) {
         self.xValues = xValues
-        
+
+//        if startAtZero {
+//            self.yValues.insert(0, atIndex: 0)
+//            self.xValues.insert(" ", atIndex: 0)
+//        }
+    
         let labelFrame = CGRect(x:0, y:0, width:30, height:44)
-//        var x:CGFloat = 0
         
         self.xLabels.removeAll()
         
         for i in 0..<xValues.count {
-        
-//            x += 44
-//            labelFrame.origin.x = x
+
             let xLabel = UILabel(frame:labelFrame)
             
-            xLabel.text = "\(i)|\(xValues[i])"
-            
-            print("xValue: \(xValues[i])")
+            xLabel.text = "\(xValues[i])"
             
             xLabel.font = UIFont(name: "AvenirNextCondensed-Medium", size: 13)
             xLabel.textAlignment = .Center
             xLabel.textColor = UIColor.whiteColor()
-            
-            //            xLabels += [xLabel]
             xLabels.append(xLabel)
             
             addSubview(xLabel)
             
         }
-        layoutIfNeeded()
-        setNeedsDisplay()
+//        setNeedsLayout() // layout if needed
+//        setNeedsDisplay()
     }
     
+    // placeholder for no content
     lazy var noDataLabel:UILabel = {
         
         let width = self.frame.width
         let height = self.frame.height
-        let center:CGPoint = CGPoint(x:self.center.x, y:self.center.y)
         
-        let noDataLabel:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        let center:CGPoint = CGPoint(x:width/2, y:height/2)
+        
+        let noDataLabel:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width/3, height: height/3))
         noDataLabel.center = center
         noDataLabel.text = "No data to show"
         noDataLabel.font = UIFont(name: "AvenirNextCondensed-Medium", size: 24)
+        noDataLabel.textAlignment = .Center
         
-        noDataLabel.textColor = UIColor.whiteColor()
+        noDataLabel.textColor = UIColor.lightTextColor()
         
         return noDataLabel
         
@@ -164,28 +160,30 @@ class GraphView: UIView {
     
     func xPoint(index:Int) -> CGFloat {
 
+        let width = frame.width
         let columnXPoint = { (column:Int) -> CGFloat in
             //Calculate gap between points
             
-            let spacer = (self.frame.width - self.margin*2 - 4) /
-                CGFloat((self.yValues.count - 1))
-            //            var spacer:CGFloat = width - margin*2
-            //            if self.yValues.count-1 > 0 {
-            //                spacer = spacer/CGFloat((self.yValues.count - 1))
-            //            }
+//            let spacer = (self.frame.width - self.margin*2 - 4) /
+//                CGFloat((self.yValues.count - 1))
+            var spacer:CGFloat = width - self.margin*2 - 4
+            if self.yValues.count-1 > 0 {
+                spacer = spacer/CGFloat((self.yValues.count - 1))
+            }
             var x:CGFloat = CGFloat(column) * spacer
-            x += self.margin - 2
+            x += self.margin + 2 // -2
             return x
         }
         return columnXPoint(index)
     }
 
+  
     func yPoint(yValue:Int) -> CGFloat {
-        
+        let height = frame.height
 
         let maxValue = yValues.maxElement()!
 
-        let graphHeight = self.frame.height - topBorder - bottomBorder
+        let graphHeight = height - topBorder - bottomBorder
         
         
         let columnYPoint = { (graphPoint:Int) -> CGFloat in
@@ -200,22 +198,31 @@ class GraphView: UIView {
     }
     
     override func drawRect(rect: CGRect) {
-        if yValues.count == 0 {
-            return
-        }
-    
+        
         let width = rect.width
         let height = rect.height
-        
-        let maxValue = yValues.maxElement()!
         
         let graphHeight = self.frame.height - topBorder - bottomBorder
         
         //set up background clipping area
         let path = UIBezierPath(roundedRect: rect,
             byRoundingCorners: UIRectCorner.AllCorners,
-            cornerRadii: CGSize(width: 5.0, height: 5.0)) //8,8
+            cornerRadii: CGSize(width: 5.0, height: 5.0))
         path.addClip()
+        
+        // No data has been added by the user yet (the initial point starting at zero)
+        if yValues.count < 2 {
+            addSubview(noDataLabel)
+            return
+        }
+        noDataLabel.hidden = true
+        
+        //
+        var maxValue = yValues.maxElement()!
+        if (maxValue < 1) {
+            maxValue = 1
+        }
+
         
         //2 - get the current context
         let context = UIGraphicsGetCurrentContext()
@@ -331,33 +338,6 @@ class GraphView: UIView {
         
         linePath.lineWidth = 1.0
         linePath.stroke()
-        
-        
 
-//        for xValue in xValues {
-//            let xLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 30, height: 44))
-//            
-//            
-//            
-//            xLabel.text = xValue
-//            print("xValue: \(xValue)")
-//            
-//            
-//            
-//            let labelWidth = frame.width/CGFloat(xValues.count)
-//            
-//            xLabel.sizeThatFits(CGSize(width: labelWidth, height: 44))
-//            
-//            xLabel.font = UIFont(name: "AvenirNextCondensed-Medium", size: 13)
-//            
-//            xLabel.textColor = UIColor.whiteColor()
-//            
-////            xLabels += [xLabel]
-//            xLabels.append(xLabel)
-//            
-//            addSubview(xLabel)
-//    
-//        }
-        
     }
 }

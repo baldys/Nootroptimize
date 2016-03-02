@@ -14,12 +14,12 @@ import CoreData
 
 class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITableViewDataSource, UITableViewDelegate {
     
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var graphView: GraphView!
     @IBOutlet weak var maxLabel: UILabel!
     
-    @IBOutlet weak var noStackDataLabel: UILabel!
     
-    var currentStack:Stack?
+    var currentStack:Stack!
     var logRecords:[LogRecord] = []
 
     var graphData:GraphData?
@@ -41,6 +41,12 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
     }
     
     func prepareStackData() {
+        
+//        graphData = GraphData(logRecords: currentStack!.logRecords)
+//        graphView.setUpXLabels(graphData!.days)
+//        updateGraphWithData(graphData!, forRatingCategory: .mood)
+//        
+        
         if let logData:NSSet = (currentStack?.logData)! as NSSet {
             let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
             logRecords = logData.sortedArrayUsingDescriptors([sortDescriptor]) as! [LogRecord]
@@ -53,14 +59,6 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
         }
     }
     
-    func formattedDateString(date:NSDate) -> String {
-        dateFormatter.timeStyle = .ShortStyle
-        dateFormatter.dateStyle = .ShortStyle
-//        dateFormatter.dateFormat = "MM-dd"
-        return dateFormatter.stringFromDate(date)
-    }
-
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -68,12 +66,13 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
     // MARK: - AddLogRecordDelegate
     
     // here we create a new log record for the current stack based on the ratings entered
-    func addLogRecordViewController(viewController:UIViewController, didEnterValuesForMood mood:NSNumber, energy:NSNumber, focus:NSNumber, memory:NSNumber, clarity:NSNumber) {
+    func addLogRecordViewController(viewController: UIViewController, didEnterValuesForMood mood: NSNumber, focus: NSNumber, energy: NSNumber, clarity: NSNumber, memory: NSNumber, forDate date: NSDate) {
         
         let moc = currentStack?.managedObjectContext
         
         let logRecord:LogRecord = LogRecord.createInManagedObjectContext((currentStack?.managedObjectContext)!, stack: currentStack!, mood: mood, energy: energy, focus: focus, clarity: clarity, memory: memory, notes: " ")
         
+    
             
         currentStack?.addNewLogRecord(logRecord)
         print("NEW LOG RECORD DATE: \(logRecord.date?.descriptionWithLocale(NSLocale)))")
@@ -102,6 +101,7 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
         let selectedGraphRatingType:GraphData.RatingType = GraphData.RatingType(rawValue: index)!
         return selectedGraphRatingType
     }
+  
     
     // graph points are updated to the most recently added data for a particular rating category
     func updateGraphWithData(data:GraphData, forRatingCategory ratingType:GraphData.RatingType) {
@@ -121,15 +121,21 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
 
 
         graphView.yValues = data.getDataForRatingCategory(ratingType)
-        //graphView.setUpXLabels(data.days)
-
         let gradientDictionary = data.getColourForRatingCategory(ratingType)
         graphView.topColour = gradientDictionary["top"]!
         graphView.bottomColour = gradientDictionary["bottom"]!
         
         
-        maxLabel.text = "\(graphView.yValues.maxElement()!)"
+        if (graphView.yValues.count > 1) {
+            var maxValue = graphView.yValues.maxElement()!
+            if (maxValue < 1) {
+                maxValue = 1
+            }
+            maxLabel.text = "\(maxValue)"
+        }
+    
       
+
         graphView.setNeedsDisplay()
 
         graphView.layoutIfNeeded()
@@ -159,19 +165,23 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
                     
                     vc.delegate = self
                     vc.stackName = currentStack!.name
+                    vc.stack = currentStack
                 }
             }
         }
     }
     
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        if size.width > size.height {
+            graphView.frame = CGRect(origin:CGPoint(x:0,y:0), size: size)
+        }
+    }
 
     
-    var nootropics:[Nootropic] = []
     // MARK: - table view data source
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return nootropics.count
-        
+        return currentStack.nootropicsData.count
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -183,14 +193,12 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
         
         let cell = tableView.dequeueReusableCellWithIdentifier("NootropicCell", forIndexPath: indexPath)
         
-        let nootropic:Nootropic = nootropics[indexPath.row]
+        //let nootropic:Nootropic = nootropics[indexPath.row]
+        let nootropic:Nootropic = currentStack.nootropicsData[indexPath.row]
         
         cell.textLabel?.text = nootropic.name
-        cell.detailTextLabel?.text = String(nootropic.dose!)
-        
-        
-        
-        
+        cell.detailTextLabel?.text = "\(nootropic.dose!) mg"
+    
         return cell
         
     }
@@ -210,6 +218,10 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
     }
     
 
+    @IBAction func unwindSegueToStackLog(sender:UIStoryboardSegue) {
+        
+        
+    }
     // MARK: - table view delegate
     
     
