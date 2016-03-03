@@ -14,15 +14,26 @@ class Rating: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
 
-    class func createInManagedObjectContext(moc:NSManagedObjectContext, logRecord:LogRecord, category:Category, value:Int) -> Rating {
+    class func createInManagedObjectContext(moc:NSManagedObjectContext, logRecord:LogRecord, categoryName:String, value:Int) -> Rating {
         let rating:Rating = NSEntityDescription.insertNewObjectForEntityForName("Rating", inManagedObjectContext: moc) as! Rating
         rating.logRecord = logRecord
-        rating.category = category
         rating.value = value
-        
+        rating.categoryName = categoryName
         
         
         return rating
     }
+    class func createInManagedObjectContext(moc:NSManagedObjectContext, logRecord:LogRecord, categoryName:String) -> Rating {
+        
+        let rating:Rating = NSEntityDescription.insertNewObjectForEntityForName("Rating", inManagedObjectContext: moc) as! Rating
+        rating.logRecord = logRecord
+        rating.value = 0
+        rating.categoryName = categoryName
+
+
+        return rating
+    }
+
+    
     
 }

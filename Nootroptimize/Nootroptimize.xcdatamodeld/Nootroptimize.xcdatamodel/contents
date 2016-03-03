@@ -2,12 +2,11 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15C50" minimumToolsVersion="Automatic">
     <entity name="Category" representedClassName=".Category" syncable="YES">
         <attribute name="name" attributeType="String" syncable="YES"/>
-        <relationship name="rating" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Rating" inverseName="category" inverseEntity="Rating" syncable="YES"/>
         <relationship name="stack" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Stack" inverseName="categories" inverseEntity="Stack" syncable="YES"/>
     </entity>
     <entity name="LogRecord" representedClassName=".LogRecord" syncable="YES">
         <attribute name="clarity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="date" attributeType="Date" syncable="YES"/>
         <attribute name="energy" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="focus" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="memory" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -24,8 +23,8 @@
         <relationship name="stack" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Stack" inverseName="nootropics" inverseEntity="Stack" syncable="YES"/>
     </entity>
     <entity name="Rating" representedClassName=".Rating" syncable="YES">
+        <attribute name="categoryName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="value" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="rating" inverseEntity="Category" syncable="YES"/>
         <relationship name="logRecord" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LogRecord" inverseName="ratings" inverseEntity="LogRecord" syncable="YES"/>
     </entity>
     <entity name="Stack" representedClassName=".Stack" syncable="YES">
@@ -36,10 +35,10 @@
         <relationship name="nootropics" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Nootropic" inverseName="stack" inverseEntity="Nootropic" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Category" positionX="-486" positionY="-9" width="128" height="75"/>
         <element name="LogRecord" positionX="-317" positionY="-21" width="128" height="180"/>
         <element name="Nootropic" positionX="-650" positionY="-90" width="128" height="120"/>
-        <element name="Stack" positionX="-486" positionY="-135" width="128" height="120"/>
-        <element name="Category" positionX="-486" positionY="-9" width="128" height="90"/>
         <element name="Rating" positionX="-477" positionY="0" width="128" height="90"/>
+        <element name="Stack" positionX="-486" positionY="-135" width="128" height="120"/>
     </elements>
 </model>

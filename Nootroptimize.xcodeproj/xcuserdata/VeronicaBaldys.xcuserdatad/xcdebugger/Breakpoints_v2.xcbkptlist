@@ -880,11 +880,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Nootroptimize/Models/Stack.swift"
-            timestampString = "478609240.435962"
+            timestampString = "478681388.182827"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
             landmarkName = "logRecords"
             landmarkType = "19">
             <Locations>
@@ -896,12 +896,12 @@
                   moduleName = "Nootroptimize"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/VeronicaBaldys/Desktop/Nootroptimize/Nootroptimize/Models/Stack.swift"
-                  timestampString = "478609241.52525"
+                  timestampString = "478681389.269927"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
                   endingLineNumber = "0"
-                  offsetFromSymbolStart = "24">
+                  offsetFromSymbolStart = "15">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -911,12 +911,12 @@
                   moduleName = "Nootroptimize"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/VeronicaBaldys/Desktop/Nootroptimize/Nootroptimize/Models/Stack.swift"
-                  timestampString = "478609241.525383"
+                  timestampString = "478681389.270076"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "90"
-                  endingLineNumber = "90"
-                  offsetFromSymbolStart = "284">
+                  startingLineNumber = "99"
+                  endingLineNumber = "99"
+                  offsetFromSymbolStart = "293">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -926,27 +926,12 @@
                   moduleName = "Nootroptimize"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/VeronicaBaldys/Desktop/Nootroptimize/Nootroptimize/Models/Stack.swift"
-                  timestampString = "478609241.525662"
+                  timestampString = "478681389.270171"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
                   endingLineNumber = "0"
-                  offsetFromSymbolStart = "20">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "@objc Nootroptimize.Stack.__ivar_initializer"
-                  moduleName = "Nootroptimize"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/VeronicaBaldys/Desktop/Nootroptimize/Nootroptimize/Models/Stack.swift"
-                  timestampString = "478609241.525831"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "90"
-                  endingLineNumber = "90"
-                  offsetFromSymbolStart = "32">
+                  offsetFromSymbolStart = "16">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -956,12 +941,12 @@
                   moduleName = "Nootroptimize"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/VeronicaBaldys/Desktop/Nootroptimize/Nootroptimize/Models/Stack.swift"
-                  timestampString = "478609241.525989"
+                  timestampString = "478681389.270267"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "91"
-                  endingLineNumber = "91"
-                  offsetFromSymbolStart = "16">
+                  startingLineNumber = "100"
+                  endingLineNumber = "100"
+                  offsetFromSymbolStart = "15">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1035,11 +1020,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Nootroptimize/Models/LogRecord.swift"
-            timestampString = "478608538.776039"
+            timestampString = "478666248.985593"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
             landmarkName = "createInManagedObjectContext(_:stack:date:mood:energy:focus:clarity:memory:notes:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1051,11 +1036,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Nootroptimize/Models/LogRecord.swift"
-            timestampString = "478608539.878742"
+            timestampString = "478666248.985593"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
             landmarkName = "createInManagedObjectContext(_:stack:mood:energy:focus:clarity:memory:notes:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -1099,7 +1084,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Nootroptimize/Models/Stack.swift"
-            timestampString = "478608953.970164"
+            timestampString = "478681388.182827"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "30"
@@ -1114,13 +1099,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Nootroptimize/Models/Stack.swift"
-            timestampString = "478608954.788302"
+            filePath = "Nootroptimize/View Controllers/AddLogRecordViewController.swift"
+            timestampString = "478680490.328953"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "addDefaultCategories()"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "viewDidLoad()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

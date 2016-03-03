@@ -16,9 +16,14 @@ extension Stack {
 
     @NSManaged var name: String?
     @NSManaged var dateCreated: NSDate?
+    
+    // LogRecord Objects
+    //
     @NSManaged var logData: NSSet?
     @NSManaged var nootropics: NSSet?
     
+    /// category defines how a stack should be evaluated.
     @NSManaged var categories:NSSet
 
+    @NSManaged func addCategory(value:Category)
 }

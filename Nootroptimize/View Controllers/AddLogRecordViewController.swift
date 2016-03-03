@@ -70,9 +70,13 @@ class AddLogRecordViewController: UIViewController, UITableViewDataSource, UITab
         
         categories = [moodCategory, energyCategory, focusCategory, clarityCategory, memoryCategory]
         
-        for category in stack.categories {
-            categories.append(RatingCategory(name:category.name))
-            print("\(category.name)")
+        for categoryName in stack.categoryNames() {
+        
+        
+            categories.append(RatingCategory(name:categoryName))
+                
+            
+            print("\(categoryName)")
             
         }
         
@@ -104,9 +108,9 @@ class AddLogRecordViewController: UIViewController, UITableViewDataSource, UITab
     @IBAction func save(sender: AnyObject) {
     
         let selectedDate:NSDate = logDatePicker.date
-        var cell:CategoryCell
+        //var cell:CategoryCell
         
-        cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! CategoryCell
+        //cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! CategoryCell
         
         delegate?.addLogRecordViewController(self, didEnterValuesForMood: NSNumber(integer: categories[0].value), focus:NSNumber(integer: categories[1].value), energy:NSNumber(integer: categories[2].value),  clarity:NSNumber(integer: categories[3].value), memory:NSNumber(integer: categories[4].value), forDate: selectedDate)
     }

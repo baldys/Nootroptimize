@@ -12,7 +12,8 @@ import CoreData
 
 class Stack: NSManagedObject {
 
-    
+    let ratingCategories = [NSManagedObject]()
+
     
 // Insert code here to add functionality to your managed object subclass
     
@@ -20,7 +21,6 @@ class Stack: NSManagedObject {
         
         let newItem = NSEntityDescription.insertNewObjectForEntityForName("Stack", inManagedObjectContext: moc) as! Stack
         
-
         newItem.name = name
         newItem.dateCreated = NSDate()
         newItem.nootropics = NSSet()
@@ -28,11 +28,20 @@ class Stack: NSManagedObject {
         newItem.categories = NSSet()
         
         newItem.addDefaultCategories()
-       
+    
+        return newItem
+    }
+
+    class func createInManagedObjectContext(moc:NSManagedObjectContext, name:String, nootropics:NSSet) -> Stack {
+        
+        let newItem = NSEntityDescription.insertNewObjectForEntityForName("Stack", inManagedObjectContext: moc) as! Stack
+        newItem.name = name
+        newItem.dateCreated = NSDate()
+        newItem.nootropics = nootropics
+        newItem.logData = NSSet()
         
         return newItem
     }
-    
     
     func addDefaultCategories() {
         addCategoryWithName("category1")
@@ -46,25 +55,25 @@ class Stack: NSManagedObject {
             
             let newCategory:Category = Category.createInManagedObjectContext(self.managedObjectContext!, stack: self, name: name)
             
-//            newCategory.stack = self
-//            newCategory.name = name
+            //            newCategory.stack = self
+            //            newCategory.name = name
             mutableCategories.addObject(newCategory)
             self.categories = mutableCategories
         }
         
         
     }
-    class func createInManagedObjectContext(moc:NSManagedObjectContext, name:String, nootropics:NSSet) -> Stack {
-        
-        let newItem = NSEntityDescription.insertNewObjectForEntityForName("Stack", inManagedObjectContext: moc) as! Stack
-        newItem.name = name
-        newItem.dateCreated = NSDate()
-        newItem.nootropics = nootropics
-        newItem.logData = NSSet()
-        
-        return newItem
-    }
     
+    func categoryNames() -> [String] {
+        var categoryNames:[String] = []
+        
+        
+        for category in self.categories {
+            categoryNames.append(category.name)
+            
+        }
+        return categoryNames
+    }
 
     
     func addNewLogRecord(logRecord:LogRecord) {

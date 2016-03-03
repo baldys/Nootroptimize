@@ -9,6 +9,8 @@
 import Foundation
 import CoreData
 
+// log record is a set of ratings for a particular date
+// there is one rating per category (retreived from the stack) in a log record
 
 class LogRecord: NSManagedObject {
     /*
@@ -19,12 +21,22 @@ class LogRecord: NSManagedObject {
     @NSManaged var memory: NSNumber?
     */
 
+    // log record for current date
     class func createInManagedObjectContext(moc:NSManagedObjectContext, stack:Stack, mood:NSNumber, energy:NSNumber, focus:NSNumber, clarity:NSNumber, memory:NSNumber, notes:String) -> LogRecord {
         
         let newLogRecord = NSEntityDescription.insertNewObjectForEntityForName("LogRecord", inManagedObjectContext: moc) as! LogRecord
         newLogRecord.stack = stack
         newLogRecord.date = NSDate()
-        
+        newLogRecord.ratings = NSSet()
+
+        var ratings:[Rating]
+        // get the categories upon which a stack is rated
+        for category in stack.categories {
+            let rating:Rating = Rating.createInManagedObjectContext(moc, logRecord: newLogRecord, categoryName: category.name)
+            newLogRecord.ratings?.setByAddingObject(rating)
+            
+        }
+
         newLogRecord.mood = mood
         newLogRecord.energy = energy
         newLogRecord.focus = focus
@@ -37,6 +49,7 @@ class LogRecord: NSManagedObject {
     }
     
    
+    // log record for specific date
     class func createInManagedObjectContext(moc:NSManagedObjectContext, stack:Stack, date:NSDate, mood:NSNumber, energy:NSNumber, focus:NSNumber, clarity:NSNumber, memory:NSNumber, notes:String) -> LogRecord {
         
         let newLogRecord = NSEntityDescription.insertNewObjectForEntityForName("LogRecord", inManagedObjectContext: moc) as! LogRecord

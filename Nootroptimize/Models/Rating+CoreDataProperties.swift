@@ -14,8 +14,10 @@ import CoreData
 
 extension Rating {
 
+    // the actual rating value assigned to a category for a stack on the given date (in the log record)
     @NSManaged var value: NSNumber?
-    @NSManaged var category: Category?
+    //@NSManaged var category: Category?
+    @NSManaged var categoryName: String!
     @NSManaged var logRecord: LogRecord?
 
 }

@@ -8,13 +8,14 @@
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
 //  to delete and recreate this implementation file for your updated model.
 //
+/// LogRecord has a set of ratings which are
 
 import Foundation
 import CoreData
 
 extension LogRecord {
 
-    @NSManaged var date: NSDate?
+    @NSManaged var date: NSDate!
     @NSManaged var notes: String?
     @NSManaged var mood: NSNumber?
     @NSManaged var energy: NSNumber?
@@ -22,8 +23,8 @@ extension LogRecord {
     @NSManaged var clarity: NSNumber?
     @NSManaged var memory: NSNumber?
     
-    @NSManaged var ratings:NSSet?
-    
     @NSManaged var stack: Stack?
+    
+    @NSManaged var ratings:NSSet?
 
 }
