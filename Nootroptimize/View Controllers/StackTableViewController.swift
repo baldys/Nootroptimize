@@ -125,6 +125,7 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
     }
     
     */
+    
     func fetchLog() {
         let fetchRequest = NSFetchRequest(entityName: "Stack")
  

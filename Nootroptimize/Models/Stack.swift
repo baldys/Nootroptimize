@@ -145,12 +145,7 @@ class Stack: NSManagedObject {
         let calendar:NSCalendar = NSCalendar.currentCalendar()
         
         let dateComponents:NSDateComponents = calendar.components(unitFlags, fromDate:date)
-        
-        let day:Int = dateComponents.day
-        let month:Int = dateComponents.month
-        let year:Int = dateComponents.year
-        
-        
+
         if let logDataSet:NSSet = self.logData {
             
             // start with most recent log records

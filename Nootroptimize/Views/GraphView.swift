@@ -54,9 +54,7 @@ class GraphView: UIView {
 
     override func layoutSubviews() {
         
-        //sizeToFit()
-
-        let width = frame.width
+        //let width = frame.width
         let height = frame.height
 
         let labelWidth:CGFloat = 22

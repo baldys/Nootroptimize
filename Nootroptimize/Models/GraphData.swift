@@ -60,7 +60,7 @@ class GraphData {
         for category in (logRecords[0].stack?.categoryNames())! {
             categories.append(category)
             
-            var graphPoints = CategorizedGraphPoints(category: category)
+            let graphPoints = CategorizedGraphPoints(category: category)
             
             if startAtZero {
                 graphPoints.ratingValues?.append(0)

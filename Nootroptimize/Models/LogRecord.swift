@@ -27,7 +27,7 @@ class LogRecord: NSManagedObject {
         let newLogRecord = NSEntityDescription.insertNewObjectForEntityForName("LogRecord", inManagedObjectContext: moc) as! LogRecord
         newLogRecord.stack = stack
         newLogRecord.date = NSDate()
-        newLogRecord.ratings = NSSet()
+        newLogRecord.ratings = NSSet() as! Set<Rating>
 
 
 
@@ -67,11 +67,10 @@ class LogRecord: NSManagedObject {
         newLogRecord.stack = stack
         newLogRecord.date = date
         
-        var ratings:[Rating]
         // get the categories upon which a stack is rated
         for category in stack.categories {
             let rating:Rating = Rating.createInManagedObjectContext(moc, logRecord: newLogRecord, categoryName: category.name)
-            newLogRecord.ratings?.setByAddingObject(rating)
+            newLogRecord.ratings.insert(rating)
             
         }
         
@@ -80,17 +79,7 @@ class LogRecord: NSManagedObject {
         
         return newLogRecord
     }
-    
-    func setRatingWithValue(value:Int, forCategoryName name:String) {
-        
-        
-        let predicate:NSPredicate = NSPredicate(format: "categoryName == %@", name)
-        let ratingObject:Rating = ratings?.filteredSetUsingPredicate(predicate) as! Rating
-        
-        ratingObject.value = value
-    }
-    
-   
+
     
     func updateLogRecordWithRatings() {
         
