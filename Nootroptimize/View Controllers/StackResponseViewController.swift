@@ -24,6 +24,7 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
 
     var graphData:GraphData?
     
+    var categoryList:[String] = []
     @IBOutlet weak var graphDataControl: UISegmentedControl!
     
     var dateFormatter = NSDateFormatter()
@@ -37,6 +38,25 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
         super.viewDidLoad()
         navigationItem.backBarButtonItem = navigationItem.leftBarButtonItem
         navigationItem.title = currentStack?.name
+        
+        if let categories:NSSet = currentStack?.categories {
+            
+            for category in categories {
+                categoryList.append(category.name)
+            }
+        
+            for i in 0..<categoryList.count {
+                
+                graphDataControl.setTitle(categoryList[i], forSegmentAtIndex: i)
+            }
+        }
+        
+        
+
+//        categoryList = currentStack.categories
+        
+ 
+        
         prepareStackData()
     }
     
@@ -54,7 +74,7 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
             graphData = GraphData(logRecords: logRecords)
             graphView.setUpXLabels(graphData!.days)
             
-            updateGraphWithData(graphData!, forRatingCategory: .mood)
+            updateGraphWithData(graphData!, forRatingCategory: categoryList[0])
             
         }
     }
@@ -87,7 +107,7 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
         
         graphView.addXLabelWithText(graphData!.days.last!)
         
-        updateGraphWithData(graphData!, forRatingCategory: ratingTypeFromInt(graphDataControl.selectedSegmentIndex))
+        updateGraphWithData(graphData!, forRatingCategory: categoryList[graphDataControl.selectedSegmentIndex])
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -96,6 +116,7 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+
     
     func ratingTypeFromInt(index:Int) -> GraphData.RatingType {
         let selectedGraphRatingType:GraphData.RatingType = GraphData.RatingType(rawValue: index)!
@@ -104,7 +125,7 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
   
     
     // graph points are updated to the most recently added data for a particular rating category
-    func updateGraphWithData(data:GraphData, forRatingCategory ratingType:GraphData.RatingType) {
+    func updateGraphWithData(data:GraphData, forRatingCategory category:String) {
   
      
         //        let dateFormatter = NSDateFormatter()
@@ -120,8 +141,8 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
 
 
 
-        graphView.yValues = data.getDataForRatingCategory(ratingType)
-        let gradientDictionary = data.getColourForRatingCategory(ratingType)
+        graphView.yValues = data.ratingValuesForCategory(category)
+        let gradientDictionary = data.getColourForRatingCategory(category)
         graphView.topColour = gradientDictionary["top"]!
         graphView.bottomColour = gradientDictionary["bottom"]!
         
@@ -150,7 +171,7 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
     
     // MARK - Actions
     @IBAction func changeGraphData(sender: UISegmentedControl) {
-        updateGraphWithData(graphData!, forRatingCategory: ratingTypeFromInt(sender.selectedSegmentIndex))
+        updateGraphWithData(graphData!, forRatingCategory: categoryList[sender.selectedSegmentIndex])
     
     }
 
@@ -217,10 +238,93 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
         return true
     }
     
+    func addLogRecordWithRatings(categoryRatings:[RatingCategory], forDate date:NSDate) {
+        
+        let moc = currentStack?.managedObjectContext
+        
+        /// TO DO: add method to stack called addLogRecordForDate and put stuff here in that method
+        let logRecord:LogRecord = LogRecord.createInManagedObjectContext((currentStack?.managedObjectContext)!, stack: currentStack!, date:date)
+        /////////
+        // when adding a log record it automatically creates rating objects from category objects in the stack. 
+        // it sets the categoryNames of the ratings to the category objects name, and sets the ratings' value to some default value initially (0 or -1)
+        // then match each rating from RatingCategories to the name in each rating in the log record and change the values from default to the rating value in the RatingCategory object
+        
+        
+        for categoryRating in categoryRatings {
+        
+//            logRecord.ratings?.valueForKey(String)
+           
+            
+//            var enumerator:NSEnumerator = logRecord.ratings.enumerate()
+//            
+//            var rating:AnyObject?
+//            while (rating == enumerator.nextObject()) {
+//                
+//                
+//            }
+            
+            // Should suffice since max number of categories = 5
+            for rating in logRecord.ratings {
+                if (rating.categoryName == categoryRating.name) {
+                    //rating.setValue(categoryRating.value, forKey: "value")
+                    rating.value = categoryRating.value
+                }
+            }
+            
+//            let predicate:NSPredicate = NSPredicate(format: "categoryName == %@", categoryRating.name)
+//            let ratingObject:Rating = logRecord.ratings?.filteredSetUsingPredicate(predicate)
+//            
+//            ratingObject.value = categoryRating.value
+            
+            
+            
+            
+            
+            // rating.categoryName matching categoryRating.name in logRecord
+            
+            
+        }
+        
+        var ratingsToPrint = [Rating]()
+        ratingsToPrint.appendContentsOf(logRecord.ratings)
+        
+        
+        for rating:Rating in ratingsToPrint {
+            print("\(rating.categoryName) \(rating.value)")
+            
+        }
+        
+        // create log record
+        // create new ratings for the log record
+        
+        
+        currentStack?.addNewLogRecord(logRecord)
+        print("NEW LOG RECORD DATE: \(logRecord.date?.descriptionWithLocale(NSLocale)))")
+        
+        do {
+            try moc!.save()
+        } catch let error as NSError {
+            print("Could not save \(error), \(error.userInfo)")
+        }
 
+
+        graphData?.addLogRecord(logRecord)
+        
+        graphView.addXLabelWithText(graphData!.days.last!)
+        
+        updateGraphWithData(graphData!, forRatingCategory: categoryList[graphDataControl.selectedSegmentIndex])
+        // category added:
+        /// add to rating categories array
+        /// add category to the stack
+    }
+    
     @IBAction func unwindSegueToStackLog(sender:UIStoryboardSegue) {
         
+        let addLogRecordVC = sender.sourceViewController as! AddLogRecordViewController
+        let categoryRatings = addLogRecordVC.categories
+        let date = addLogRecordVC.logDatePicker.date
         
+        addLogRecordWithRatings(categoryRatings, forDate:date)
     }
     // MARK: - table view delegate
     

@@ -74,10 +74,7 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
         }
 
         self.dismissViewControllerAnimated(true, completion: nil)
-        // put into completion handler above
-//        let newItemIndex = self.fetchedResultsController.fetchedObjects?.count -1
-//        let indexPath = NSIndexPath(forRow: newItemIndex!, inSection: 0)
-//        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+  
         
         do {
             try fetchedResultsController.performFetch()
@@ -134,7 +131,6 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
       
         fetchRequest.sortDescriptors = [sortDescriptor]
-        
         do {
             let results = try managedObjectContext.executeFetchRequest(fetchRequest)
             

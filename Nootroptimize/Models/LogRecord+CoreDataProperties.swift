@@ -25,6 +25,6 @@ extension LogRecord {
     
     @NSManaged var stack: Stack?
     
-    @NSManaged var ratings:NSSet?
+    @NSManaged var ratings:Set<Rating>
 
 }

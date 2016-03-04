@@ -82,9 +82,24 @@ class Stack: NSManagedObject {
             self.logData = mutableLogData
 
         }
+        
+        do {
+            try self.managedObjectContext!.save()
+        } catch let error as NSError {
+            print("Could not save \(error), \(error.userInfo)")
+        }
     
         //NSSet.mutableSetValueForKey()
     }
+    
+    
+//    func getLogRecordsForCategory(categoryName:String) -> [NSDate:String] {
+//        
+//        
+//        
+//    }
+    
+    
     
     func addNootropic(nootropic: Nootropic) {
         

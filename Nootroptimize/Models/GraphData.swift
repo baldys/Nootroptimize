@@ -8,75 +8,27 @@
 
 import Foundation
 import UIKit
-
-let dateFormatter = NSDateFormatter()
-func formattedDateString(date:NSDate) -> String {
-    
-    dateFormatter.dateFormat = "MM-dd"
-    return dateFormatter.stringFromDate(date)
-    
-}
+import CoreData
 
 
 
-struct DataPoint {
-    
-    var x:String?
-    var y:Int?
-    
-    init() {
-        self.x = " "
-        self.y = 0
-    }
-    
-    init(t:NSDate, y:Int) {
-        self.x = formattedDateString(t)
-        self.y = y
-    }
-    
-    init(y:Int) {
-        self.x = formattedDateString(NSDate())
-        self.y = y
-    }
-    
-}
 
-class DataModel {
+
+class CategorizedGraphPoints {
+    var category:String?
+    var ratingValues:[Int]?
     
-    var dataPoints:[DataPoint] = []
-    var name:String?
-    private var color1:UIColor?
-    private var color2:UIColor?
-    
-    init(name:String, color1:UIColor, color2:UIColor) {
-        
-        self.dataPoints = [DataPoint()]
-        self.name = name
-        self.color1 = color1
-        self.color2 = color2
-    }
-    
-    init(name:String) {
-        self.dataPoints = [DataPoint()]
-        self.name = name
-        self.color1 = UIColor.aquaGraphColour()
-        self.color2 = UIColor.turquoiseGraphColour()
-        
-    }
-    
-    func addDataPoint(dataPoint:DataPoint) {
-        dataPoints.append(dataPoint)
-    }
-    
-    func addYValue(y:Int) {
-        dataPoints.append(DataPoint(y: y))
+    init(category:String) {
+        self.category = category
+        self.ratingValues = []
     }
 }
 
 
 class GraphData {
     
-    var dataModel:[DataModel] = []
+    var categorizedData:[CategorizedGraphPoints] = []
+    var categories:[String] = []
     
     
     enum RatingType:Int {
@@ -90,19 +42,12 @@ class GraphData {
     var dates:[NSDate] = []
     
     var days = [String]()
-    // private?
 
-    var mood:[DataPoint] = [DataPoint()]
-    var focus:[DataPoint] = [DataPoint()]
-    var energy:[DataPoint] = [DataPoint()]
-    var clarity:[DataPoint] = [DataPoint()]
-    var memory:[DataPoint] = [DataPoint()]
-    
-    private var moodData:[Int]    = []
-    private var focusData:[Int]   = []
-    private var energyData:[Int]  = []
-    private var clarityData:[Int] = []
-    private var memoryData:[Int]  = []
+//    private var moodData:[Int]    = []
+//    private var focusData:[Int]   = []
+//    private var energyData:[Int]  = []
+//    private var clarityData:[Int] = []
+//    private var memoryData:[Int]  = []
 
     //var logRecords:[LogRecord] = []
     var startAtZero:Bool = true
@@ -111,16 +56,31 @@ class GraphData {
     init(logRecords:[LogRecord]) {
 
 //        self.logRecords = logRecords
-        if (startAtZero) {
-            moodData.append(0)
-            focusData.append(0)
-            energyData.append(0)
-            clarityData.append(0)
-            memoryData.append(0)
-            days.append(" ")
-
-        }
  
+        for category in (logRecords[0].stack?.categoryNames())! {
+            categories.append(category)
+            
+            var graphPoints = CategorizedGraphPoints(category: category)
+            
+            if startAtZero {
+                graphPoints.ratingValues?.append(0)
+            }
+            categorizedData.append(graphPoints)
+        }
+        
+        if (startAtZero) {
+            
+            
+//            moodData.append(0)
+//            focusData.append(0)
+//            energyData.append(0)
+//            clarityData.append(0)
+//            memoryData.append(0)
+            days.append(" ")
+            
+        }
+        
+
         if (logRecords.count > 0) {
             
             for logRecord in logRecords {
@@ -129,6 +89,32 @@ class GraphData {
             }
         }
     }
+    
+    
+//    func fetchRatings(stack:Stack) -> [[Rating]] {
+//        let ratings:[Rating]
+//        
+//        let context:NSManagedObjectContext = stack.managedObjectContext!
+//        let logRecordEntity = NSEntityDescription.entityForName("LogRecord", inManagedObjectContext: context)
+//        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
+//
+//        let request = NSFetchRequest()
+//        request.entity = logRecordEntity
+//        request.relationshipKeyPathsForPrefetching = ["ratings"]
+//        request.sortDescriptors = [sortDescriptor]
+//        
+//        let predicate = NSPredicate(format: "categoryName == %@", stack.categoryNames()[0])
+//        request.predicate = predicate
+//        
+//        do {
+//            let results = try context.executeFetchRequest(request)
+//            ///stacks = results as! [Stack]
+//            
+//        } catch let error as NSError {
+//            print("could not fetch \(error), \(error.userInfo)")
+//            
+//        }
+//    }
     
     func addLogRecord(logRecord:LogRecord) {
         //        logRecords.append(logRecord)
@@ -141,12 +127,30 @@ class GraphData {
         let dateString = formattedDateString(logRecordDate)
         days.append(dateString)
         
+        
+        
+
+        for rating in logRecord.ratings {
+            
+            let categoryName:String = rating.categoryName
+            let ratingValue:Int = (rating.value?.integerValue)!
+            
+            // find the element in categorizedData that has the name
+
+            for graphPoints in categorizedData {
+                if graphPoints.category == categoryName {
+                    graphPoints.ratingValues?.append(ratingValue)
+                }
+            }
+
+            
+        }
+        
+        /*
         if let moodRating:NSNumber = logRecord.mood {
             moodData.append(moodRating.integerValue)
             
-            
-            let dataPoint:DataPoint = DataPoint(t:logRecordDate, y:moodRating.integerValue)
-            mood.append(dataPoint)
+
 
 
         }
@@ -162,7 +166,7 @@ class GraphData {
         if let memoryRating:NSNumber = logRecord.memory {
             memoryData.append(memoryRating.integerValue)
         }
-        
+        */
     }
     
 
@@ -177,60 +181,88 @@ class GraphData {
             
     }
     
-    func getDataForRatingCategory(ratingType:RatingType) -> [Int] {
+//    func getDataForRatingCategory(ratingType:RatingType) -> [Int] {
+//        
+//        switch ratingType {
+//        case .mood:
+//
+//            return moodData
+//        case .energy:
+//            return energyData
+//        case .focus:
+//            return focusData
+//        case .clarity:
+//             return clarityData
+//        case .memory:
+//            return memoryData
+//        }
+//    }
+    
+    
+    func ratingValuesForCategory(categoryName:String) -> [Int] {
         
-        switch ratingType {
-        case .mood:
-            ///
-//            print("DATA FOR RATING CATEGORY")
-//            for i in 0..<dates.count {
-//                print("[\(i+1)] {\(days[i+1])} \(dates[i].descriptionWithLocale(NSLocale)), \(String(moodData[i+1]))")
-//            }
-            ///
-            return moodData
-        case .energy:
-            return energyData
-        case .focus:
-            return focusData
-        case .clarity:
-             return clarityData
-        case .memory:
-            return memoryData
+        var ratings:[Int] = []
+
+        for graphPoints in categorizedData {
+            if graphPoints.category == categoryName {
+                ratings = graphPoints.ratingValues!
+                break
+            }
+            
         }
+        return ratings
+        
+
     }
+
     
     // TO DO::: put this in UIColor extension
     
-    func getColourForRatingCategory(ratingType:RatingType) -> [String:UIColor] {
+    func getColourForRatingCategory(category:String) -> [String:UIColor] {
         
         var topColor:UIColor
         var bottomColor:UIColor
+        var index:Int!
         
-        switch ratingType {
-        case .mood:
+        
+        for categoryName in categories {
+            if categoryName == category {
+                index = categories.indexOf(categoryName)
+                break
+            }
+            
+        }
+        
+        switch (index) {
+        case 0:
             topColor = UIColor.redGraphColor()
             bottomColor = UIColor.yellowGraphColor()
             break
             
-        case .energy:
+        case 1:
             topColor = UIColor.aquaGraphColour()
             bottomColor = UIColor.turquoiseGraphColour()
             break
             
-        case .focus:
+        case 2:
             topColor = UIColor.yellowColor()
             bottomColor = UIColor.greenGraphColour()
             break
         
-        case .clarity:
+        case 3:
             topColor = UIColor.blueGraphColour()
             bottomColor = UIColor.darkPurpleGraphColour()
             break
             
-        case .memory:
+        case 4:
             topColor = UIColor.purpleGraphColour()
             bottomColor = UIColor.pinkGraphColor()
             break
+        default:
+            topColor = UIColor.aquaGraphColour()
+            bottomColor = UIColor.turquoiseGraphColour()
+            break
+            
         }
         
         return ["top":topColor, "bottom":bottomColor]
