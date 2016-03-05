@@ -22,7 +22,7 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
         super.viewDidLoad()
         
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
-        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.colorWithRedValue(0, greenValue: 188, blueValue: 255, alpha: 1)
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.colorWithRedValue(0, greenValue: 211, blueValue: 255, alpha: 1)
         
         
         self.tableView.rowHeight = 44.0
@@ -66,9 +66,7 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
         
         
         do {
-                //try newStack.managedObjectContext!.save()
                 try self.managedObjectContext.save()
-                //stacks.append(newStack)
         } catch let error as NSError {
                 print("Could not save \(error), \(error.userInfo)")
         }

@@ -6,25 +6,21 @@
 //  Copyright © 2016 Veronica Baldys. All rights reserved.
 //
 
-// add a point at 0,0 by default so when a point is added to the graph it shows the first point
-// then figure out why it shows a different date when you first add a point to the graph
-
 import UIKit
 import CoreData
 
-class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITableViewDataSource, UITableViewDelegate {
+class StackResponseViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddCategoryDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var graphView: GraphView!
     @IBOutlet weak var maxLabel: UILabel!
-    
     
     var currentStack:Stack!
     var logRecords:[LogRecord] = []
 
     var graphData:GraphData?
     
-    var categoryList:[String] = []
+    var categories:[String] = []
     @IBOutlet weak var graphDataControl: UISegmentedControl!
     
     var dateFormatter = NSDateFormatter()
@@ -38,24 +34,19 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
         super.viewDidLoad()
         navigationItem.backBarButtonItem = navigationItem.leftBarButtonItem
         navigationItem.title = currentStack?.name
+
+        categories = currentStack.categoryNames()
         
-        if let categories:NSSet = currentStack?.categories {
-            
-            for category in categories {
-                categoryList.append(category.name)
-            }
-        
-            for i in 0..<categoryList.count {
-                
-                graphDataControl.setTitle(categoryList[i], forSegmentAtIndex: i)
+      
+        for i in 0..<graphDataControl.numberOfSegments {
+            if (i >= categories.count-1) {
+                graphDataControl.removeSegmentAtIndex(i, animated: false)
+            } else {
+                graphDataControl.setTitle(categories[i], forSegmentAtIndex: i)
             }
         }
         
-        
-
-//        categoryList = currentStack.categories
-        
- 
+    
         
         prepareStackData()
     }
@@ -71,10 +62,11 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
             let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
             logRecords = logData.sortedArrayUsingDescriptors([sortDescriptor]) as! [LogRecord]
             
-            graphData = GraphData(logRecords: logRecords)
+            graphData = GraphData(logRecords: logRecords, categories: currentStack.categoryNames())
+
             graphView.setUpXLabels(graphData!.days)
             
-            updateGraphWithData(graphData!, forRatingCategory: categoryList[0])
+            updateGraphWithData(graphData!, forRatingCategory: categories[0])
             
         }
     }
@@ -85,61 +77,69 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
    
     // MARK: - AddLogRecordDelegate
     
-    // here we create a new log record for the current stack based on the ratings entered
-    func addLogRecordViewController(viewController: UIViewController, didEnterValuesForMood mood: NSNumber, focus: NSNumber, energy: NSNumber, clarity: NSNumber, memory: NSNumber, forDate date: NSDate) {
-        
-        let moc = currentStack?.managedObjectContext
-        
-        let logRecord:LogRecord = LogRecord.createInManagedObjectContext((currentStack?.managedObjectContext)!, stack: currentStack!, mood: mood, energy: energy, focus: focus, clarity: clarity, memory: memory, notes: " ")
-        
+//    // here we create a new log record for the current stack based on the ratings entered
+//    func addLogRecordViewController(viewController: UIViewController, didEnterValuesForMood mood: NSNumber, focus: NSNumber, energy: NSNumber, clarity: NSNumber, memory: NSNumber, forDate date: NSDate) {
+//        
+//        let moc = currentStack?.managedObjectContext
+//        
+//        let logRecord:LogRecord = LogRecord.createInManagedObjectContext((currentStack?.managedObjectContext)!, stack: currentStack!, mood: mood, energy: energy, focus: focus, clarity: clarity, memory: memory, notes: " ")
+//        
+//        currentStack?.addNewLogRecord(logRecord)
+//        print("NEW LOG RECORD DATE: \(logRecord.date?.descriptionWithLocale(NSLocale)))")
+//        
+//        do {
+//            try moc!.save()
+//        } catch let error as NSError {
+//            print("Could not save \(error), \(error.userInfo)")
+//        }
+//        
+//        graphData?.addLogRecord(logRecord)
+//        
+//        graphView.addXLabelWithText(graphData!.days.last!)
+//        
+//        
+//        updateGraphWithData(graphData!, forRatingCategory: categories[graphDataControl.selectedSegmentIndex])
+//        
+//        self.dismissViewControllerAnimated(true, completion: nil)
+//    }
+
+//    func addLogViewControllerDidCancel() {
+//        self.dismissViewControllerAnimated(true, completion: nil)
+//    }
     
-            
-        currentStack?.addNewLogRecord(logRecord)
-        print("NEW LOG RECORD DATE: \(logRecord.date?.descriptionWithLocale(NSLocale)))")
+    func didAddCategory(name:String) {
+        // get all graph dates
         
-        do {
-            try moc!.save()
-        } catch let error as NSError {
-            print("Could not save \(error), \(error.userInfo)")
+        
+        // add a new segment 
+        currentStack.addCategoryWithName(name)
+        categories = currentStack.categoryNames()
+        let index:Int = categories.indexOf(name)!
+        
+        self.graphDataControl.insertSegmentWithTitle(name, atIndex: index, animated: true)
+        
+    }
+    
+    func didDeleteCategory(name:String) {
+        //currentStack.removeCategoryWithName(name)
+        self.graphDataControl.removeAllSegments()
+        categories = currentStack.categoryNames()
+        for i in 0..<categories.count {
+            graphDataControl.insertSegmentWithTitle(categories[i], atIndex: i, animated: false)
         }
         
-        graphData?.addLogRecord(logRecord)
-        
-        graphView.addXLabelWithText(graphData!.days.last!)
-        
-        updateGraphWithData(graphData!, forRatingCategory: categoryList[graphDataControl.selectedSegmentIndex])
-        
-        self.dismissViewControllerAnimated(true, completion: nil)
     }
-
-    func addLogViewControllerDidCancel() {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-
-    
-    func ratingTypeFromInt(index:Int) -> GraphData.RatingType {
-        let selectedGraphRatingType:GraphData.RatingType = GraphData.RatingType(rawValue: index)!
-        return selectedGraphRatingType
-    }
-  
     
     // graph points are updated to the most recently added data for a particular rating category
     func updateGraphWithData(data:GraphData, forRatingCategory category:String) {
   
-     
         //        let dateFormatter = NSDateFormatter()
-        
         
         //        let calendar = NSCalendar.currentCalendar()
         //        let componentOptions:NSCalendarUnit = .Weekday
         //        let components = calendar.components(componentOptions,
         //            fromDate: NSDate())
         //        var weekday = components.weekday
-
-  
-
-
 
         graphView.yValues = data.ratingValuesForCategory(category)
         let gradientDictionary = data.getColourForRatingCategory(category)
@@ -155,41 +155,16 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
             maxLabel.text = "\(maxValue)"
         }
     
-      
-
         graphView.setNeedsDisplay()
 
         graphView.layoutIfNeeded()
-
-
-//        graphView.xValues = daysLogged
-//        graphView.graphPoints = newYValues
-//        graphView.topColour = startColour
-//        graphView.bottomColour = endColour
     
     }
     
     // MARK - Actions
     @IBAction func changeGraphData(sender: UISegmentedControl) {
-        updateGraphWithData(graphData!, forRatingCategory: categoryList[sender.selectedSegmentIndex])
+        updateGraphWithData(graphData!, forRatingCategory: categories[sender.selectedSegmentIndex])
     
-    }
-
-    // MARK: - Navigation
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if (segue.identifier == "addLogRecord") {
-            
-            if let nc: UINavigationController = segue.destinationViewController as? UINavigationController {
-                if let vc: AddLogRecordViewController = nc.viewControllers[0] as? AddLogRecordViewController {
-                    
-                    vc.delegate = self
-                    vc.stackName = currentStack!.name
-                    vc.stack = currentStack
-                }
-            }
-        }
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -241,9 +216,9 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
     func addLogRecordWithRatings(categoryRatings:[RatingCategory], forDate date:NSDate) {
         
         let moc = currentStack?.managedObjectContext
-        
-        /// TO DO: add method to stack called addLogRecordForDate and put stuff here in that method
+
         let logRecord:LogRecord = LogRecord.createInManagedObjectContext((currentStack?.managedObjectContext)!, stack: currentStack!, date:date)
+
         /////////
         // when adding a log record it automatically creates rating objects from category objects in the stack. 
         // it sets the categoryNames of the ratings to the category objects name, and sets the ratings' value to some default value initially (0 or -1)
@@ -252,17 +227,6 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
         
         for categoryRating in categoryRatings {
         
-//            logRecord.ratings?.valueForKey(String)
-           
-            
-//            var enumerator:NSEnumerator = logRecord.ratings.enumerate()
-//            
-//            var rating:AnyObject?
-//            while (rating == enumerator.nextObject()) {
-//                
-//                
-//            }
-            
             // Should suffice since max number of categories = 5
             for rating in logRecord.ratings {
                 if (rating.categoryName == categoryRating.name) {
@@ -287,19 +251,11 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
         
         var ratingsToPrint = [Rating]()
         ratingsToPrint.appendContentsOf(logRecord.ratings)
-        
-        
         for rating:Rating in ratingsToPrint {
             print("\(rating.categoryName) \(rating.value)")
-            
         }
-        
-        // create log record
-        // create new ratings for the log record
-        
-        
+     
         currentStack?.addNewLogRecord(logRecord)
-        print("NEW LOG RECORD DATE: \(logRecord.date?.descriptionWithLocale(NSLocale)))")
         
         do {
             try moc!.save()
@@ -307,28 +263,40 @@ class StackResponseViewController: UIViewController, AddLogRecordDelegate, UITab
             print("Could not save \(error), \(error.userInfo)")
         }
 
-
         graphData?.addLogRecord(logRecord)
         
         graphView.addXLabelWithText(graphData!.days.last!)
         
-        updateGraphWithData(graphData!, forRatingCategory: categoryList[graphDataControl.selectedSegmentIndex])
-        // category added:
-        /// add to rating categories array
-        /// add category to the stack
+        updateGraphWithData(graphData!, forRatingCategory: categories[graphDataControl.selectedSegmentIndex])
+
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if (segue.identifier == "addLogRecord") {
+            
+            if let nc: UINavigationController = segue.destinationViewController as? UINavigationController {
+                if let vc: AddLogRecordViewController = nc.viewControllers[0] as? AddLogRecordViewController {
+                    
+                    vc.delegate = self
+                    vc.stack = currentStack
+                }
+            }
+        }
     }
     
     @IBAction func unwindSegueToStackLog(sender:UIStoryboardSegue) {
         
+        if (sender.identifier == "Cancel") {
+            return
+        }
         let addLogRecordVC = sender.sourceViewController as! AddLogRecordViewController
         let categoryRatings = addLogRecordVC.categories
         let date = addLogRecordVC.logDatePicker.date
         
         addLogRecordWithRatings(categoryRatings, forDate:date)
     }
-    // MARK: - table view delegate
     
-    
-    
-
 }

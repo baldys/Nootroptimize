@@ -165,8 +165,9 @@ class GraphView: UIView {
 //            let spacer = (self.frame.width - self.margin*2 - 4) /
 //                CGFloat((self.yValues.count - 1))
             var spacer:CGFloat = width - self.margin*2 - 4
-            if self.yValues.count-1 > 0 {
-                spacer = spacer/CGFloat((self.yValues.count - 1))
+            
+            if self.numberOfValidYValues()-1 > 0 {
+                spacer = spacer/CGFloat((self.numberOfValidYValues() - 1))
             }
             var x:CGFloat = CGFloat(column) * spacer
             x += self.margin + 2 // -2
@@ -175,6 +176,19 @@ class GraphView: UIView {
         return columnXPoint(index)
     }
 
+    // for finding number of yValues greater than -1:
+    func numberOfValidYValues() -> Int {
+        var validYValues:Int = yValues.count
+        
+        for i in 0..<yValues.count {
+            
+            if yValues[i] > -1 {
+                return validYValues
+            }
+            validYValues--
+        }
+        return validYValues
+    }
   
     func yPoint(yValue:Int) -> CGFloat {
         let height = frame.height
@@ -209,7 +223,9 @@ class GraphView: UIView {
         path.addClip()
         
         // No data has been added by the user yet (the initial point starting at zero)
-        if yValues.count < 2 {
+        
+        
+        if numberOfValidYValues() < 2 {
             addSubview(noDataLabel)
             return
         }
@@ -258,13 +274,22 @@ class GraphView: UIView {
         graphPath.moveToPoint(CGPoint(x:xPoint(0),
             y:yPoint(yValues[0])))
         
+        
+        
+        
         //add points for each item in the graphPoints array
         //at the correct (x, y) for the point
-        for i in 1..<yValues.count {
-            let nextPoint = CGPoint(x:xPoint(i),
-                y:yPoint(yValues[i]))
-            graphPath.addLineToPoint(nextPoint)
+        for i in 1..<numberOfValidYValues() {
+            if (yValues[i] != -1) {
+                let nextPoint = CGPoint(x:xPoint(i),
+                    y:yPoint(yValues[i]))
+                graphPath.addLineToPoint(nextPoint)
+            }
+            
         }
+        
+        
+        
         
         //Create the clipping path for the graph gradient
         
@@ -276,7 +301,7 @@ class GraphView: UIView {
         
         //3 - add lines to the copied path to complete the clip area
         clippingPath.addLineToPoint(CGPoint(
-            x: xPoint(yValues.count - 1),
+            x: xPoint(numberOfValidYValues() - 1),
             y:height))
         clippingPath.addLineToPoint(CGPoint(
             x:xPoint(0),
@@ -299,7 +324,7 @@ class GraphView: UIView {
         graphPath.stroke()
         
         //Draw the circles on top of graph stroke
-        for i in 0..<yValues.count {
+        for i in 0..<numberOfValidYValues() {
             var point = CGPoint(x:xPoint(i), y:yPoint(yValues[i]))
             point.x -= 5.0/2
             point.y -= 5.0/2

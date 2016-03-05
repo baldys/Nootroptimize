@@ -12,7 +12,6 @@ import CoreData
 
 class Stack: NSManagedObject {
 
-    let ratingCategories = [NSManagedObject]()
 
     
 // Insert code here to add functionality to your managed object subclass
@@ -43,53 +42,109 @@ class Stack: NSManagedObject {
         return newItem
     }
     
+    func save() {
+        do {
+            try self.managedObjectContext!.save()
+            
+        } catch let error as NSError {
+            print("Could not save \(error), \(error.userInfo)")
+        }
+    }
+    
     func addDefaultCategories() {
-        addCategoryWithName("category1")
-        addCategoryWithName("category2")
-        addCategoryWithName("category3")
+        addCategoryWithName("mood")
+        addCategoryWithName("focus")
+        addCategoryWithName("energy")
     }
     
     func addCategoryWithName(name:String) {
         
-        if let mutableCategories:NSMutableSet = NSMutableSet(set: categories) {
+        if let mutableCategories:NSMutableSet = NSMutableSet(set: categories!) {
             
             let newCategory:Category = Category.createInManagedObjectContext(self.managedObjectContext!, stack: self, name: name)
             
-            //            newCategory.stack = self
-            //            newCategory.name = name
+            print(newCategory.name)
+            
             mutableCategories.addObject(newCategory)
             self.categories = mutableCategories
+            
+            // find all dates before the current date in the log record, and add data for all records for this category
+            if let logDataSet:NSSet = self.logData {
+                
+                // start with most recent log records
+                let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+                logRecords = logDataSet.sortedArrayUsingDescriptors([sortDescriptor]) as! [LogRecord]
+                //var dateSet = Set<NSDate>()
+                
+                for logRecord in logRecords {
+                    //dateSet.insert(logRecord.date)
+                    for rating in logRecord.ratings {
+                        if rating.categoryName == name {
+                            Rating.createInManagedObjectContext(self.managedObjectContext!, logRecord: logRecord, categoryName: name, value: -1)
+                        }
+                    }
+                }
+            }
+            
+
+            save()
         }
-        
-        
     }
     
     func categoryNames() -> [String] {
+
+        var categoryObjects:[Category] = []
         var categoryNames:[String] = []
+        //let categoryEntity = NSEntityDescription.entityForName("Category", inManagedObjectContext: self.managedObjectContext!)
         
-        
-        for category in self.categories {
-            categoryNames.append(category.name)
+        //let request = NSFetchRequest()
+        //request.entity = categoryEntity
+
+        /// NOTE: THIS CODE FETCHES EVERY CATEGORY FROM EVERY STACK!
+       /*
+        let request = NSFetchRequest(entityName: "Category")
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        request.sortDescriptors = [sortDescriptor]
+        do {
+            let results = try managedObjectContext!.executeFetchRequest(request)
+            
+            let categoryArray = results as! [Category]
+            for category in categoryArray {
+                categoryNames.append(category.name!)
+            }
+            
+        } catch let error as NSError {
+            print("could not fetch \(error), \(error.userInfo)")
             
         }
+        */
+        
+        if let categorySet:NSSet = self.categories {
+            let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+            categoryObjects = categorySet.sortedArrayUsingDescriptors([sortDescriptor]) as! [Category]
+        }
+        
+        for category in categoryObjects {
+            categoryNames.append(category.name!)
+        }
+        
+        
         return categoryNames
     }
 
+    func addLogRecordWithDate(date:NSDate) {
+        let logRecord:LogRecord = LogRecord.createInManagedObjectContext(self.managedObjectContext!, stack: self, date: date)
+        
+        addNewLogRecord(logRecord)
+    }
     
     func addNewLogRecord(logRecord:LogRecord) {
         if let mutableLogData:NSMutableSet = NSMutableSet(set: logData!) {
             mutableLogData.addObject(logRecord)
             self.logData = mutableLogData
-
         }
         
-        do {
-            try self.managedObjectContext!.save()
-        } catch let error as NSError {
-            print("Could not save \(error), \(error.userInfo)")
-        }
-    
-        //NSSet.mutableSetValueForKey()
+        save()
     }
     
     
@@ -106,7 +161,7 @@ class Stack: NSManagedObject {
         if let mutableNootropicSet:NSMutableSet = NSMutableSet(set: nootropics!) {
             mutableNootropicSet.addObject(nootropic)
             self.nootropics = mutableNootropicSet
-            
+            save()
         }
     }
     

@@ -23,7 +23,6 @@ extension Stack {
     @NSManaged var nootropics: NSSet?
     
     /// category defines how a stack should be evaluated.
-    @NSManaged var categories:NSSet
+    @NSManaged var categories:NSSet?
 
-    @NSManaged func addCategory(value:Category)
 }

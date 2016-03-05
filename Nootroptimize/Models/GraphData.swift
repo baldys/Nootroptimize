@@ -20,7 +20,12 @@ class CategorizedGraphPoints {
     
     init(category:String) {
         self.category = category
-        self.ratingValues = []
+        self.ratingValues = [0]
+    }
+    
+    func addRating(value:Int) {
+        ratingValues?.append(value)
+    
     }
 }
 
@@ -53,40 +58,20 @@ class GraphData {
     var startAtZero:Bool = true
     let dateFormatter = NSDateFormatter()
     
-    init(logRecords:[LogRecord]) {
+    init(logRecords:[LogRecord], categories:[String]) {
 
-//        self.logRecords = logRecords
- 
-        for category in (logRecords[0].stack?.categoryNames())! {
-            categories.append(category)
-            
-            let graphPoints = CategorizedGraphPoints(category: category)
-            
-            if startAtZero {
-                graphPoints.ratingValues?.append(0)
-            }
-            categorizedData.append(graphPoints)
-        }
+        self.categories = categories
         
-        if (startAtZero) {
-            
-            
-//            moodData.append(0)
-//            focusData.append(0)
-//            energyData.append(0)
-//            clarityData.append(0)
-//            memoryData.append(0)
+        if startAtZero {
             days.append(" ")
-            
-        }
-        
-
-        if (logRecords.count > 0) {
-            
-            for logRecord in logRecords {
-                addLogRecord(logRecord)
-
+            for category in categories {
+                let graphPoints = CategorizedGraphPoints(category: category)
+                categorizedData.append(graphPoints)
             }
+        }
+  
+        for logRecord in logRecords {
+            addLogRecord(logRecord)
         }
     }
     
@@ -118,6 +103,8 @@ class GraphData {
     
     func addLogRecord(logRecord:LogRecord) {
         //        logRecords.append(logRecord)
+        
+        
         
         
         let logRecordDate:NSDate = logRecord.date!
@@ -222,45 +209,45 @@ class GraphData {
         
         var topColor:UIColor
         var bottomColor:UIColor
-        var index:Int!
+        var index:Int = 0
         
         
         for categoryName in categories {
             if categoryName == category {
-                index = categories.indexOf(categoryName)
+                index = categories.indexOf(categoryName)!+1
                 break
             }
             
         }
         
         switch (index) {
-        case 0:
+        case 1:
             topColor = UIColor.redGraphColor()
             bottomColor = UIColor.yellowGraphColor()
             break
             
-        case 1:
+        case 2:
             topColor = UIColor.aquaGraphColour()
             bottomColor = UIColor.turquoiseGraphColour()
             break
             
-        case 2:
+        case 3:
             topColor = UIColor.yellowColor()
             bottomColor = UIColor.greenGraphColour()
             break
         
-        case 3:
+        case 4:
             topColor = UIColor.blueGraphColour()
             bottomColor = UIColor.darkPurpleGraphColour()
             break
             
-        case 4:
+        case 5:
             topColor = UIColor.purpleGraphColour()
             bottomColor = UIColor.pinkGraphColor()
             break
         default:
-            topColor = UIColor.aquaGraphColour()
-            bottomColor = UIColor.turquoiseGraphColour()
+            topColor = UIColor.darkGrayColor()
+            bottomColor = UIColor.whiteColor()
             break
             
         }

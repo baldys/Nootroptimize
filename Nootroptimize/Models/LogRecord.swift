@@ -68,16 +68,16 @@ class LogRecord: NSManagedObject {
         newLogRecord.date = date
         
         // get the categories upon which a stack is rated
-        for category in stack.categories {
+        for category in stack.categories! {
             let rating:Rating = Rating.createInManagedObjectContext(moc, logRecord: newLogRecord, categoryName: category.name)
             newLogRecord.ratings.insert(rating)
-            
         }
-        
-        
-
-        
+    
         return newLogRecord
+    }
+    
+    func addRatingWithName(name:String, value:Int) {
+        
     }
 
     

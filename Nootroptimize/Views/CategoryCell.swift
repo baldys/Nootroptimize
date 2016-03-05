@@ -19,14 +19,38 @@ class CategoryCell: UITableViewCell {
     @IBOutlet weak var valueLabel: UILabel!
     @IBOutlet weak var stepper: UIStepper!
     
+    @IBOutlet weak var categoryTextField: UITextField!
+
+    
     var delegate:UpdateCellDelegate?
+    // When adding a new item, replace name label with text field, hide value labels and stepper and when done editing return to normal state
+    var addMode:Bool = false
+    
     
     func setFromRatingCategory(category:RatingCategory) {
-        nameLabel.text = category.name
-//        valueLabel.text = String(category.value)
-        valueLabel.text = "-"
+        
+        if addMode {
+            categoryTextField.text = category.name
+        }
+        else{
+            nameLabel.text = category.name
+            //        valueLabel.text = String(category.value)
+            valueLabel.text = "-"
+        }
+
     }
     
+    func toggleAddMode(addMode:Bool) {
+        self.addMode = addMode
+        nameLabel.hidden = addMode
+        valueLabel.hidden = addMode
+        stepper.hidden = addMode
+        categoryTextField.hidden = !addMode
+
+        if !addMode {
+            nameLabel.text = categoryTextField.text
+        }
+    }
     
     @IBAction func changeRating(sender: AnyObject) {
         if sender as! UIStepper == self.stepper {
@@ -39,6 +63,6 @@ class CategoryCell: UITableViewCell {
         
 
     }
-    
+
     
 }
