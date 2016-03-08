@@ -153,6 +153,12 @@ class AddLogRecordViewController: UIViewController, UITableViewDataSource, UITab
         cell.toggleAddMode(false)
         categories[categories.count-1].name = textField.text!
         
+        
+        
+        
+        
+        
+        
         delegate?.didAddCategory(textField.text!)
         
         // TO DO: Delete new categories if cancel is pressed!

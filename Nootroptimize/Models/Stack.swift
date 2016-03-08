@@ -53,8 +53,7 @@ class Stack: NSManagedObject {
     
     func addDefaultCategories() {
         addCategoryWithName("mood")
-        addCategoryWithName("focus")
-        addCategoryWithName("energy")
+      
     }
     
     func addCategoryWithName(name:String) {
@@ -76,13 +75,16 @@ class Stack: NSManagedObject {
                 logRecords = logDataSet.sortedArrayUsingDescriptors([sortDescriptor]) as! [LogRecord]
                 //var dateSet = Set<NSDate>()
                 
+                // create new rating object for each log record in the stack, and assign it a value of -1.
                 for logRecord in logRecords {
                     //dateSet.insert(logRecord.date)
-                    for rating in logRecord.ratings {
-                        if rating.categoryName == name {
-                            Rating.createInManagedObjectContext(self.managedObjectContext!, logRecord: logRecord, categoryName: name, value: -1)
-                        }
-                    }
+                    //for rating in logRecord.ratings {
+                        //if rating.categoryName == name {
+                            Rating.createInManagedObjectContext(self.managedObjectContext!, logRecord: logRecord, categoryName: name)
+                        //}
+                   // }
+                    // if that doesnt work add the rating to LogRecord's set of ratings
+                    
                 }
             }
             
@@ -122,12 +124,13 @@ class Stack: NSManagedObject {
         if let categorySet:NSSet = self.categories {
             let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
             categoryObjects = categorySet.sortedArrayUsingDescriptors([sortDescriptor]) as! [Category]
+            for category in categoryObjects {
+                categoryNames.append(category.name!)
+            }
+            
         }
         
-        for category in categoryObjects {
-            categoryNames.append(category.name!)
-        }
-        
+       
         
         return categoryNames
     }

@@ -60,7 +60,7 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
         newStack.name = name
         newStack.nootropics = nootropics
         newStack.dateCreated = NSDate()
-        newStack.addDefaultCategories()
+        //newStack.addDefaultCategories()
         
 //        Stack.createInManagedObjectContext(self.managedObjectContext, name: name)
         
@@ -266,7 +266,7 @@ class StackTableViewController: UITableViewController,NSFetchedResultsController
                     let selectedStack:Stack = self.fetchedResultsController.objectAtIndexPath(selectedIndexPath) as! Stack
                 
                
-                    stackResponseVC.currentStack = selectedStack
+                    stackResponseVC.stack = selectedStack
 
                 }
                 

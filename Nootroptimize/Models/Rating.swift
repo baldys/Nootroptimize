@@ -13,13 +13,15 @@ import CoreData
 class Rating: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
-
+    var date:NSDate?
+    
+    
     class func createInManagedObjectContext(moc:NSManagedObjectContext, logRecord:LogRecord, categoryName:String, value:Int) -> Rating {
         let rating:Rating = NSEntityDescription.insertNewObjectForEntityForName("Rating", inManagedObjectContext: moc) as! Rating
         rating.logRecord = logRecord
         rating.value = value
         rating.categoryName = categoryName
-        
+        rating.date = logRecord.date
         
         return rating
     }
@@ -27,7 +29,7 @@ class Rating: NSManagedObject {
         
         let rating:Rating = NSEntityDescription.insertNewObjectForEntityForName("Rating", inManagedObjectContext: moc) as! Rating
         rating.logRecord = logRecord
-        rating.value = 0
+        rating.value = -1
         rating.categoryName = categoryName
 
 

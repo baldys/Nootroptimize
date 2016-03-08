@@ -13,18 +13,24 @@ import CoreData
 
 
 
-
+// number of y values = # xvalues (dates for a rating in a log record)
 class CategorizedGraphPoints {
     var category:String?
     var ratingValues:[Int]?
+    var dates:[NSDate]?
     
     init(category:String) {
         self.category = category
-        self.ratingValues = [0]
+        self.ratingValues = []
+        self.dates = []
+        
     }
     
-    func addRating(value:Int) {
-        ratingValues?.append(value)
+    
+    func addRating(ratingValue:Int, forDate date:NSDate) {
+    
+        ratingValues?.append(ratingValue)
+        dates?.append(date)
     
     }
 }
@@ -47,28 +53,47 @@ class GraphData {
     var dates:[NSDate] = []
     
     var days = [String]()
-
-//    private var moodData:[Int]    = []
-//    private var focusData:[Int]   = []
-//    private var energyData:[Int]  = []
-//    private var clarityData:[Int] = []
-//    private var memoryData:[Int]  = []
-
+    
     //var logRecords:[LogRecord] = []
     var startAtZero:Bool = true
     let dateFormatter = NSDateFormatter()
     
-    init(logRecords:[LogRecord], categories:[String]) {
-
-        self.categories = categories
+    
+    init(stack:Stack) {
+        
+        self.categories = stack.categoryNames()
+        
+        for category in categories {
+            let graphPoints = CategorizedGraphPoints(category: category)
+            categorizedData.append(graphPoints)
+        }
         
         if startAtZero {
             days.append(" ")
-            for category in categories {
-                let graphPoints = CategorizedGraphPoints(category: category)
-                categorizedData.append(graphPoints)
-            }
+            
         }
+        
+        
+        for logRecord in stack.logRecords {
+            addLogRecord(logRecord)
+            
+        }
+    }
+    
+    init(logRecords:[LogRecord], stack:Stack) {
+
+        categories = stack.categoryNames()
+        
+        for category in categories {
+            let graphPoints = CategorizedGraphPoints(category: category)
+            categorizedData.append(graphPoints)
+        }
+        
+        if startAtZero {
+            days.append(" ")
+            
+        }
+
   
         for logRecord in logRecords {
             addLogRecord(logRecord)
@@ -101,37 +126,58 @@ class GraphData {
 //        }
 //    }
     
+
+    
+    func addCategory(name:String, toStack stack:Stack) {
+        
+        // add category to stack:
+        // stack.addCategoryWithName(name)
+        
+        // new graph category with no values or dates added to it yet
+        let newGraphCategory = CategorizedGraphPoints(category: name)
+        
+        
+        if startAtZero {
+            
+            
+        }
+        
+        for logRecord in stack.logRecords {
+            
+            let rating = logRecord.getRatingForCategoryName(name)
+            print("log record for new category (should be -1) \(rating)")
+            
+            
+        }
+        
+        categorizedData.append(newGraphCategory)
+
+    }
+    
+    
     func addLogRecord(logRecord:LogRecord) {
-        //        logRecords.append(logRecord)
-        
-        
-        
+        // assuming a log record has already been added to the stack...?
+        // and this log record already has ratings assigned to each category
         
         let logRecordDate:NSDate = logRecord.date!
         dates.append(logRecordDate)
-        
-        
+
         let dateString = formattedDateString(logRecordDate)
         days.append(dateString)
         
+        for graphCategory in categorizedData {
         
-        
-
-        for rating in logRecord.ratings {
+            let rating = logRecord.getRatingForCategoryName(graphCategory.category!)
+            graphCategory.dates?.append(logRecordDate)
+            graphCategory.addRating(rating, forDate: logRecordDate)
             
-            let categoryName:String = rating.categoryName
-            let ratingValue:Int = (rating.value?.integerValue)!
-            
-            // find the element in categorizedData that has the name
 
-            for graphPoints in categorizedData {
-                if graphPoints.category == categoryName {
-                    graphPoints.ratingValues?.append(ratingValue)
-                }
-            }
-
-            
         }
+
+
+            
+    }
+  
         
         /*
         if let moodRating:NSNumber = logRecord.mood {
@@ -154,7 +200,7 @@ class GraphData {
             memoryData.append(memoryRating.integerValue)
         }
         */
-    }
+    
     
 
     
@@ -186,7 +232,7 @@ class GraphData {
 //    }
     
     
-    func ratingValuesForCategory(categoryName:String) -> [Int] {
+    func getRatingValuesForCategory(categoryName:String) -> [Int] {
         
         var ratings:[Int] = []
 
@@ -202,6 +248,26 @@ class GraphData {
 
     }
 
+    func getDatesForCategory(categoryName:String) -> [String] {
+        var dates:[NSDate] = []
+        var dateStrings:[String] = []
+        
+        for graphPoints in categorizedData {
+            if graphPoints.category == categoryName {
+                
+                
+                dates = graphPoints.dates!
+                
+                break
+            }
+            
+        }
+        
+        for date in dates {
+            dateStrings.append(formattedDateString(date))
+        }
+        return dateStrings
+    }
     
     // TO DO::: put this in UIColor extension
     
@@ -211,14 +277,17 @@ class GraphData {
         var bottomColor:UIColor
         var index:Int = 0
         
-        
-        for categoryName in categories {
-            if categoryName == category {
-                index = categories.indexOf(categoryName)!+1
-                break
-            }
-            
+        var allCategories:[String] = []
+        for graphCategory in categorizedData {
+            allCategories.append(graphCategory.category!)
         }
+        
+        for aCategory in allCategories {
+            if aCategory == category {
+                index = allCategories.indexOf(aCategory)!
+            }
+        }
+        
         
         switch (index) {
         case 1:
@@ -246,8 +315,8 @@ class GraphData {
             bottomColor = UIColor.pinkGraphColor()
             break
         default:
-            topColor = UIColor.darkGrayColor()
-            bottomColor = UIColor.whiteColor()
+            topColor = UIColor.blackColor()
+            bottomColor = UIColor.lightGrayColor()
             break
             
         }
