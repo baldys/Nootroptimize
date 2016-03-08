@@ -57,7 +57,7 @@ class GraphView: UIView {
         //let width = frame.width
         let height = frame.height
 
-        let labelWidth:CGFloat = 22
+        let labelWidth:CGFloat = 44
         
         var labelFrame = CGRect(x: 0, y: 0, width: labelWidth, height: 14)
 
@@ -68,6 +68,9 @@ class GraphView: UIView {
             labelFrame.origin.y = height - 15
             
             label.frame = labelFrame
+            print("[\(index)] LABEL TEXT:\(label.text), xValue: \(xValues[index])")
+            
+            
         }
         
         /// TO DO: check if labelWidth*xLabels.count > width then shift the graph over so it shows the most recent dates
@@ -81,7 +84,6 @@ class GraphView: UIView {
     // this should only be called once
     func setUpXLabels(xValues:[String]) {
         
-        self.xValues.removeAll()
         self.xValues = xValues
 
 //        if startAtZero {

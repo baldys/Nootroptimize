@@ -22,10 +22,7 @@ class StackResponseViewController: UIViewController, UITableViewDataSource, UITa
     
     var categories:[String] = []
     @IBOutlet weak var graphDataControl: UISegmentedControl!
-    
-    var dateFormatter = NSDateFormatter()
-    
-    
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -37,15 +34,14 @@ class StackResponseViewController: UIViewController, UITableViewDataSource, UITa
 
         categories = stack.categoryNames()
         
-        
-      //  fix this
-        for i in 0..<graphDataControl.numberOfSegments {
-            if (i >= categories.count-1) {
-                graphDataControl.removeSegmentAtIndex(i, animated: false)
-            } else {
-                graphDataControl.setTitle(categories[i], forSegmentAtIndex: i)
-            }
+    
+        // there are 5 segments shown in storyboard, remove them since they aren't consistent with custom categories
+        graphDataControl.removeAllSegments()
+        for i in 0..<categories.count {
+            graphDataControl.insertSegmentWithTitle(categories[i], atIndex: i, animated: false)
         }
+        
+        graphDataControl.selectedSegmentIndex = 0
         
     
         
@@ -59,13 +55,7 @@ class StackResponseViewController: UIViewController, UITableViewDataSource, UITa
 //        updateGraphWithData(graphData!, forRatingCategory: .mood)
 //        
         
-        
-        
-        
-        
-        
-        
-        if let logData:NSSet = (stack?.logData)! as NSSet {
+        if let logData:NSSet = stack.logData! as NSSet {
             let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
             logRecords = logData.sortedArrayUsingDescriptors([sortDescriptor]) as! [LogRecord]
         
@@ -74,17 +64,19 @@ class StackResponseViewController: UIViewController, UITableViewDataSource, UITa
             
             categories = stack.categoryNames()
 
-            //graphView.setUpXLabels(graphData!.days)
+            graphView.setUpXLabels(graphData!.days)
             
             
         
         
             //graphView.setUpXLabels(graphData!.getDatesForCategory(categories[0]))
             
+            if categories.count > 0 {
+                updateGraphWithData(graphData!, forRatingCategory: categories[0])
+            }
             
             
             
-            updateGraphWithData(graphData!, forRatingCategory: categories[0])
             
         }
     }
@@ -127,15 +119,25 @@ class StackResponseViewController: UIViewController, UITableViewDataSource, UITa
     
     func didAddCategory(name:String) {
         // get all graph dates
-        
         stack.addCategoryWithName(name)
 
+        let moc = stack.managedObjectContext!
+        
+
+        
+        do {
+            try moc.save()
+        } catch let error as NSError {
+            print("Could not save \(error), \(error.userInfo)")
+        }
+        
         graphData?.addCategory(name, toStack:stack)
         // add a new segment 
         categories = stack.categoryNames()
         let index:Int = categories.indexOf(name)!
         
         self.graphDataControl.insertSegmentWithTitle(name, atIndex: index, animated: true)
+        
         
     }
     
@@ -161,7 +163,7 @@ class StackResponseViewController: UIViewController, UITableViewDataSource, UITa
         //        var weekday = components.weekday
 
         graphView.yValues = data.getRatingValuesForCategory(category)
-        graphView.setUpXLabels(data.getDatesForCategory(category))
+//        graphView.setUpXLabels(data.getDatesForCategory(category))
         
         let gradientDictionary = data.getColourForRatingCategory(category)
         graphView.topColour = gradientDictionary["top"]!
@@ -191,6 +193,7 @@ class StackResponseViewController: UIViewController, UITableViewDataSource, UITa
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         if size.width > size.height {
             graphView.frame = CGRect(origin:CGPoint(x:0,y:0), size: size)
+            
         }
     }
 
@@ -236,26 +239,26 @@ class StackResponseViewController: UIViewController, UITableViewDataSource, UITa
     
     func addLogRecordWithRatings(categoryRatings:[RatingCategory], forDate date:NSDate) {
         
-        let moc = stack?.managedObjectContext
 
-        let logRecord:LogRecord = LogRecord.createInManagedObjectContext((stack?.managedObjectContext)!, stack: stack!, date:date)
+        let logRecord:LogRecord = LogRecord.createInManagedObjectContext(stack.managedObjectContext!, stack: stack!, date:date)
+
 
         /////////
         // when adding a log record it automatically creates rating objects from category objects in the stack. 
-        // it sets the categoryNames of the ratings to the category objects name, and sets the ratings' value to some default value initially (0 or -1)
+        // it sets the categoryNames of the ratings to the category objects name, and sets the ratings' value to some default value initially -1)
         // then match each rating from RatingCategories to the name in each rating in the log record and change the values from default to the rating value in the RatingCategory object
         
         
         for categoryRating in categoryRatings {
         
-            // Should suffice since max number of categories = 5
             for rating in logRecord.ratings {
                 if (rating.categoryName == categoryRating.name) {
                     //rating.setValue(categoryRating.value, forKey: "value")
-                    rating.value = categoryRating.value
+                    logRecord.addRating(categoryRating.value, forCategory: categoryRating.name)
                 }
             }
-            
+        
+
 //            let predicate:NSPredicate = NSPredicate(format: "categoryName == %@", categoryRating.name)
 //            let ratingObject:Rating = logRecord.ratings?.filteredSetUsingPredicate(predicate)
 //            
@@ -276,19 +279,25 @@ class StackResponseViewController: UIViewController, UITableViewDataSource, UITa
             print("\(rating.categoryName) \(rating.value)")
         }
      
-        stack?.addNewLogRecord(logRecord)
-        
+        stack.addNewLogRecord(logRecord)
+        let moc = stack.managedObjectContext!
+
         do {
-            try moc!.save()
+            try moc.save()
         } catch let error as NSError {
             print("Could not save \(error), \(error.userInfo)")
         }
         
         categories = stack.categoryNames()
 
+        print("\(categories)")
         graphData?.addLogRecord(logRecord)
         
-//        graphView.addXLabelWithText(graphData!.days.last!)
+        graphView.addXLabelWithText(graphData!.days.last!)
+        
+        if (graphDataControl.selectedSegmentIndex == -1) {
+            graphDataControl.selectedSegmentIndex = 0
+        }
         
         updateGraphWithData(graphData!, forRatingCategory: categories[graphDataControl.selectedSegmentIndex])
 

@@ -191,7 +191,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="graphDataControl" destination="3vB-bF-xYf" id="Fm9-Sg-H7W"/>
-                        <outlet property="graphView" destination="z13-HY-hmd" id="rx4-ci-lsA"/>
+                        <outlet property="graphView" destination="z13-HY-hmd" id="rtU-5e-C2j"/>
                         <outlet property="maxLabel" destination="isc-4V-glD" id="ZjH-Cb-yeZ"/>
                         <outlet property="tableView" destination="w23-EZ-4r5" id="jYu-bM-23z"/>
                     </connections>

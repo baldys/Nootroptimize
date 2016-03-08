@@ -77,6 +77,26 @@ class LogRecord: NSManagedObject {
     }
     
     func addRating(value:Int, forCategory name:String) {
+//        let newRating = NSEntityDescription.insertNewObjectForEntityForName("Rating", inManagedObjectContext: <#T##NSManagedObjectContext#>)
+        let predicate = NSPredicate(format: "categoryName == %@", name)
+        
+        
+        let ratingsArray:Array = Array(self.ratings)
+        //let ratingValues:[AnyObject] = ratingsArray.filteredArrayUsingPredicate(predicate)
+        
+        let filteredArray = ratingsArray.filter { predicate.evaluateWithObject($0) }
+        
+        
+        print("names = ,\(filteredArray)");
+        
+        
+        let rating:Rating = filteredArray[0]
+        rating.setValue(value, forKey: "value")
+        
+        
+        stack?.save()
+
+        
 
     }
     

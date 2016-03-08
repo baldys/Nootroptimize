@@ -15,9 +15,9 @@ import CoreData
 
 // number of y values = # xvalues (dates for a rating in a log record)
 class CategorizedGraphPoints {
-    var category:String?
-    var ratingValues:[Int]?
-    var dates:[NSDate]?
+    var category:String
+    var ratingValues = [Int]()
+    var dates = [String]()
     
     init(category:String) {
         self.category = category
@@ -27,10 +27,10 @@ class CategorizedGraphPoints {
     }
     
     
-    func addRating(ratingValue:Int, forDate date:NSDate) {
+    func addRating(ratingValue:Int, forDate date:String) {
     
-        ratingValues?.append(ratingValue)
-        dates?.append(date)
+        ratingValues.append(ratingValue)
+        dates.append(date)
     
     }
 }
@@ -65,6 +65,10 @@ class GraphData {
         
         for category in categories {
             let graphPoints = CategorizedGraphPoints(category: category)
+            if startAtZero {
+                graphPoints.addRating(0, forDate: " ")
+                
+            }
             categorizedData.append(graphPoints)
         }
         
@@ -82,10 +86,19 @@ class GraphData {
     
     init(logRecords:[LogRecord], stack:Stack) {
 
+        if logRecords.count == 0 {
+            return
+        }
         categories = stack.categoryNames()
         
         for category in categories {
             let graphPoints = CategorizedGraphPoints(category: category)
+            
+            if startAtZero {
+                graphPoints.addRating(0, forDate: " ")
+                
+            }
+            
             categorizedData.append(graphPoints)
         }
         
@@ -94,10 +107,10 @@ class GraphData {
             
         }
 
-  
         for logRecord in logRecords {
             addLogRecord(logRecord)
         }
+        
     }
     
     
@@ -167,9 +180,9 @@ class GraphData {
         
         for graphCategory in categorizedData {
         
-            let rating = logRecord.getRatingForCategoryName(graphCategory.category!)
-            graphCategory.dates?.append(logRecordDate)
-            graphCategory.addRating(rating, forDate: logRecordDate)
+            let rating = logRecord.getRatingForCategoryName(graphCategory.category)
+//            graphCategory.dates.append(dateString)
+            graphCategory.addRating(rating, forDate: dateString)
             
 
         }
@@ -238,7 +251,7 @@ class GraphData {
 
         for graphPoints in categorizedData {
             if graphPoints.category == categoryName {
-                ratings = graphPoints.ratingValues!
+                ratings = graphPoints.ratingValues
                 break
             }
             
@@ -249,23 +262,23 @@ class GraphData {
     }
 
     func getDatesForCategory(categoryName:String) -> [String] {
-        var dates:[NSDate] = []
+        //var dates:[NSDate] = []
         var dateStrings:[String] = []
         
         for graphPoints in categorizedData {
             if graphPoints.category == categoryName {
                 
                 
-                dates = graphPoints.dates!
+                dateStrings = graphPoints.dates
                 
                 break
             }
             
         }
         
-        for date in dates {
-            dateStrings.append(formattedDateString(date))
-        }
+//        for date in dates {
+//            dateStrings.append(formattedDateString(date))
+//        }
         return dateStrings
     }
     
@@ -279,12 +292,12 @@ class GraphData {
         
         var allCategories:[String] = []
         for graphCategory in categorizedData {
-            allCategories.append(graphCategory.category!)
+            allCategories.append(graphCategory.category)
         }
         
         for aCategory in allCategories {
             if aCategory == category {
-                index = allCategories.indexOf(aCategory)!
+                index = allCategories.indexOf(aCategory)!+1
             }
         }
         

@@ -25,9 +25,6 @@ class Stack: NSManagedObject {
         newItem.nootropics = NSSet()
         newItem.logData = NSSet()
         newItem.categories = NSSet()
-        
-        newItem.addDefaultCategories()
-    
         return newItem
     }
 
@@ -38,6 +35,8 @@ class Stack: NSManagedObject {
         newItem.dateCreated = NSDate()
         newItem.nootropics = nootropics
         newItem.logData = NSSet()
+        newItem.categories = NSSet()
+        newItem.addDefaultCategories()
         
         return newItem
     }
