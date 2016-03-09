@@ -296,9 +296,9 @@ class StackResponseViewController: UIViewController, UITableViewDataSource, UITa
         
         graphView.addXLabelWithText(graphData!.days.last!)
         
-//        if (graphDataControl.selectedSegmentIndex == -1) {
-//            graphDataControl.selectedSegmentIndex = 0
-//        }
+        if (graphDataControl.selectedSegmentIndex == -1) {
+            graphDataControl.selectedSegmentIndex = 0
+        }
         
         updateGraphWithData(graphData!, forRatingCategory: categories[graphDataControl.selectedSegmentIndex])
 

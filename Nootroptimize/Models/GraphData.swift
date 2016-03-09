@@ -40,16 +40,8 @@ class GraphData {
     
     var categorizedData:[CategorizedGraphPoints] = []
     var categories:[String] = []
-    
-    
-    enum RatingType:Int {
-        case mood
-        case energy
-        case focus
-        case clarity
-        case memory
-    }
-    
+   
+
     var dates:[NSDate] = []
     
     var days = [String]()
@@ -57,7 +49,6 @@ class GraphData {
     //var logRecords:[LogRecord] = []
     var startAtZero:Bool = true
     let dateFormatter = NSDateFormatter()
-    
     
     init(stack:Stack) {
         
@@ -264,6 +255,10 @@ class GraphData {
                 
                 var ratingValues = graphPoints.ratingValues
                 
+                if startAtZero {
+                    
+                    ratingValues.insert(0, atIndex: 0)
+                }
                 for i in 0..<graphPoints.ratingValues.count {
                     if ratingValues[i] != -1 {
                         ratings.append(ratingValues[i])
@@ -305,6 +300,9 @@ class GraphData {
             
         }
         
+        if startAtZero {
+            dateStrings.insert(" ", atIndex: 0)
+        }
 //        for date in dates {
 //            dateStrings.append(formattedDateString(date))
 //        }
