@@ -41,7 +41,7 @@ class GraphView: UIView {
         
         xValues.append(xValue)
         let xLabel = UILabel(frame: CGRectZero)
-        xLabel.text = " \(xValues.count)|\(xValue)"
+        xLabel.text = " \(xValue)"
         xLabel.font = UIFont(name: "AvenirNextCondensed-Medium", size: 13)
         xLabel.textColor = UIColor.whiteColor()
         print("xLabel.text: \(xLabel.text)")
@@ -73,6 +73,15 @@ class GraphView: UIView {
             
         }
         
+//        let widthOfLabelsCombined = labelFrame.width * CGFloat(xLabels.count)
+//        let maximumGraphWidth = frame.width - margin*2
+//        
+//        if (widthOfLabelsCombined > maximumGraphWidth) {
+//            xLabels.removeFirst()
+//            yValues.removeFirst()
+//            xValues.removeFirst()
+//            setNeedsLayout()
+//        }
         /// TO DO: check if labelWidth*xLabels.count > width then shift the graph over so it shows the most recent dates
 
        
@@ -91,27 +100,61 @@ class GraphView: UIView {
 //            self.xValues.insert(" ", atIndex: 0)
 //        }
     
+
+        for xLabel in xLabels {
+            xLabel.removeFromSuperview()
+        }
+    
+        self.xLabels.removeAll()
+
         let labelFrame = CGRect(x:0, y:0, width:30, height:44)
         
-        self.xLabels.removeAll()
         
         for i in 0..<xValues.count {
 
             let xLabel = UILabel(frame:labelFrame)
             
-            xLabel.text = "(\(i) | \(xValues[i]))"
+            xLabel.text = "\(xValues[i])"
             
             xLabel.font = UIFont(name: "AvenirNextCondensed-Medium", size: 13)
             xLabel.textAlignment = .Center
             xLabel.textColor = UIColor.whiteColor()
-            xLabels.append(xLabel)
             
+            
+            xLabels.append(xLabel)
             addSubview(xLabel)
+
             
         }
 //        setNeedsLayout() // layout if needed
 //        setNeedsDisplay()
+    
     }
+    
+    
+    // dont show the point on the graph if the yValue = -1, this indicates that no data has been added for that date and should be removed.
+//    func setUpYValues(yValues:[Int]) {
+//        
+//        var tempYValues = yValues
+//        for i in 0..<yValues.count {
+//            
+//            if yValues[i] == -1 {
+//                xLabels.removeAtIndex(i)
+//                xValues.removeAtIndex(i)
+//                tempYValues.removeAtIndex(i)
+//            }
+//        }
+//        
+//        self.yValues = tempYValues
+//        setNeedsLayout()
+//        
+//    }
+    
+    func arrangeLabelsToFitWidth() {
+        
+        
+    }
+    
     
     // placeholder for no content
     lazy var noDataLabel:UILabel = {

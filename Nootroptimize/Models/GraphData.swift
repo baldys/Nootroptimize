@@ -17,7 +17,7 @@ import CoreData
 class CategorizedGraphPoints {
     var category:String
     var ratingValues = [Int]()
-    var dates = [String]()
+    var dates = [NSDate]()
     
     init(category:String) {
         self.category = category
@@ -27,7 +27,7 @@ class CategorizedGraphPoints {
     }
     
     
-    func addRating(ratingValue:Int, forDate date:String) {
+    func addRating(ratingValue:Int, forDate date:NSDate) {
     
         ratingValues.append(ratingValue)
         dates.append(date)
@@ -66,7 +66,7 @@ class GraphData {
         for category in categories {
             let graphPoints = CategorizedGraphPoints(category: category)
             if startAtZero {
-                graphPoints.addRating(0, forDate: " ")
+                //graphPoints.addRating(0, forDate: " ")
                 
             }
             categorizedData.append(graphPoints)
@@ -95,7 +95,7 @@ class GraphData {
             let graphPoints = CategorizedGraphPoints(category: category)
             
             if startAtZero {
-                graphPoints.addRating(0, forDate: " ")
+                //graphPoints.addRating(0, forDate: " ")
                 
             }
             
@@ -181,8 +181,9 @@ class GraphData {
         for graphCategory in categorizedData {
         
             let rating = logRecord.getRatingForCategoryName(graphCategory.category)
+            
 //            graphCategory.dates.append(dateString)
-            graphCategory.addRating(rating, forDate: dateString)
+            graphCategory.addRating(rating, forDate: logRecordDate)
             
 
         }
@@ -221,8 +222,16 @@ class GraphData {
     func formattedDateString(date:NSDate) -> String {
 //        dateFormatter.timeStyle = .ShortStyle
 //        dateFormatter.dateStyle = .ShortStyle
-
-        dateFormatter.dateFormat = "dd"
+        
+        if dates.count <= 7 {
+            dateFormatter.dateFormat = "MM-dd"
+        }
+        else if dates.count > 7 || dates.count <= 14{
+            dateFormatter.dateFormat = "dd"
+        }
+        else if dates.count > 14 {
+            dateFormatter.dateFormat = "d"
+        }
         return dateFormatter.stringFromDate(date)
             
     }
@@ -244,6 +253,7 @@ class GraphData {
 //        }
 //    }
     
+ 
     
     func getRatingValuesForCategory(categoryName:String) -> [Int] {
         
@@ -251,7 +261,14 @@ class GraphData {
 
         for graphPoints in categorizedData {
             if graphPoints.category == categoryName {
-                ratings = graphPoints.ratingValues
+                
+                var ratingValues = graphPoints.ratingValues
+                
+                for i in 0..<graphPoints.ratingValues.count {
+                    if ratingValues[i] != -1 {
+                        ratings.append(ratingValues[i])
+                    }
+                }
                 break
             }
             
@@ -268,8 +285,20 @@ class GraphData {
         for graphPoints in categorizedData {
             if graphPoints.category == categoryName {
                 
+                //var tempDates:[NSDate] = graphPoints.dates
                 
-                dateStrings = graphPoints.dates
+                let ratingValues = graphPoints.ratingValues
+                for i in 0..<ratingValues.count {
+                    if ratingValues[i] != -1 {
+                        dateStrings.append(formattedDateString(dates[i]))
+
+                    }
+                    else {
+                        //tempDates.removeAtIndex(i)
+
+                    }
+                }
+//                dateStrings = tempDates
                 
                 break
             }

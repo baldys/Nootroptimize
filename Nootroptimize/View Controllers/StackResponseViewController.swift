@@ -60,12 +60,11 @@ class StackResponseViewController: UIViewController, UITableViewDataSource, UITa
             logRecords = logData.sortedArrayUsingDescriptors([sortDescriptor]) as! [LogRecord]
         
             graphData = GraphData(logRecords: logRecords, stack: stack)
-            //graphData = GraphData(logRecords: logRecords, categories: stack.categoryNames())
+           
             
             categories = stack.categoryNames()
 
-            graphView.setUpXLabels(graphData!.days)
-            
+///            graphView.setUpXLabels(graphData!.days)
             
         
         
@@ -154,7 +153,7 @@ class StackResponseViewController: UIViewController, UITableViewDataSource, UITa
     // graph points are updated to the most recently added data for a particular rating category
     func updateGraphWithData(data:GraphData, forRatingCategory category:String) {
   
-        //        let dateFormatter = NSDateFormatter()
+        //        let  = NSDateFormatter()
         
         //        let calendar = NSCalendar.currentCalendar()
         //        let componentOptions:NSCalendarUnit = .Weekday
@@ -162,8 +161,16 @@ class StackResponseViewController: UIViewController, UITableViewDataSource, UITa
         //            fromDate: NSDate())
         //        var weekday = components.weekday
 
+        graphView.setUpXLabels(data.getDatesForCategory(category))
+
         graphView.yValues = data.getRatingValuesForCategory(category)
-//        graphView.setUpXLabels(data.getDatesForCategory(category))
+    
+        //graphView.setUpYValues(data.getRatingValuesForCategory(category))
+
+        
+        
+        
+        
         
         let gradientDictionary = data.getColourForRatingCategory(category)
         graphView.topColour = gradientDictionary["top"]!
@@ -190,6 +197,7 @@ class StackResponseViewController: UIViewController, UITableViewDataSource, UITa
     
     }
     
+    // when rotated in landscape make graph larger
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         if size.width > size.height {
             graphView.frame = CGRect(origin:CGPoint(x:0,y:0), size: size)
@@ -273,12 +281,6 @@ class StackResponseViewController: UIViewController, UITableViewDataSource, UITa
             
         }
         
-        var ratingsToPrint = [Rating]()
-        ratingsToPrint.appendContentsOf(logRecord.ratings)
-        for rating:Rating in ratingsToPrint {
-            print("\(rating.categoryName) \(rating.value)")
-        }
-     
         stack.addNewLogRecord(logRecord)
         let moc = stack.managedObjectContext!
 
@@ -290,14 +292,13 @@ class StackResponseViewController: UIViewController, UITableViewDataSource, UITa
         
         categories = stack.categoryNames()
 
-        print("\(categories)")
         graphData?.addLogRecord(logRecord)
         
         graphView.addXLabelWithText(graphData!.days.last!)
         
-        if (graphDataControl.selectedSegmentIndex == -1) {
-            graphDataControl.selectedSegmentIndex = 0
-        }
+//        if (graphDataControl.selectedSegmentIndex == -1) {
+//            graphDataControl.selectedSegmentIndex = 0
+//        }
         
         updateGraphWithData(graphData!, forRatingCategory: categories[graphDataControl.selectedSegmentIndex])
 
